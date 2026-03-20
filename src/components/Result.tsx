@@ -1,6 +1,5 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { toPng } from 'html-to-image';
 import type { Result as ResultType } from '../types';
 import type { PersonalityType } from '../types';
 import { getProductsForType } from '../data/products';
@@ -29,7 +28,6 @@ function renderBoldText(text: string) {
 
 export default function Result({ result, onRestart }: ResultProps) {
   const products = getProductsForType(result.type as PersonalityType);
-  const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (window.Kakao && !window.Kakao.isInitialized()) {

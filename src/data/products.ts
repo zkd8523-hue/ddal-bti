@@ -68,7 +68,7 @@ export const productsByType: Record<string, Product[]> = {
     COMMON_TISSUE,
   ],
   VMRN: [
-    { name: '프리미엄 배스밤 입욕제 세트', description: '오직 나만을 위한 럭셔리한 휴식 시간', emoji: '🛁', link: 'https://link.coupang.com/a/d8jHYu' },
+    { name: '프리미엄 배스밤 입욕제 세트', description: '오직 나만을 위한 럭셔리한 휴식 시간', emoji: '🛁', link: 'https://link.coupang.com/a/d8jHYu', imageUrl: '/images/bathbomb.png' },
     COMMON_GEL,
     COMMON_TISSUE,
   ],
@@ -108,7 +108,7 @@ export const productsByType: Record<string, Product[]> = {
     COMMON_TISSUE,
   ],
   FMRN: [
-    { name: '힐링 배스밤 & 마사지 바디오일', description: '맨살의 터치감을 예술로 끌어올려 주는 부드러움', emoji: '🚿', link: 'https://link.coupang.com/a/d8jPaa' },
+    { name: '힐링 배스밤 & 마사지 바디오일', description: '맨살의 터치감을 예술로 끌어올려 주는 부드러움', emoji: '🚿', link: 'https://link.coupang.com/a/d8jPaa', imageUrl: '/images/bathbomb.png' },
     COMMON_GEL,
     COMMON_TISSUE,
   ]
