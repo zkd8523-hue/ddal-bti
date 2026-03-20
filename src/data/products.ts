@@ -27,7 +27,7 @@ export const productsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   VSAN: [
-    { name: '바른생각/텐가 일회용 포켓 젤', description: '빠르고 간편하게 쓰고 딱 버리는 꿀템', emoji: '💧', link: 'https://link.coupang.com/a/d8jJp9' },
+    { name: '바른생각/텐가 일회용 포켓 젤', description: '빠르고 간편하게 쓰고 딱 버리는 꿀템', emoji: '💧', link: 'https://link.coupang.com/a/d8jJp9', imageUrl: '/images/pocketgel.png' },
     COMMON_GEL,
   ],
   VSRT: [
@@ -39,15 +39,15 @@ export const productsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   VMAT: [
-    { name: '스마트폰 전용 VR 글래스 (다이브)', description: '2만 원으로 신세계를 경험해 보는 마법', emoji: '🥽', link: 'https://link.coupang.com/a/d8jLqJ' },
+    { name: '스마트폰 전용 VR 글래스 (다이브)', description: '2만 원으로 신세계를 경험해 보는 마법', emoji: '🥽', link: 'https://link.coupang.com/a/d8jLqJ', imageUrl: '/images/vr.png' },
     COMMON_GEL,
   ],
   VMAN: [
-    { name: '누워서 보는 90도 굴절 안경', description: '썸네일 고르느라 목 아픈 유저의 구원템', emoji: '👓', link: 'https://link.coupang.com/a/d8jLqJ' },
+    { name: '누워서 보는 90도 굴절 안경', description: '썸네일 고르느라 목 아픈 유저의 구원템', emoji: '👓', link: 'https://link.coupang.com/a/d8jLqJ', imageUrl: '/images/lazyglasses.png' },
     COMMON_GEL,
   ],
   VMRT: [
-    { name: '방구석 오로라 조명 / 달 무드등', description: '내 방 천장을 은밀한 오마카세 공간으로', emoji: '🌙', link: 'https://link.coupang.com/a/d8jINH' },
+    { name: '방구석 오로라 조명 / 달 무드등', description: '내 방 천장을 은밀한 오마카세 공간으로', emoji: '🌙', link: 'https://link.coupang.com/a/d8jINH', imageUrl: '/images/moodlight.png' },
     COMMON_GEL,
   ],
   VMRN: [
@@ -83,7 +83,7 @@ export const productsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   FMRN: [
-    { name: '올리브영 1위 마사지 바디오일', description: '맨살의 터치감을 예술로 끌어올려 주는 부드러움', emoji: '🧴', link: 'https://link.coupang.com/a/d8jPaa' },
+    { name: '올리브영 1위 마사지 바디오일', description: '맨살의 터치감을 예술로 끌어올려 주는 부드러움', emoji: '🧴', link: 'https://link.coupang.com/a/d8jPaa', imageUrl: '/images/massageoil.png' },
     { name: '힐링 배스밤 입욕제', description: '분위기를 한층 고조시키는 소품', emoji: '🛁', link: 'https://link.coupang.com/a/d8jDNB', imageUrl: '/images/bathbomb.png' },
     COMMON_GEL,
   ]
