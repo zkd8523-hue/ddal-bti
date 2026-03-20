@@ -222,12 +222,22 @@ export default function Result({ result, onRestart }: ResultProps) {
               transition={{ delay: 1.3 + index * 0.1 }}
               className="flex items-center space-x-4 p-4 bg-gray-800 rounded-xl border border-gray-700 hover:border-neon-magenta transition-all duration-200 group"
             >
-              <span className="text-3xl">{product.emoji}</span>
-              <div className="flex-1">
-                <p className="font-bold text-white group-hover:text-neon-pink transition-colors">
+              <div className="w-16 h-16 bg-gray-700 rounded-lg flex-shrink-0 flex items-center justify-center overflow-hidden border border-gray-600">
+                {product.imageUrl ? (
+                  <img 
+                    src={product.imageUrl} 
+                    alt={product.name} 
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <span className="text-3xl">{product.emoji}</span>
+                )}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-bold text-white group-hover:text-neon-pink transition-colors truncate">
                   {product.name}
                 </p>
-                <p className="text-sm text-gray-400">{product.description}</p>
+                <p className="text-sm text-gray-400 line-clamp-2">{product.description}</p>
               </div>
               <span className="text-gray-500 group-hover:text-neon-purple transition-colors">→</span>
             </motion.a>

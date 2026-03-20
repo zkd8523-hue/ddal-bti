@@ -4,7 +4,8 @@ export interface Product {
   name: string;
   description: string;
   emoji: string;
-  link: string; // 쿠팡 파트너스 링크 (추후 실제 링크로 교체)
+  link: string;
+  imageUrl?: string; // 상품 이미지 URL (쿠팡에서 복사 가능)
 }
 
 const COMMON_ITEM: Product = {
@@ -12,6 +13,7 @@ const COMMON_ITEM: Product = {
   description: '모든 사람에게 필요한 공통 필수템',
   emoji: '🧻',
   link: 'https://link.coupang.com/a/d8jAEd',
+  imageUrl: 'https://thumbnail7.coupangcdn.com/thumbnails/remote/490x490ex/image/retail/images/2020/03/12/17/9/69c1180b-22d7-4009-913b-55278c52980c.jpg',
 };
 
 export const productsByType: Record<string, Product[]> = {
