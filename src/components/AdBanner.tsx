@@ -31,7 +31,7 @@ export default function AdBanner({ variant = 'result' }: AdBannerProps) {
               몇 개 안 남았는데... 로켓배송으로 미리 쟁여두자!
             </p>
             <a
-              href="https://link.coupang.com/a/d8jv4j"
+              href="https://link.coupang.com/a/d8li44"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block px-8 py-2 bg-gradient-to-r from-neon-purple to-neon-magenta rounded-full text-sm font-bold hover:opacity-90 transition-opacity"
