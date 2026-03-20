@@ -6,9 +6,9 @@ interface LayoutWithSidebarAdsProps {
   showAds?: boolean;
 }
 
-// TODO: AdSense 승인 후 실제 Slot ID로 교체 필요
-const LEFT_AD_SLOT_ID = '0000000001';
-const RIGHT_AD_SLOT_ID = '0000000002';
+// AdSense 광고 슬롯 ID
+const LEFT_AD_SLOT_ID = '2924839631';
+const RIGHT_AD_SLOT_ID = '9702267870';
 
 export default function LayoutWithSidebarAds({
   children,
