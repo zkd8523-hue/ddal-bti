@@ -101,7 +101,6 @@ export default function Result({ result, onRestart }: ResultProps) {
 
       {/* 결과 카드 */}
       <motion.div
-        ref={cardRef}
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.2 }}
