@@ -14,7 +14,7 @@ const COMMON_GEL: Product = {
   description: '더 부드럽고 완벽한 마무리를 위한 선택',
   emoji: '💜',
   link: 'https://link.coupang.com/a/d8jAEd',
-  imageUrl: 'https://thumbnail7.coupangcdn.com/thumbnails/remote/490x490ex/image/vendor_inventory/5fb0/18e52643a05581e28f3a38891d4d80a37397b988fce89998877526786c73.jpg',
+  imageUrl: '/images/gel.png',
 };
 
 // 공통 마감 아이템 2: 크리넥스/물티슈 (실용성 높음)
@@ -23,7 +23,7 @@ const COMMON_TISSUE: Product = {
   description: '16개 모든 유형에게 필요한 공통 생필품',
   emoji: '🧻',
   link: 'https://link.coupang.com/a/d8jKpQ',
-  imageUrl: 'https://thumbnail7.coupangcdn.com/thumbnails/remote/490x490ex/image/retail/images/2020/03/12/17/9/69c1180b-22d7-4009-913b-55278c52980c.jpg',
+  imageUrl: '/images/tissue.png',
 };
 
 export const productsByType: Record<string, Product[]> = {
