@@ -31,7 +31,7 @@ export const productsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   VSRT: [
-    { name: '텐가 에그 6종 버라이어티 세트', description: '가성비와 호기심을 완벽히 자극하는 입문템', emoji: '🥚', link: 'https://link.coupang.com/a/d8jJ4B' },
+    { name: '텐가 에그 6종 버라이어티 세트', description: '가성비와 호기심을 완벽히 자극하는 입문템', emoji: '🥚', link: 'https://link.coupang.com/a/d8jJ4B', imageUrl: '/images/egg.png' },
     COMMON_GEL,
   ],
   VSRN: [
