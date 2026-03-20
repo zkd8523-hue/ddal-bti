@@ -39,7 +39,7 @@ export default function GoogleAdSidebar({ position, adSlot }: GoogleAdSidebarPro
         <ins
           className="adsbygoogle"
           style={{ display: 'block' }}
-          data-ad-client="ca-pub-0000000000000000"
+          data-ad-client="ca-pub-6936468170635504"
           data-ad-slot={adSlot}
           data-ad-format="vertical"
           data-full-width-responsive="false"
