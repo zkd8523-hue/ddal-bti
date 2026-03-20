@@ -25,7 +25,7 @@ export default function AdBanner({ variant = 'result' }: AdBannerProps) {
           <div className="flex-1 text-center md:text-left">
             <p className="text-xs text-gray-500 mb-2">AD</p>
             <p className="text-gray-300 text-lg font-bold mb-2">
-              🧻 이거 없으면 큰일일껄?
+              🧻 이거 없으면 큰일 날껄?
             </p>
             <p className="text-gray-500 text-sm mb-6 md:mb-4">
               몇 개 안 남았는데... 로켓배송으로 미리 쟁여두자!
