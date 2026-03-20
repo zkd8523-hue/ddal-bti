@@ -25,10 +25,10 @@ export default function AdBanner({ variant = 'result' }: AdBannerProps) {
           <div className="flex-1 text-center md:text-left">
             <p className="text-xs text-gray-500 mb-2">AD</p>
             <p className="text-gray-300 text-lg font-bold mb-2">
-              🧻 16개 모든 유형의 완벽한 마무리를 위한 공통 필수템
+              🧻 이거 없으면 큰일일껄?
             </p>
             <p className="text-gray-500 text-sm mb-6 md:mb-4">
-              어차피 매일 쓰는 크리넥스, 지금 로켓배송 특가로 쟁여두세요!
+              끝나고 휴지 찾다 허둥지둥하지 말고, 로켓배송으로 미리 쟁여두자!
             </p>
             <a
               href="https://link.coupang.com/a/d8jv4j"

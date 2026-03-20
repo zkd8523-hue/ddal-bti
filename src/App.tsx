@@ -4,6 +4,7 @@ import Home from './components/Home';
 import Question from './components/Question';
 import Loading from './components/Loading';
 import Result from './components/Result';
+import LayoutWithSidebarAds from './components/LayoutWithSidebarAds';
 import { questions } from './data/questions';
 import { results } from './data/results';
 import { calculateResult } from './utils/calculateResult';
@@ -93,17 +94,21 @@ function App() {
     <div className="min-h-screen bg-gray-900">
       <AnimatePresence mode="wait">
         {screen === 'home' && (
-          <Home key="home" onStart={handleStart} />
+          <LayoutWithSidebarAds key="home-wrapper" showAds={true}>
+            <Home key="home" onStart={handleStart} />
+          </LayoutWithSidebarAds>
         )}
 
         {screen === 'question' && currentQuestion && (
-          <Question
-            key={`question-${currentQuestion.id}`}
-            question={currentQuestion}
-            currentIndex={currentQuestionIndex}
-            totalQuestions={questions.length}
-            onAnswer={handleAnswer}
-          />
+          <LayoutWithSidebarAds key="question-wrapper" showAds={true}>
+            <Question
+              key={`question-${currentQuestion.id}`}
+              question={currentQuestion}
+              currentIndex={currentQuestionIndex}
+              totalQuestions={questions.length}
+              onAnswer={handleAnswer}
+            />
+          </LayoutWithSidebarAds>
         )}
 
         {screen === 'loading' && (

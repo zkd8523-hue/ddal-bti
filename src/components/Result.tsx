@@ -12,7 +12,7 @@ declare global {
 }
 
 // TODO: 카카오 디벨로퍼스에서 발급받은 JavaScript 키로 교체하세요
-const KAKAO_APP_KEY = 'YOUR_KAKAO_APP_KEY';
+const KAKAO_APP_KEY = '4570e75c05df4248b7729c5bd0bf94af';
 
 interface ResultProps {
   result: ResultType;
@@ -42,12 +42,12 @@ export default function Result({ result, onRestart }: ResultProps) {
       navigator.clipboard.writeText(shareText);
     }
 
-    // 인스타그램 DM으로 바로 이동
-    window.location.href = 'instagram://direct-inbox';
+    // 인스타그램 앱 열기
+    window.location.href = 'instagram://app';
 
     // 앱이 안 열리면 (PC 등) 웹으로 이동
     setTimeout(() => {
-      window.open('https://www.instagram.com/direct/inbox/', '_blank');
+      window.open('https://www.instagram.com/', '_blank');
     }, 1500);
   };
 
