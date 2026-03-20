@@ -64,7 +64,7 @@ export default function Result({ result, onRestart }: ResultProps) {
       content: {
         title: `[밤BTI] 나의 결과: ${result.type}`,
         description: `"${result.title}" - ${result.description[0]}`,
-        imageUrl: `${siteUrl}/og-image-v2.png`,
+        imageUrl: `${siteUrl}/og-image-v3.png`,
         link: {
           mobileWebUrl: siteUrl,
           webUrl: siteUrl,
