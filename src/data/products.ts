@@ -27,7 +27,7 @@ export const productsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   VSAN: [
-    { name: '바른생각/텐가 일회용 포켓 젤', description: '빠르고 간편하게 쓰고 딱 버리는 꿀템', emoji: '💧', link: 'https://link.coupang.com/a/d8jJp9', imageUrl: '/images/pocketgel.png' },
+    { name: '텐가 에그', description: '빠르고 간편하게 쓰고 딱 버리는 꿀템', emoji: '💧', link: 'https://link.coupang.com/a/d8jJp9', imageUrl: '/images/pocketgel.png' },
     COMMON_GEL,
   ],
   VSRT: [
