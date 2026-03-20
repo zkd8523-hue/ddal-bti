@@ -1,0 +1,65 @@
+import { motion } from 'framer-motion';
+
+interface HomeProps {
+  onStart: () => void;
+}
+
+export default function Home({ onStart }: HomeProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="flex flex-col items-center justify-center min-h-screen px-6"
+    >
+      <motion.h1
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.2 }}
+        className="text-5xl md:text-7xl font-bold mb-6 neon-text text-center"
+      >
+        딸BTI
+      </motion.h1>
+
+      <motion.p
+        initial={{ y: -30, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.4 }}
+        className="text-xl md:text-2xl text-gray-300 mb-4 text-center"
+      >
+        16가지 은밀한 취향 테스트
+      </motion.p>
+
+      <motion.p
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.6 }}
+        className="text-lg md:text-xl text-neon-purple mb-12 text-center max-w-md"
+      >
+        당신의 은밀한 취향,<br />
+        12문제로 완벽 분석
+      </motion.p>
+
+      <motion.button
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ delay: 0.8, type: 'spring', stiffness: 200 }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={onStart}
+        className="px-12 py-4 text-xl font-bold bg-gradient-to-r from-neon-purple to-neon-magenta rounded-full neon-border hover:shadow-2xl transition-all duration-300 animate-pulse-glow"
+      >
+        시작하기
+      </motion.button>
+
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2 }}
+        className="mt-8 text-sm text-gray-500"
+      >
+        ⚠️ 성인 유머가 포함되어 있습니다
+      </motion.p>
+    </motion.div>
+  );
+}
