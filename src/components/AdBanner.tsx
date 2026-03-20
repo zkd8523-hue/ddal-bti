@@ -17,13 +17,13 @@ export default function AdBanner({ variant = 'result' }: AdBannerProps) {
         <div className="bg-gradient-to-r from-gray-800 to-gray-900 px-6 py-8 text-center">
           <p className="text-xs text-gray-500 mb-2">AD</p>
           <p className="text-gray-300 text-lg font-bold mb-2">
-            🔥 당신의 밤을 업그레이드할 아이템
+            🧻 16개 모든 유형의 완벽한 마무리를 위한 공통 필수템
           </p>
           <p className="text-gray-500 text-sm mb-4">
-            지금 쿠팡에서 특가 진행 중
+            어차피 매일 쓰는 크리넥스, 지금 로켓배송 특가로 쟁여두세요!
           </p>
           <a
-            href="https://link.coupang.com/PLACEHOLDER"
+            href="https://link.coupang.com/a/d8jv4j"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block px-6 py-2 bg-gradient-to-r from-neon-purple to-neon-magenta rounded-full text-sm font-bold hover:opacity-90 transition-opacity"
