@@ -35,38 +35,20 @@ export default function Result({ result, onRestart }: ResultProps) {
     }
   }, []);
 
-  const handleInstagramShare = async () => {
-    if (!cardRef.current) return;
+  const handleInstagramShare = () => {
+    const shareText = `[딸BTI] 나의 결과: ${result.type} "${result.title}"\n당신도 테스트해보세요! ${window.location.origin}`;
 
-    try {
-      const dataUrl = await toPng(cardRef.current, {
-        backgroundColor: '#111827',
-        pixelRatio: 2,
-      });
-
-      // 모바일: Web Share API로 공유 시트 열기
-      const blob = await (await fetch(dataUrl)).blob();
-      const file = new File([blob], 'ddalbti-result.png', { type: 'image/png' });
-
-      if (navigator.share && navigator.canShare?.({ files: [file] })) {
-        await navigator.share({
-          files: [file],
-          title: `[딸BTI] ${result.type} - ${result.title}`,
-        });
-      } else {
-        // PC: 이미지 다운로드
-        const link = document.createElement('a');
-        link.download = 'ddalbti-result.png';
-        link.href = dataUrl;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        alert('이미지가 저장되었습니다!\n인스타그램 스토리에 올려보세요.');
-      }
-    } catch (err) {
-      console.error('이미지 캡쳐 실패:', err);
-      alert('이미지 캡쳐에 실패했습니다. 스크린샷을 이용해주세요.');
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(shareText);
     }
+
+    // 인스타그램 DM으로 바로 이동
+    window.location.href = 'instagram://direct-inbox';
+
+    // 앱이 안 열리면 (PC 등) 웹으로 이동
+    setTimeout(() => {
+      window.open('https://www.instagram.com/direct/inbox/', '_blank');
+    }, 1500);
   };
 
   const handleKakaoShare = () => {

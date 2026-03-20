@@ -33,7 +33,7 @@ export const productsByType: Record<string, Product[]> = {
     COMMON_TISSUE,
   ],
   VSAT: [
-    { name: '침대용 스마트폰 자바라 거치대', description: '양손의 완벽한 자유를 위하여', emoji: '📱', link: 'https://link.coupang.com/a/d8jxNg' },
+    { name: '침대용 스마트폰 자바라 거치대', description: '양손의 완벽한 자유를 위하여', emoji: '📱', link: 'https://link.coupang.com/a/d8jxNg', imageUrl: '/images/holder.png' },
     COMMON_GEL,
     COMMON_TISSUE,
   ],
