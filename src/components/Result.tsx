@@ -36,7 +36,7 @@ export default function Result({ result, onRestart }: ResultProps) {
   }, []);
 
   const handleInstagramShare = () => {
-    const shareText = `[딸BTI] 나의 결과: ${result.type} "${result.title}"\n당신도 테스트해보세요! ${window.location.origin}`;
+    const shareText = `[밤BTI] 나의 결과: ${result.type} "${result.title}"\n당신도 테스트해보세요! ${window.location.origin}`;
 
     if (navigator.clipboard) {
       navigator.clipboard.writeText(shareText);
@@ -62,7 +62,7 @@ export default function Result({ result, onRestart }: ResultProps) {
     window.Kakao.Share.sendDefault({
       objectType: 'feed',
       content: {
-        title: `[딸BTI] 나의 결과: ${result.type}`,
+        title: `[밤BTI] 나의 결과: ${result.type}`,
         description: `"${result.title}" - ${result.description[0]}`,
         imageUrl: `${siteUrl}/og-image.png`,
         link: {
@@ -96,7 +96,7 @@ export default function Result({ result, onRestart }: ResultProps) {
         transition={{ delay: 0.1 }}
         className="text-lg text-gray-400 mb-4"
       >
-        나의 딸BTI는?
+        나의 밤BTI는?
       </motion.p>
 
       {/* 결과 카드 */}

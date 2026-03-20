@@ -18,7 +18,7 @@ export default function Home({ onStart }: HomeProps) {
         transition={{ delay: 0.2 }}
         className="text-5xl md:text-7xl font-bold mb-6 neon-text text-center"
       >
-        딸BTI
+        밤BTI
       </motion.h1>
 
       <motion.p
