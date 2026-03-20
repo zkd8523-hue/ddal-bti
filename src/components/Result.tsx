@@ -124,7 +124,7 @@ export default function Result({ result, onRestart }: ResultProps) {
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="text-3xl md:text-4xl font-bold neon-text"
+              className="text-3xl md:text-4xl font-bold neon-text break-keep"
             >
               {result.title}
             </motion.h1>
