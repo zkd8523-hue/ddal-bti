@@ -28,7 +28,7 @@ export default function AdBanner({ variant = 'result' }: AdBannerProps) {
               🧻 이거 없으면 큰일일껄?
             </p>
             <p className="text-gray-500 text-sm mb-6 md:mb-4">
-              끝나고 휴지 찾다 허둥지둥하지 말고, 로켓배송으로 미리 쟁여두자!
+              몇 개 안 남았는데... 로켓배송으로 미리 쟁여두자!
             </p>
             <a
               href="https://link.coupang.com/a/d8jv4j"
