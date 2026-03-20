@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import html2canvas from 'html2canvas';
+import { toPng } from 'html-to-image';
 import type { Result as ResultType } from '../types';
 import type { PersonalityType } from '../types';
 import { getProductsForType } from '../data/products';
@@ -41,13 +41,10 @@ export default function Result({ result, onRestart }: ResultProps) {
     if (!cardRef.current) return;
 
     try {
-      const canvas = await html2canvas(cardRef.current, {
+      const dataUrl = await toPng(cardRef.current, {
         backgroundColor: '#111827',
-        scale: 2,
-        useCORS: true,
+        pixelRatio: 2,
       });
-
-      const dataUrl = canvas.toDataURL('image/png');
 
       // 모바일: Web Share API로 공유 시트 열기
       const blob = await (await fetch(dataUrl)).blob();

@@ -74,9 +74,10 @@ function App() {
     ? (results.find((r) => r.type === resultType) || {
         type: resultType,
         title: `준비 중인 유형입니다 (${resultType})`,
+        emoji: '❓',
         description: [
           '테스트 채점 로직은 정상 작동했습니다!',
-          '다만 아직 16개 캐릭터 상세 설명이 모두 추가되지 않아 임시 화면이 나옵니다.',
+          '다만 아직 캐릭터 상세 설명이 모두 추가되지 않아 임시 화면이 나옵니다.',
           '곧 재미있는 결과 더미로 채워질 예정입니다.'
         ],
         traits: {
