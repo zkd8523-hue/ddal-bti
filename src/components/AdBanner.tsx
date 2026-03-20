@@ -20,6 +20,7 @@ export default function AdBanner({ variant = 'result' }: AdBannerProps) {
               src="https://thumbnail7.coupangcdn.com/thumbnails/remote/490x490ex/image/retail/images/2020/03/12/17/9/69c1180b-22d7-4009-913b-55278c52980c.jpg" 
               alt="크리넥스" 
               className="w-full h-full object-contain"
+              referrerPolicy="no-referrer"
             />
           </div>
           <div className="flex-1 text-center md:text-left">

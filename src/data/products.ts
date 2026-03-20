@@ -9,9 +9,9 @@ export interface Product {
 }
 
 const COMMON_ITEM: Product = {
-  name: '크리넥스 3겹 미용티슈 Box',
-  description: '모든 사람에게 필요한 공통 필수템',
-  emoji: '🧻',
+  name: '러브젤',
+  description: '당신만을 위한 필수 윤활 아이템',
+  emoji: '💜',
   link: 'https://link.coupang.com/a/d8jAEd',
   imageUrl: 'https://thumbnail7.coupangcdn.com/thumbnails/remote/490x490ex/image/retail/images/2020/03/12/17/9/69c1180b-22d7-4009-913b-55278c52980c.jpg',
 };

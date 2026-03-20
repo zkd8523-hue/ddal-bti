@@ -228,6 +228,7 @@ export default function Result({ result, onRestart }: ResultProps) {
                     src={product.imageUrl} 
                     alt={product.name} 
                     className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
                   />
                 ) : (
                   <span className="text-3xl">{product.emoji}</span>
