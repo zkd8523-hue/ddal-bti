@@ -10,7 +10,7 @@ export interface Product {
 
 // 공통 마감 아이템: 러브젤 (수익률 높음)
 const COMMON_GEL: Product = {
-  name: '러브젤 / 윤활제',
+  name: '스탠다드 러브젤',
   description: '더 부드럽고 완벽한 마무리를 위한 선택',
   emoji: '💜',
   link: 'https://link.coupang.com/a/d8jAEd',
