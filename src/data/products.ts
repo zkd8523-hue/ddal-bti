@@ -43,7 +43,6 @@ export const productsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   VMAN: [
-    { name: '누워서 보는 90도 굴절 안경', description: '썸네일 고르느라 목 아픈 유저의 구원템', emoji: '👓', link: 'https://link.coupang.com/a/d8jLqJ', imageUrl: '/images/lazyglasses.png' },
     COMMON_GEL,
   ],
   VMRT: [
