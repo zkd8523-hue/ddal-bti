@@ -64,7 +64,7 @@ export default function Result({ result, onRestart }: ResultProps) {
       content: {
         title: `[딸BTI] 나의 결과: ${result.type}`,
         description: `"${result.title}" - ${result.description[0]}`,
-        imageUrl: `${siteUrl}/favicon.svg`,
+        imageUrl: `${siteUrl}/og-image.png`,
         link: {
           mobileWebUrl: siteUrl,
           webUrl: siteUrl,
