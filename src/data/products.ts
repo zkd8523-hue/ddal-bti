@@ -20,7 +20,6 @@ const COMMON_GEL: Product = {
 // 기존 남성/공통 상품 맵
 export const productsByType: Record<string, Product[]> = {
   default: [
-    { name: '대용량 미용 티슈', description: '모두에게 필요한 생필품', emoji: '🧻', link: '#' },
     COMMON_GEL,
   ],
   VSAT: [
@@ -36,7 +35,6 @@ export const productsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   VSRN: [
-    { name: '프리미엄 대용량 물티슈', description: '어차피 매일 쓰는데 로켓으로 미리 쟁여두기', emoji: '🧻', link: 'https://link.coupang.com/a/d8jKpQ' },
     COMMON_GEL,
   ],
   VMAT: [
@@ -92,7 +90,6 @@ export const productsByType: Record<string, Product[]> = {
 // 신규 여성 전용 상품 맵
 export const femaleProductsByType: Record<string, Product[]> = {
   default: [
-    { name: '대용량 미용 티슈', description: '모두에게 필요한 생필품', emoji: '🧻', link: '#' },
     COMMON_GEL,
   ],
   VSAT: [
@@ -108,7 +105,6 @@ export const femaleProductsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   VSRN: [
-    { name: 'Y존 밸런스 케어 페미닌 티슈', description: '언제나 쾌적하고 상쾌한 루틴의 마무리를 위하여', emoji: '🧼', link: 'https://link.coupang.com/a/d8T51A' },
     COMMON_GEL,
   ],
   VMAT: [

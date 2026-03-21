@@ -31,13 +31,13 @@ export const questions: Question[] = [
   {
     id: 3,
     axis: 1,
-    question: '파트너에게 더 설레는 순간은?',
+    question: '스위치가 켜지는 순간은?',
     optionA: {
-      text: '👀 눈으로 확인되는 노골적 시선',
+      text: '👀 확실하게 눈으로 보여야 불이 붙는다',
       point: 'V'
     },
     optionB: {
-      text: '🌙 말하지 않아도 느껴지는 긴장감',
+      text: '🌙 상상만으로도 충분히 뜨거워진다',
       point: 'F'
     }
   },
@@ -59,26 +59,26 @@ export const questions: Question[] = [
   {
     id: 5,
     axis: 2,
-    question: '전희에 대한 당신의 철학은?',
+    question: '의식(?)을 시작할 때, 당신의 스타일은?',
     optionA: {
-      text: '🔥 빠르게 본론으로 직진',
+      text: '🔥 바로 본론 직진, 워밍업 따위 필요 없다',
       point: 'S'
     },
     optionB: {
-      text: '🍷 분위기부터 천천히 달구기',
+      text: '🍷 조명 끄고, 분위기부터 천천히',
       point: 'M'
     }
   },
   {
     id: 6,
     axis: 2,
-    question: '라운드 2에 대한 생각은?',
+    question: '끝나고 난 후, 당신의 다음 행동은?',
     optionA: {
-      text: '✨ 한 번에 최고조로 끝내는 게 최고',
+      text: '😴 완벽한 피니시 후 바로 꿀잠',
       point: 'S'
     },
     optionB: {
-      text: '🔁 여러 번 반복할수록 좋다',
+      text: '🔥 잠깐, 아직 밤은 긴데…?',
       point: 'M'
     }
   },
@@ -87,39 +87,39 @@ export const questions: Question[] = [
   {
     id: 7,
     axis: 3,
-    question: '파트너가 \'검색 기록\'에서 발견한 걸 제안한다면?',
+    question: '검색창에 뭘 치는 편이야?',
     optionA: {
-      text: '🎢 매번 새로운 걸 시도하고 싶다',
+      text: '🎢 매번 새로운 키워드를 실험한다',
       point: 'A'
     },
     optionB: {
-      text: '🏡 검증된 루틴이 가장 편하다',
+      text: '🏡 늘 치던 그 검색어가 있다',
       point: 'R'
     }
   },
   {
     id: 8,
     axis: 3,
-    question: '장소에 대한 선호는?',
+    question: '은밀한 의식을 치르는 장소는?',
     optionA: {
-      text: '🌍 어디든 상관없어, 스릴이 중요',
+      text: '🌍 화장실, 차 안, 어디든 가능',
       point: 'A'
     },
     optionB: {
-      text: '🛏️ 익숙한 우리 집 침대가 최고',
+      text: '🛏️ 무조건 내 방, 내 침대 위에서만',
       point: 'R'
     }
   },
   {
     id: 9,
     axis: 3,
-    question: '"자기야, 오늘은 좀 다르게 해볼까?" 이 말을 들었을 때?',
+    question: '오늘따라 평소와 다른 걸 해볼까 싶을 때?',
     optionA: {
-      text: '🎉 오! 재밌겠는데? 바로 OK',
+      text: '🎉 새로운 시도는 언제나 환영이지!',
       point: 'A'
     },
     optionB: {
-      text: '🤔 음... 우리 원래 하던 게 좋은데',
+      text: '🤔 아니야… 원래 하던 게 제일 좋아',
       point: 'R'
     }
   },
@@ -160,7 +160,7 @@ export const questions: Question[] = [
       point: 'T'
     },
     optionB: {
-      text: '💕 우리 둘만 있으면 충분해',
+      text: '✋ 이 손 하나면 충분하다',
       point: 'N'
     }
   }

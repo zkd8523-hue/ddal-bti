@@ -27,11 +27,11 @@ export default function AdBanner({ variant = 'result' }: AdBannerProps) {
               <div className="flex items-start gap-1.5 mb-1">
                 <span className="text-[9px] md:text-[10px] text-gray-500 bg-gray-800 px-1 py-0.5 rounded border border-gray-700 mt-0.5 shrink-0">AD</span>
                 <p className="text-gray-300 text-sm md:text-base font-bold line-clamp-2 leading-tight">
-                  🧻 이거 없으면 큰일 날껄?
+                  🧻 나무야 미안해!
                 </p>
               </div>
               <p className="text-gray-500 text-[11px] md:text-xs line-clamp-2 leading-snug">
-                몇 개 안 남았는데... 로켓배송으로 미리 쟁여두자!
+                이건 생존템이야. 로켓배송으로 미리 챙겨!
               </p>
             </div>
           </div>
