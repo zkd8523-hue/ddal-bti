@@ -9,8 +9,12 @@ interface GoogleAdSidebarProps {
 export default function GoogleAdSidebar({ position, adSlot }: GoogleAdSidebarProps) {
   const adRef = useRef<HTMLDivElement>(null);
 
+  const isAdLoaded = useRef(false);
+
   useEffect(() => {
     // AdSense 광고 로드
+    if (isAdLoaded.current) return;
+
     try {
       if (typeof window !== 'undefined') {
         // AdSense 스크립트가 로드되었는지 확인
@@ -18,6 +22,7 @@ export default function GoogleAdSidebar({ position, adSlot }: GoogleAdSidebarPro
         const adsbygoogle = (window as any).adsbygoogle;
         if (adsbygoogle) {
           adsbygoogle.push({});
+          isAdLoaded.current = true;
         }
       }
     } catch (err) {
