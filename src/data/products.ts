@@ -96,67 +96,67 @@ export const femaleProductsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   VSAT: [
-    { name: '은밀한 핸디 무선 소형 마사지기', description: '파우치에 쏙 들어가는 트렌디한 짜릿함', emoji: '💋', link: 'https://link.coupang.com/a/d8pwL9' },
+    { name: '홈플래닛 미니 무선 전동 마사지건', description: '파우치에 쏙 들어가는 트렌디한 짜릿함', emoji: '🔫', link: 'https://link.coupang.com/a/d8T2Bf' },
     COMMON_GEL,
   ],
   VSAN: [
-    { name: '프리미엄 수용성 바디 마사지 젤', description: '건조함 없이 촉촉한 본능적인 마무리', emoji: '💧', link: 'https://link.coupang.com/a/d8pwQ2' },
+    { name: '1+1 닥터데이즈 마사지젤', description: '건조함 없이 촉촉한 본능적인 마무리', emoji: '💧', link: 'https://link.coupang.com/a/d8T5gy' },
     COMMON_GEL,
   ],
   VSRT: [
-    { name: '침대용 프리미엄 메탈 자바라 거치대', description: '양손의 완벽한 자유를 선사하는 확실한 도구', emoji: '📱', link: 'https://link.coupang.com/a/d8pwYn' },
+    { name: '디센느 스탠드 태블릿 핸드폰 거치대', description: '양손의 완벽한 자유를 선사하는 확실한 도구', emoji: '📱', link: 'https://link.coupang.com/a/d8T5DR' },
     COMMON_GEL,
   ],
   VSRN: [
-    { name: 'Y존 밸런스 페미닌 티슈', description: '언제나 쾌적하고 상쾌한 루틴의 마무리를 위하여', emoji: '🧼', link: 'https://link.coupang.com/a/d8pxba' },
+    { name: 'Y존 밸런스 케어 페미닌 티슈', description: '언제나 쾌적하고 상쾌한 루틴의 마무리를 위하여', emoji: '🧼', link: 'https://link.coupang.com/a/d8T51A' },
     COMMON_GEL,
   ],
   VMAT: [
-    { name: '오로라 은하수 무드등 조명', description: '내 방 천장을 가장 은밀한 몽환의 숲으로', emoji: '🌌', link: 'https://link.coupang.com/a/d8pxj4' },
+    { name: '방구석 오로라 조명 / 달 무드등', description: '내 방 천장을 은밀한 오마카세 공간으로', emoji: '🌌', link: 'https://link.coupang.com/a/d8jINH', imageUrl: '/images/moodlight.png' },
     COMMON_GEL,
   ],
   VMAN: [
-    { name: '스마트폰 미러링 미니 빔 프로젝터', description: '작은 화면은 답답하니까, 룸 스케일 프라이빗 영화관', emoji: '📽️', link: 'https://link.coupang.com/a/d8pxqw' },
+    { name: 'VANKYO 스마트폰 미러링 미니 빔 프로젝터', description: '작은 화면은 답답하니까, 룸 스케일 프라이빗 영화관', emoji: '📽️', link: 'https://link.coupang.com/a/d8T6OL' },
     COMMON_GEL,
   ],
   VMRT: [
-    { name: '프리미엄 호텔식 순면 샤워 가운 (로브)', description: '은밀한 오마카세의 시작을 알리는 의식', emoji: '🛁', link: 'https://link.coupang.com/a/d8pxxz' },
+    { name: '프리미엄 배스밤 입욕제 세트', description: '오직 나만을 위한 럭셔리한 휴식 시간', emoji: '🛁', link: 'https://link.coupang.com/a/d8jHYu', imageUrl: '/images/bathbomb.png' },
     COMMON_GEL,
   ],
   VMRN: [
-    { name: '타닥타닥 우드윅 (장작 타는 소리) 캔들', description: '흔들리는 불꽃과 향기로 채우는 로맨스의 극대화', emoji: '🕯️', link: 'https://link.coupang.com/a/d8pxEh' },
+    { name: '우드윅 미니자 스콜자 캔들', description: '흔들리는 불꽃과 향기로 채우는 로맨스의 극대화', emoji: '🕯️', link: 'https://link.coupang.com/a/d8T7YL' },
     COMMON_GEL,
   ],
   FSAT: [
-    { name: '새틴 수면 안대 & 소프트 깃털 터치 소품 세트', description: '상상력을 현실의 스킨십으로 끌어오는 마법', emoji: '🎭', link: 'https://link.coupang.com/a/d8pxLn' },
+    { name: '입문용 수면 안대', description: '상상력을 현실의 스킨십으로 끌어오는 마법', emoji: '🎭', link: 'https://link.coupang.com/a/d8T9bR' },
     COMMON_GEL,
   ],
   FSAN: [
-    { name: '살냄새 스킨십 페로몬 고체 향수', description: '피부 체온에 녹아 즉각 상상력을 유발하는 아찔함', emoji: '🌸', link: 'https://link.coupang.com/a/d8pxSU' },
+    { name: '살냄새 매혹 고체향수', description: '피부 체온에 녹아 즉각 상상력을 유발하는 아찔함', emoji: '🌸', link: 'https://link.coupang.com/a/d8T9yG' },
     COMMON_GEL,
   ],
   FSRT: [
-    { name: '로맨틱 실크 새틴 슬립 파자마 원피스', description: '맨살에 스치기만 해도 기분 좋은 실크의 촉감', emoji: '🕊️', link: 'https://link.coupang.com/a/d8px1w' },
+    { name: '로맨틱 실크 새틴 슬립 파자마 원피스', description: '맨살에 스치기만 해도 기분 좋은 실크의 촉감', emoji: '🕊️', link: 'https://link.coupang.com/a/d8T93v' },
     COMMON_GEL,
   ],
   FSRN: [
-    { name: '아로마 온열 수면 안대', description: '따뜻한 온기와 아로마 향으로 극대화되는 뇌내 비행', emoji: '♨️', link: 'https://link.coupang.com/a/d8px8X' },
+    { name: '해피스팀 아로마 온열 안대', description: '따뜻한 온기와 아로마 향으로 극대화되는 뇌내 비행', emoji: '♨️', link: 'https://link.coupang.com/a/d8UarR' },
     COMMON_GEL,
   ],
   FMAT: [
-    { name: '프리미엄 에센셜 힐링 배스밤 세트', description: '서사의 주인공에게 걸맞은 사치스러운 거품 목욕', emoji: '🫧', link: 'https://link.coupang.com/a/d8pyfe' },
+    { name: '프리미엄 배스밤 입욕제 세트', description: '서사의 주인공에게 걸맞은 사치스러운 거품 목욕', emoji: '🛁', link: 'https://link.coupang.com/a/d8jHYu', imageUrl: '/images/bathbomb.png' },
     COMMON_GEL,
   ],
   FMAN: [
-    { name: '안락함 200% 초대형 U자 바디필로우', description: '기나긴 망상 속 주인공의 넓은 품처럼 포근하게', emoji: '🧸', link: 'https://link.coupang.com/a/d8pynB' },
+    { name: '초대형 U자/I자 촉감 바디필로우', description: '혼자서 환상 여행을 할 때 껴안기 좋은 애착 파트너', emoji: '🫂', link: 'https://link.coupang.com/a/d8jN7S' },
     COMMON_GEL,
   ],
   FMRT: [
-    { name: '워머 캔들 & 일랑일랑 에센셜 오일', description: '서사를 음미하며 몸 전체에 퍼지는 최상급 릴렉싱', emoji: '💆‍♀️', link: 'https://link.coupang.com/a/d8pyuQ' },
+    { name: '올리브영 1위 마사지 바디오일', description: '맨살의 터치감을 예술로 끌어올려 주는 부드러움', emoji: '🧴', link: 'https://link.coupang.com/a/d8jPaa', imageUrl: '/images/massageoil.png' },
     COMMON_GEL,
   ],
   FMRN: [
-    { name: '나그참파 인센스 스틱 & 세라믹 홀더', description: '나만의 깊은 감정선으로 차분하게 빠져드는 이너피스', emoji: '🌿', link: 'https://link.coupang.com/a/d8pyBC' },
+    { name: '나그참파 인센스 스틱 & 홀더', description: '나만의 깊은 감정선으로 차분하게 빠져드는 이너피스', emoji: '🥢', link: 'https://link.coupang.com/a/d8jNx0' },
     COMMON_GEL,
   ]
 };
