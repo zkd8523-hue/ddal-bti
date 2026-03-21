@@ -14,7 +14,7 @@ export const results: Result[] = [
       '내 방이 곧 최신 트렌드를 이끄는 **얼리어답터의 무기 창고**.'
     ],
     traits: {
-      axis1: '시각파 (Visual)', axis2: '속전파 (Speed)', axis3: '모험가 (Adventure)', axis4: '장비충 (Tool)'
+      axis1: '시각파 (Visual)', axis2: '스피드 (Speed)', axis3: '모험형 (Adventure)', axis4: '장비파 (Tool)'
     }
   },
   {
@@ -30,7 +30,7 @@ export const results: Result[] = [
       '즐겨찾기 폴더에 매주 **새로운 신작**이 수십 개씩 **로테이션** 되는 편.'
     ],
     traits: {
-      axis1: '시각파 (Visual)', axis2: '속전파 (Speed)', axis3: '모험가 (Adventure)', axis4: '오가닉 (Natural)'
+      axis1: '시각파 (Visual)', axis2: '스피드 (Speed)', axis3: '모험형 (Adventure)', axis4: '순정파 (Natural)'
     }
   },
   {
@@ -46,7 +46,7 @@ export const results: Result[] = [
       '불확실한 건 싫다, **검증된 맛**으로 빠르고 확실한 짜릿함을 쫓습니다.'
     ],
     traits: {
-      axis1: '시각파 (Visual)', axis2: '속전파 (Speed)', axis3: '소나무 (Routine)', axis4: '장비충 (Tool)'
+      axis1: '시각파 (Visual)', axis2: '스피드 (Speed)', axis3: '루틴형 (Routine)', axis4: '장비파 (Tool)'
     }
   },
   {
@@ -62,7 +62,7 @@ export const results: Result[] = [
       '내 소중한 루틴에 쓸데없는 자극이나 모험이 끼어드는 것을 싫어하는 **실용주의자**.'
     ],
     traits: {
-      axis1: '시각파 (Visual)', axis2: '속전파 (Speed)', axis3: '소나무 (Routine)', axis4: '오가닉 (Natural)'
+      axis1: '시각파 (Visual)', axis2: '스피드 (Speed)', axis3: '루틴형 (Routine)', axis4: '순정파 (Natural)'
     }
   },
   {
@@ -78,7 +78,7 @@ export const results: Result[] = [
       '이 분야의 **트렌드 세터**이자, 침대 위를 **놀이공원**으로 만드는 유쾌한 괴짜.'
     ],
     traits: {
-      axis1: '시각파 (Visual)', axis2: '마라토너 (Marathon)', axis3: '모험가 (Adventure)', axis4: '장비충 (Tool)'
+      axis1: '시각파 (Visual)', axis2: '마라톤 (Marathon)', axis3: '모험형 (Adventure)', axis4: '장비파 (Tool)'
     }
   },
   {
@@ -94,7 +94,7 @@ export const results: Result[] = [
       '**넷플릭스 썸네일만 30분** 고르다 잠드는 현대인과 매우 비슷한 결을 보입니다.'
     ],
     traits: {
-      axis1: '시각파 (Visual)', axis2: '마라토너 (Marathon)', axis3: '모험가 (Adventure)', axis4: '오가닉 (Natural)'
+      axis1: '시각파 (Visual)', axis2: '마라톤 (Marathon)', axis3: '모험형 (Adventure)', axis4: '순정파 (Natural)'
     }
   },
   {
@@ -110,7 +110,7 @@ export const results: Result[] = [
       '누가 봐도 당신은 본인만의 세계관에 깊게 잠겨있는 진정한 **침대 위 미식가**.'
     ],
     traits: {
-      axis1: '시각파 (Visual)', axis2: '마라토너 (Marathon)', axis3: '소나무 (Routine)', axis4: '장비충 (Tool)'
+      axis1: '시각파 (Visual)', axis2: '마라톤 (Marathon)', axis3: '루틴형 (Routine)', axis4: '장비파 (Tool)'
     }
   },
   {
@@ -126,7 +126,7 @@ export const results: Result[] = [
       '오로지 나비 한 마리만 바라보는 **지독한 순정파**이자 **낭만파**.'
     ],
     traits: {
-      axis1: '시각파 (Visual)', axis2: '마라토너 (Marathon)', axis3: '소나무 (Routine)', axis4: '오가닉 (Natural)'
+      axis1: '시각파 (Visual)', axis2: '마라톤 (Marathon)', axis3: '루틴형 (Routine)', axis4: '순정파 (Natural)'
     }
   },
   {
@@ -142,7 +142,7 @@ export const results: Result[] = [
       '물리적 한계를 **상상력과 문명의 혜택**으로 동시 돌파하는 **과몰입 스피더**.'
     ],
     traits: {
-      axis1: '상상파 (Fantasy)', axis2: '속전파 (Speed)', axis3: '모험가 (Adventure)', axis4: '장비충 (Tool)'
+      axis1: '상상파 (Fantasy)', axis2: '스피드 (Speed)', axis3: '모험형 (Adventure)', axis4: '장비파 (Tool)'
     }
   },
   {
@@ -158,7 +158,7 @@ export const results: Result[] = [
       '현실보다 상상 속 매운맛을 더 사랑하는 **뼛속까지 창작자** 타이틀의 소유자.'
     ],
     traits: {
-      axis1: '상상파 (Fantasy)', axis2: '속전파 (Speed)', axis3: '모험가 (Adventure)', axis4: '오가닉 (Natural)'
+      axis1: '상상파 (Fantasy)', axis2: '스피드 (Speed)', axis3: '모험형 (Adventure)', axis4: '순정파 (Natural)'
     }
   },
   {
@@ -174,7 +174,7 @@ export const results: Result[] = [
       '준비도, 시작도, 끝도. 모든 창작이 내가 계획한 **완벽한 톱니바퀴**처럼 돌아가야 합니다.'
     ],
     traits: {
-      axis1: '상상파 (Fantasy)', axis2: '속전파 (Speed)', axis3: '소나무 (Routine)', axis4: '장비충 (Tool)'
+      axis1: '상상파 (Fantasy)', axis2: '스피드 (Speed)', axis3: '루틴형 (Routine)', axis4: '장비파 (Tool)'
     }
   },
   {
@@ -190,7 +190,7 @@ export const results: Result[] = [
       '현대사회에 몇 안 남은 진정한 **상상력의 대가**이자 **속전속결 오가닉 마스터**.'
     ],
     traits: {
-      axis1: '상상파 (Fantasy)', axis2: '속전파 (Speed)', axis3: '소나무 (Routine)', axis4: '오가닉 (Natural)'
+      axis1: '상상파 (Fantasy)', axis2: '스피드 (Speed)', axis3: '루틴형 (Routine)', axis4: '순정파 (Natural)'
     }
   },
   {
@@ -206,7 +206,7 @@ export const results: Result[] = [
       '당신은 단순한 쾌락주의자가 아니라 **방구석 종합 퍼포먼스 아티스트**입니다.'
     ],
     traits: {
-      axis1: '상상파 (Fantasy)', axis2: '마라토너 (Marathon)', axis3: '모험가 (Adventure)', axis4: '장비충 (Tool)'
+      axis1: '상상파 (Fantasy)', axis2: '마라톤 (Marathon)', axis3: '모험형 (Adventure)', axis4: '장비파 (Tool)'
     }
   },
   {
@@ -222,7 +222,7 @@ export const results: Result[] = [
       '당신을 감별 중인 수많은 영상 알고리즘도 당신의 **거대한 망상력**을 무너뜨리진 못합니다.'
     ],
     traits: {
-      axis1: '상상파 (Fantasy)', axis2: '마라토너 (Marathon)', axis3: '모험가 (Adventure)', axis4: '오가닉 (Natural)'
+      axis1: '상상파 (Fantasy)', axis2: '마라톤 (Marathon)', axis3: '모험형 (Adventure)', axis4: '순정파 (Natural)'
     }
   },
   {
@@ -238,7 +238,7 @@ export const results: Result[] = [
       '자기만의 성벽과 취향이 굳건하고 한 분야(상상계)를 오랫동안 파고든 **보스의 냄새**가 납니다.'
     ],
     traits: {
-      axis1: '상상파 (Fantasy)', axis2: '마라토너 (Marathon)', axis3: '소나무 (Routine)', axis4: '장비충 (Tool)'
+      axis1: '상상파 (Fantasy)', axis2: '마라톤 (Marathon)', axis3: '루틴형 (Routine)', axis4: '장비파 (Tool)'
     }
   },
   {
@@ -254,7 +254,7 @@ export const results: Result[] = [
       '**명상가**보다 깊은 **이너피스(Inner Peace)**를 헤엄치는 놀라운 **현자 타입**입니다.'
     ],
     traits: {
-      axis1: '상상파 (Fantasy)', axis2: '마라토너 (Marathon)', axis3: '소나무 (Routine)', axis4: '오가닉 (Natural)'
+      axis1: '상상파 (Fantasy)', axis2: '마라톤 (Marathon)', axis3: '루틴형 (Routine)', axis4: '순정파 (Natural)'
     }
   }
 ];

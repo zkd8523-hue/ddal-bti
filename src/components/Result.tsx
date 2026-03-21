@@ -14,6 +14,17 @@ declare global {
 
 const KAKAO_APP_KEY = import.meta.env.VITE_KAKAO_APP_KEY || '4570e75c05df4248b7729c5bd0bf94af';
 
+const axisOpposites: Record<string, string> = {
+  '시각파 (Visual)': '상상파 (Fantasy)',
+  '상상파 (Fantasy)': '시각파 (Visual)',
+  '스피드 (Speed)': '마라톤 (Marathon)',
+  '마라톤 (Marathon)': '스피드 (Speed)',
+  '모험형 (Adventure)': '루틴형 (Routine)',
+  '루틴형 (Routine)': '모험형 (Adventure)',
+  '장비파 (Tool)': '순정파 (Natural)',
+  '순정파 (Natural)': '장비파 (Tool)',
+};
+
 interface ResultProps {
   result: ResultType;
   gender?: Gender | null;
@@ -193,11 +204,21 @@ export default function Result({ result, gender, onRestart }: ResultProps) {
           className="border-t border-gray-700 pt-6 space-y-2"
         >
           <p className="text-sm text-gray-400">📊 당신의 성향 분석</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-gray-300 break-keep">
-            <p>• {result.traits.axis1}</p>
-            <p>• {result.traits.axis2}</p>
-            <p>• {result.traits.axis3}</p>
-            <p>• {result.traits.axis4}</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm break-keep">
+            {[result.traits.axis1, result.traits.axis2, result.traits.axis3, result.traits.axis4].map((trait, i) => {
+              const opposite = axisOpposites[trait];
+              return (
+                <div key={i} className="flex items-center gap-2">
+                  <span className="text-white font-semibold">{trait}</span>
+                  {opposite && (
+                    <>
+                      <span className="text-gray-600">/</span>
+                      <span className="text-gray-600 opacity-40">{opposite}</span>
+                    </>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </motion.div>
       </motion.div>
@@ -210,7 +231,7 @@ export default function Result({ result, gender, onRestart }: ResultProps) {
         className="w-full max-w-2xl mt-8"
       >
         <h3 className="text-lg font-bold text-gray-300 mb-4 break-keep">
-          🎁 [{displayTitle}] 님에게 딱 맞는 맞춤템
+          🧩 [{displayTitle}]을 완성하는 마지막 퍼즐
         </h3>
         <div className="space-y-3">
           {products.map((product, index) => (
