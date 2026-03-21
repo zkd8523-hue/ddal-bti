@@ -184,7 +184,7 @@ export default function Result({ result, gender, onRestart }: ResultProps) {
               className="flex items-start space-x-3"
             >
               <span className="text-neon-purple text-xl">✦</span>
-              <p className="text-gray-300">{renderBoldText(desc)}</p>
+              <p className="text-gray-300 break-keep leading-relaxed">{renderBoldText(desc)}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -197,7 +197,7 @@ export default function Result({ result, gender, onRestart }: ResultProps) {
           className="border-t border-gray-700 pt-6 space-y-2"
         >
           <p className="text-sm text-gray-400">📊 당신의 성향 분석</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-gray-300">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-gray-300 break-keep">
             <p>• {result.traits.axis1}</p>
             <p>• {result.traits.axis2}</p>
             <p>• {result.traits.axis3}</p>
@@ -214,7 +214,7 @@ export default function Result({ result, gender, onRestart }: ResultProps) {
         className="w-full max-w-2xl mt-8"
       >
         <h3 className="text-lg font-bold text-gray-300 mb-4 break-keep">
-          🎁 [{displayTitle}] 님을 더욱 즐겁게 할 맞춤 추천템
+          🎁 [{displayTitle}] 님에게 딱 맞는 맞춤템
         </h3>
         <div className="space-y-3">
           {products.map((product, index) => (
@@ -227,9 +227,9 @@ export default function Result({ result, gender, onRestart }: ResultProps) {
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 1.3 + index * 0.1 }}
-              className="flex items-center space-x-5 p-5 md:p-6 bg-gray-800 rounded-2xl border-2 border-neon-purple/50 shadow-[0_0_15px_rgba(157,78,221,0.2)] hover:shadow-[0_0_25px_rgba(157,78,221,0.5)] hover:border-neon-magenta transition-all duration-300 group"
+              className="flex items-center gap-3 p-4 md:gap-5 md:p-6 bg-gray-800 rounded-2xl border-2 border-neon-purple/50 shadow-[0_0_15px_rgba(157,78,221,0.2)] hover:shadow-[0_0_25px_rgba(157,78,221,0.5)] hover:border-neon-magenta transition-all duration-300 group"
             >
-              <div className="w-24 h-24 md:w-28 md:h-28 bg-gray-700 rounded-xl flex-shrink-0 flex items-center justify-center overflow-hidden border border-gray-600 shadow-inner">
+              <div className="w-20 h-20 md:w-28 md:h-28 bg-gray-700 rounded-xl flex-shrink-0 flex items-center justify-center overflow-hidden border border-gray-600 shadow-inner">
                 {product.imageUrl ? (
                   <img 
                     src={product.imageUrl} 
@@ -238,16 +238,16 @@ export default function Result({ result, gender, onRestart }: ResultProps) {
                     referrerPolicy="no-referrer"
                   />
                 ) : (
-                  <span className="text-5xl md:text-6xl transform group-hover:scale-110 transition-transform duration-500">{product.emoji}</span>
+                  <span className="text-4xl md:text-6xl transform group-hover:scale-110 transition-transform duration-500">{product.emoji}</span>
                 )}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-bold text-lg md:text-xl text-white group-hover:text-neon-pink transition-colors truncate">
+                <p className="font-bold text-base md:text-xl text-white group-hover:text-neon-pink transition-colors line-clamp-2">
                   {product.name}
                 </p>
-                <p className="text-sm md:text-base text-gray-400 line-clamp-2 mt-1.5">{product.description}</p>
+                <p className="text-xs md:text-base text-gray-400 line-clamp-2 mt-1">{product.description}</p>
               </div>
-              <span className="text-gray-500 text-xl md:text-2xl group-hover:text-neon-purple transition-colors ml-2">→</span>
+              <span className="text-gray-500 text-lg md:text-2xl group-hover:text-neon-purple transition-colors ml-1">→</span>
             </motion.a>
           ))}
         </div>

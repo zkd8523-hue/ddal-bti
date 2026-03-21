@@ -45,7 +45,7 @@ export default function Question({
           className="w-full max-w-2xl"
         >
           <motion.h2
-            className="text-2xl md:text-3xl font-bold text-center mb-12 text-white"
+            className="text-2xl md:text-3xl font-bold text-center mb-12 text-white break-keep"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.3 }}
@@ -62,7 +62,7 @@ export default function Question({
               whileHover={{ scale: 1.02, x: 10 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => onAnswer(question.optionA.point)}
-              className="w-full p-6 text-left text-lg bg-gray-800 hover:bg-gray-750 rounded-xl border-2 border-transparent hover:border-neon-purple transition-all duration-200"
+              className="w-full p-5 md:p-6 text-left text-base md:text-lg bg-gray-800 hover:bg-gray-750 rounded-xl border-2 border-transparent hover:border-neon-purple transition-all duration-200 break-keep leading-snug"
             >
               {question.optionA.text}
             </motion.button>
@@ -75,7 +75,7 @@ export default function Question({
               whileHover={{ scale: 1.02, x: 10 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => onAnswer(question.optionB.point)}
-              className="w-full p-6 text-left text-lg bg-gray-800 hover:bg-gray-750 rounded-xl border-2 border-transparent hover:border-neon-magenta transition-all duration-200"
+              className="w-full p-5 md:p-6 text-left text-base md:text-lg bg-gray-800 hover:bg-gray-750 rounded-xl border-2 border-transparent hover:border-neon-magenta transition-all duration-200 break-keep leading-snug"
             >
               {question.optionB.text}
             </motion.button>

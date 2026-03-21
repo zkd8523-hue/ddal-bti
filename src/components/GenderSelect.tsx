@@ -16,7 +16,7 @@ export default function GenderSelect({ onSelect }: GenderSelectProps) {
       <motion.h2
         initial={{ y: -30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.2 }}
+        transition={{ duration: 0.3 }}
         className="text-3xl md:text-4xl font-bold text-center mb-12 neon-text"
       >
         당신의 성별을 선택해주세요
@@ -25,9 +25,9 @@ export default function GenderSelect({ onSelect }: GenderSelectProps) {
       <div className="w-full max-w-md space-y-4">
         {/* 남성 버튼 */}
         <motion.button
-          initial={{ x: -100, opacity: 0 }}
+          initial={{ x: -25, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
-          transition={{ delay: 0.3 }}
+          transition={{ duration: 0.15 }}
           whileHover={{ scale: 1.02, x: 10 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => onSelect('male')}
@@ -39,9 +39,9 @@ export default function GenderSelect({ onSelect }: GenderSelectProps) {
 
         {/* 여성 버튼 */}
         <motion.button
-          initial={{ x: -100, opacity: 0 }}
+          initial={{ x: -25, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
-          transition={{ delay: 0.4 }}
+          transition={{ duration: 0.15 }}
           whileHover={{ scale: 1.02, x: 10 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => onSelect('female')}
@@ -55,7 +55,7 @@ export default function GenderSelect({ onSelect }: GenderSelectProps) {
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.6 }}
+        transition={{ delay: 0.2 }}
         className="mt-8 text-sm text-gray-400 text-center"
       >
         더 정확한 결과 분석을 위해 사용됩니다
