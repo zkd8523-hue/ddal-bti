@@ -217,8 +217,8 @@ export default function Result({ result, onRestart }: ResultProps) {
         transition={{ delay: 1.2 }}
         className="w-full max-w-2xl mt-8"
       >
-        <h3 className="text-lg font-bold text-gray-300 mb-4">
-          🎁 {result.type} 유형 맞춤 추천템
+        <h3 className="text-lg font-bold text-gray-300 mb-4 break-keep">
+          🎁 [{result.title}] 님을 더욱 즐겁게 할 맞춤 추천템
         </h3>
         <div className="space-y-3">
           {products.map((product, index) => (
