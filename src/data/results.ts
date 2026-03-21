@@ -60,7 +60,7 @@ export const results: Result[] = [
   {
     type: 'VMAT',
     title: '19금 맥가이버',
-    emoji: '🛠️',
+    emoji: '✨',
     description: [
       '온갖 조명, 향기, 젤, 진동 기구까지 **모든 세팅이 완벽**해야 출항합니다.',
       '매번 새롭고 강렬한 **시각적 충격**을 찾아 방대한 영해를 헤매는 **항해사**.',

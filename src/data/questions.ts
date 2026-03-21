@@ -130,7 +130,7 @@ export const questions: Question[] = [
     axis: 4,
     question: '침대 옆 비밀 서랍을 열었더니?',
     optionA: {
-      text: '🛠️ 각종 도구와 아이템으로 가득',
+      text: '✨ 각종 도구와 아이템으로 가득',
       point: 'T'
     },
     optionB: {

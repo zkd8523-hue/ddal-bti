@@ -229,27 +229,27 @@ export default function Result({ result, onRestart }: ResultProps) {
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 1.3 + index * 0.1 }}
-              className="flex items-center space-x-4 p-4 bg-gray-800 rounded-xl border border-gray-700 hover:border-neon-magenta transition-all duration-200 group"
+              className="flex items-center space-x-5 p-5 md:p-6 bg-gray-800 rounded-2xl border-2 border-neon-purple/50 shadow-[0_0_15px_rgba(157,78,221,0.2)] hover:shadow-[0_0_25px_rgba(157,78,221,0.5)] hover:border-neon-magenta transition-all duration-300 group"
             >
-              <div className="w-16 h-16 bg-gray-700 rounded-lg flex-shrink-0 flex items-center justify-center overflow-hidden border border-gray-600">
+              <div className="w-24 h-24 md:w-28 md:h-28 bg-gray-700 rounded-xl flex-shrink-0 flex items-center justify-center overflow-hidden border border-gray-600 shadow-inner">
                 {product.imageUrl ? (
                   <img 
                     src={product.imageUrl} 
                     alt={product.name} 
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                     referrerPolicy="no-referrer"
                   />
                 ) : (
-                  <span className="text-3xl">{product.emoji}</span>
+                  <span className="text-5xl md:text-6xl transform group-hover:scale-110 transition-transform duration-500">{product.emoji}</span>
                 )}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-bold text-white group-hover:text-neon-pink transition-colors truncate">
+                <p className="font-bold text-lg md:text-xl text-white group-hover:text-neon-pink transition-colors truncate">
                   {product.name}
                 </p>
-                <p className="text-sm text-gray-400 line-clamp-2">{product.description}</p>
+                <p className="text-sm md:text-base text-gray-400 line-clamp-2 mt-1.5">{product.description}</p>
               </div>
-              <span className="text-gray-500 group-hover:text-neon-purple transition-colors">→</span>
+              <span className="text-gray-500 text-xl md:text-2xl group-hover:text-neon-purple transition-colors ml-2">→</span>
             </motion.a>
           ))}
         </div>
