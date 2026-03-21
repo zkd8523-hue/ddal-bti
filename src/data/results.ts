@@ -31,7 +31,7 @@ export const results: Result[] = [
   },
   {
     type: 'VSRT',
-    title: '장비충 F1 레이서',
+    title: '믿보영상 감별사',
     emoji: '🏎️',
     description: [
       '나만의 확고한 취향. 수년 전 저장된 **"구관이 명관"** 리스트 멤버십 회원.',
@@ -45,7 +45,7 @@ export const results: Result[] = [
   },
   {
     type: 'VSRN',
-    title: '가성비 불도저',
+    title: '효율의 끝판왕',
     emoji: '💪',
     description: [
       '내가 가장 사랑하는 픽, 즐겨 찾는 **특정 채널만** 주구장창 파고듭니다.',
@@ -59,7 +59,7 @@ export const results: Result[] = [
   },
   {
     type: 'VMAT',
-    title: '19금 맥가이버',
+    title: '방구석 일론머스크',
     emoji: '✨',
     description: [
       '온갖 조명, 향기, 젤, 진동 기구까지 **모든 세팅이 완벽**해야 출항합니다.',
@@ -101,7 +101,7 @@ export const results: Result[] = [
   },
   {
     type: 'VMRN',
-    title: '고집불통 미식가',
+    title: '사골국 장인',
     emoji: '🦋',
     description: [
       '항상 보던 **"그 영상"**을 틀어두면 마음의 평화와 **이너피스(Inner Peace)**가 찾아옵니다.',
@@ -157,7 +157,7 @@ export const results: Result[] = [
   },
   {
     type: 'FSRN',
-    title: '퓨어 오가닉 수도승',
+    title: '자연인 망상러',
     emoji: '🧘',
     description: [
       '내 머릿속 **데이터센터**에는 나만을 위한 **최고의 시나리오**가 저장되어 있습니다.',

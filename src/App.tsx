@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import Home from './components/Home';
+import GenderSelect from './components/GenderSelect';
 import Question from './components/Question';
 import Loading from './components/Loading';
 import Result from './components/Result';
@@ -8,7 +9,7 @@ import LayoutWithSidebarAds from './components/LayoutWithSidebarAds';
 import { questions } from './data/questions';
 import { results } from './data/results';
 import { calculateResult } from './utils/calculateResult';
-import type { Screen, Answer, PersonalityType } from './types';
+import type { Screen, Answer, PersonalityType, Gender } from './types';
 
 const getInitialState = () => {
   try {
@@ -23,7 +24,8 @@ const getInitialState = () => {
     screen: 'home',
     currentQuestionIndex: 0,
     answers: [],
-    resultType: null
+    resultType: null,
+    gender: null
   };
 };
 
@@ -42,22 +44,33 @@ function App() {
   // 최종 결과 타입
   const [resultType, setResultType] = useState<PersonalityType | null>(initialState.resultType);
 
+  // 성별 정보
+  const [gender, setGender] = useState<Gender | null>(initialState.gender || null);
+
   // 상태가 변경될 때마다 sessionStorage에 저장하여, 앱 전환 후 새로고침 되어도 유지되도록 함
   useEffect(() => {
     sessionStorage.setItem('appState', JSON.stringify({
       screen,
       currentQuestionIndex,
       answers,
-      resultType
+      resultType,
+      gender
     }));
-  }, [screen, currentQuestionIndex, answers, resultType]);
+  }, [screen, currentQuestionIndex, answers, resultType, gender]);
 
   // 테스트 시작
   const handleStart = () => {
-    setScreen('question');
+    setScreen('gender');
     setCurrentQuestionIndex(0);
     setAnswers([]);
     setResultType(null);
+    setGender(null);
+  };
+
+  // 성별 선택 처리
+  const handleGenderSelect = (selectedGender: Gender) => {
+    setGender(selectedGender);
+    setScreen('question');
   };
 
   // 답변 선택 처리
@@ -94,6 +107,7 @@ function App() {
     setCurrentQuestionIndex(0);
     setAnswers([]);
     setResultType(null);
+    setGender(null);
     sessionStorage.removeItem('appState');
   };
 
@@ -127,6 +141,10 @@ function App() {
           <LayoutWithSidebarAds key="home-wrapper" showAds={true}>
             <Home key="home" onStart={handleStart} />
           </LayoutWithSidebarAds>
+        )}
+
+        {screen === 'gender' && (
+          <GenderSelect key="gender" onSelect={handleGenderSelect} />
         )}
 
         {screen === 'question' && currentQuestion && (
