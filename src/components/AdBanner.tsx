@@ -31,7 +31,7 @@ export default function AdBanner({ variant = 'result' }: AdBannerProps) {
                 </p>
               </div>
               <p className="text-gray-500 text-[11px] md:text-xs line-clamp-2 leading-snug">
-                이건 생존템이야. 로켓배송으로 미리 챙겨!
+                몇개 안 남았던데.. 로켓배송으로 미리 챙겨!
               </p>
             </div>
           </div>
