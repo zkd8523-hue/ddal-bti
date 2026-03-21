@@ -51,7 +51,8 @@ export default function Result({ result, onRestart }: ResultProps) {
   }, []);
 
   const handleInstagramShare = () => {
-    const shareText = `[밤BTI] 나의 결과: ${result.type} "${result.title}"\n당신도 테스트해보세요! ${window.location.origin}`;
+    const cleanDesc = result.description[0].replace(/\*\*/g, '');
+    const shareText = `[밤BTI] 나의 결과: ${result.title} ${result.emoji}\n${cleanDesc}\n\n당신도 테스트해보세요! ${window.location.origin}`;
 
     if (navigator.clipboard) {
       navigator.clipboard.writeText(shareText);
@@ -88,8 +89,8 @@ export default function Result({ result, onRestart }: ResultProps) {
       window.Kakao.Share.sendDefault({
         objectType: 'feed',
         content: {
-          title: `[밤BTI] 나의 결과: ${result.type}`,
-          description: `"${result.title}" - ${result.description[0]}`,
+          title: `[밤BTI] 나의 결과: ${result.title} ${result.emoji}`,
+          description: result.description[0].replace(/\*\*/g, ''),
           imageUrl: `${siteUrl}/og-image-v3.png`,
           link: {
             mobileWebUrl: siteUrl,
