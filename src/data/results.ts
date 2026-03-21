@@ -32,7 +32,7 @@ export const results: Result[] = [
   {
     type: 'VSRT',
     title: '믿보영상 감별사',
-    emoji: '🏎️',
+    emoji: '🧐',
     description: [
       '나만의 확고한 취향. 수년 전 저장된 **"구관이 명관"** 리스트 멤버십 회원.',
       '하지만 장비 욕심은 커서, 똑같은 명작도 **VR이나 최신 기구**로 매번 색다르게 즐깁니다.',
@@ -46,7 +46,7 @@ export const results: Result[] = [
   {
     type: 'VSRN',
     title: '효율의 끝판왕',
-    emoji: '💪',
+    emoji: '💯',
     description: [
       '내가 가장 사랑하는 픽, 즐겨 찾는 **특정 채널만** 주구장창 파고듭니다.',
       '번거로운 세팅이나 도구? 그딴 건 내게 사치. 오로지 **화면과 내 손 하나**면 충분합니다.',
@@ -60,7 +60,7 @@ export const results: Result[] = [
   {
     type: 'VMAT',
     title: '방구석 일론머스크',
-    emoji: '✨',
+    emoji: '💡',
     description: [
       '온갖 조명, 향기, 젤, 진동 기구까지 **모든 세팅이 완벽**해야 출항합니다.',
       '매번 새롭고 강렬한 **시각적 충격**을 찾아 방대한 영해를 헤매는 **항해사**.',
@@ -102,7 +102,7 @@ export const results: Result[] = [
   {
     type: 'VMRN',
     title: '사골국 장인',
-    emoji: '🦋',
+    emoji: '🍲',
     description: [
       '항상 보던 **"그 영상"**을 틀어두면 마음의 평화와 **이너피스(Inner Peace)**가 찾아옵니다.',
       '수많은 신문물이 쏟아져도 오직 **맨몸의 퓨어한 감각** 하나로 버티는 뚝심.',
@@ -158,7 +158,7 @@ export const results: Result[] = [
   {
     type: 'FSRN',
     title: '자연인 망상러',
-    emoji: '🧘',
+    emoji: '🍃',
     description: [
       '내 머릿속 **데이터센터**에는 나만을 위한 **최고의 시나리오**가 저장되어 있습니다.',
       '불필요하고 자극적인 외부 매체는 배제하고 **내 몸과 상상력**만이 만들어내는 **순수함**에 집중합니다.',
