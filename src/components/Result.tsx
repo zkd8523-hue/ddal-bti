@@ -58,35 +58,7 @@ export default function Result({ result, gender, onRestart }: ResultProps) {
     initKakao();
   }, []);
 
-  const handleInstagramShare = async () => {
-    // GA4 이벤트 추적
-    analytics.trackInstagramShare(result.type as PersonalityType);
 
-    const cleanDesc = result.description[0].replace(/\*\*/g, '');
-    const shareText = `[밤BTI] 나의 결과: ${displayTitle} ${displayEmoji}\n${cleanDesc}\n\n당신도 테스트해보세요! ${window.location.origin}`;
-
-    // 클립보드 복사 시도
-    try {
-      if (navigator.clipboard) {
-        await navigator.clipboard.writeText(shareText);
-        alert('📋 링크가 클립보드에 복사되었습니다!\n인스타그램 스토리에서 붙여넣으세요.');
-      } else {
-        // Fallback for browsers without clipboard API
-        alert('📋 다음 텍스트를 복사해주세요:\n\n' + shareText);
-      }
-    } catch (error) {
-      console.error('클립보드 복사 실패:', error);
-      alert('📋 클립보드 복사에 실패했습니다. 수동으로 복사해주세요.');
-    }
-
-    // 인스타그램 앱 열기
-    window.location.href = 'instagram://app';
-
-    // 앱이 안 열리면 (PC 등) 웹으로 이동
-    setTimeout(() => {
-      window.open('https://www.instagram.com/', '_blank');
-    }, 1500);
-  };
 
   const handleKakaoShare = () => {
     if (!window.Kakao) {
@@ -299,13 +271,6 @@ export default function Result({ result, gender, onRestart }: ResultProps) {
           className="w-full px-8 py-4 text-lg font-bold bg-[#FEE500] text-[#191919] rounded-full hover:shadow-2xl transition-all duration-300"
         >
           💬 카카오톡으로 공유하기
-        </button>
-
-        <button
-          onClick={handleInstagramShare}
-          className="w-full px-8 py-4 text-lg font-bold bg-gradient-to-r from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white rounded-full hover:shadow-2xl transition-all duration-300 cursor-pointer"
-        >
-          📸 인스타그램 스토리 공유
         </button>
 
         <button

@@ -114,17 +114,6 @@ export const analytics = {
     } as any);
   },
 
-  // 인스타그램 공유
-  trackInstagramShare: (resultType: PersonalityType) => {
-    ga4.event({
-      category: 'Share',
-      action: 'instagram_share',
-      label: resultType,
-      result_type: resultType,
-      share_platform: 'instagram'
-    } as any);
-  },
-
   // 추천 상품 클릭
   trackProductClick: (productName: string, productLink: string, resultType: PersonalityType, position: number) => {
     ga4.event({
