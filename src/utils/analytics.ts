@@ -2,12 +2,14 @@
 import ReactGA from 'react-ga4';
 import type { Gender, PersonalityType } from '../types';
 
+const ga4 = (ReactGA as any).default || ReactGA;
+
 // GA4 초기화
 export const initGA = () => {
   const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID;
 
   if (measurementId) {
-    ReactGA.initialize(measurementId);
+    ga4.initialize(measurementId);
     console.log('GA4 initialized with ID:', measurementId);
   } else {
     console.warn('GA4 Measurement ID not found');
@@ -18,7 +20,7 @@ export const initGA = () => {
 export const analytics = {
   // 테스트 시작
   trackTestStarted: () => {
-    ReactGA.event({
+    ga4.event({
       category: 'Test',
       action: 'test_started',
       label: '밤BTI 테스트 시작'
@@ -27,19 +29,19 @@ export const analytics = {
 
   // 성별 선택
   trackGenderSelected: (gender: Gender) => {
-    ReactGA.event({
+    ga4.event({
       category: 'User',
       action: 'gender_selected',
       label: gender === 'male' ? '남성' : '여성'
     });
 
     // 사용자 속성 설정
-    ReactGA.set({ gender });
+    ga4.set({ gender });
   },
 
   // 질문 답변
   trackQuestionAnswered: (questionId: number, answer: string, questionNumber: number) => {
-    ReactGA.event({
+    ga4.event({
       category: 'Test',
       action: 'question_answered',
       label: `질문 ${questionNumber}`,
@@ -55,7 +57,7 @@ export const analytics = {
 
   // 테스트 완료
   trackTestCompleted: (resultType: PersonalityType, gender: Gender | null, totalQuestions: number) => {
-    ReactGA.event({
+    ga4.event({
       category: 'Test',
       action: 'test_completed',
       label: resultType,
@@ -67,7 +69,7 @@ export const analytics = {
     } as any);
 
     // 사용자 속성 업데이트
-    ReactGA.set({
+    ga4.set({
       result_type: resultType,
       gender: gender || 'unknown'
     });
@@ -75,7 +77,7 @@ export const analytics = {
 
   // 결과 확인
   trackResultViewed: (resultType: PersonalityType) => {
-    ReactGA.event({
+    ga4.event({
       category: 'Test',
       action: 'result_viewed',
       label: resultType,
@@ -85,7 +87,7 @@ export const analytics = {
 
   // 테스트 재시작
   trackTestRestarted: () => {
-    ReactGA.event({
+    ga4.event({
       category: 'Test',
       action: 'test_restarted',
       label: '다시 테스트하기'
@@ -94,7 +96,7 @@ export const analytics = {
 
   // 페이지뷰 추적 (화면 전환 시)
   trackPageView: (screenName: string) => {
-    ReactGA.send({
+    ga4.send({
       hitType: 'pageview',
       page: `/${screenName}`,
       title: screenName
@@ -103,7 +105,7 @@ export const analytics = {
 
   // 카카오톡 공유
   trackKakaoShare: (resultType: PersonalityType) => {
-    ReactGA.event({
+    ga4.event({
       category: 'Share',
       action: 'kakao_share',
       label: resultType,
@@ -114,7 +116,7 @@ export const analytics = {
 
   // 인스타그램 공유
   trackInstagramShare: (resultType: PersonalityType) => {
-    ReactGA.event({
+    ga4.event({
       category: 'Share',
       action: 'instagram_share',
       label: resultType,
@@ -125,7 +127,7 @@ export const analytics = {
 
   // 추천 상품 클릭
   trackProductClick: (productName: string, productLink: string, resultType: PersonalityType, position: number) => {
-    ReactGA.event({
+    ga4.event({
       category: 'Affiliate',
       action: 'product_click',
       label: productName,
