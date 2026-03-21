@@ -25,9 +25,9 @@ export default function GenderSelect({ onSelect }: GenderSelectProps) {
       <div className="w-full max-w-md space-y-4">
         {/* 남성 버튼 */}
         <motion.button
-          initial={{ x: -25, opacity: 0 }}
+          initial={{ x: -30, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.15 }}
+          transition={{ delay: 0.1, duration: 0.4, ease: "easeOut" }}
           whileHover={{ scale: 1.02, x: 10 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => onSelect('male')}

@@ -12,11 +12,7 @@ declare global {
   }
 }
 
-const KAKAO_APP_KEY = import.meta.env.VITE_KAKAO_APP_KEY;
-
-if (!KAKAO_APP_KEY) {
-  console.error('KAKAO_APP_KEY가 설정되지 않았습니다. .env 파일을 확인하세요.');
-}
+const KAKAO_APP_KEY = import.meta.env.VITE_KAKAO_APP_KEY || '4570e75c05df4248b7729c5bd0bf94af';
 
 interface ResultProps {
   result: ResultType;

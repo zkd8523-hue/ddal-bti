@@ -43,7 +43,7 @@ export default function Home({ onStart }: HomeProps) {
       <motion.button
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
-        transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+        transition={{ delay: 0.4, type: 'spring', stiffness: 200, damping: 20 }}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={onStart}
