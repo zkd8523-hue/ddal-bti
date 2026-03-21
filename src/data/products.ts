@@ -51,7 +51,7 @@ export const productsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   VMRN: [
-    { name: '프리미엄 배스밤 입욕제 세트', description: '오직 나만을 위한 럭셔리한 휴식 시간', emoji: '🛁', link: 'https://link.coupang.com/a/d8jHYu', imageUrl: '/images/bathbomb.png' },
+    { name: '러쉬 Best 섹스밤 입욕제', description: '오직 나만을 위한 럭셔리한 휴식 시간', emoji: '🛁', link: 'https://link.coupang.com/a/d8jHYu', imageUrl: '/images/bathbomb.png' },
     COMMON_GEL,
   ],
   FSAT: [
@@ -75,7 +75,7 @@ export const productsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   FMAN: [
-    { name: '초대형 U자/I자 촉감 바디필로우', description: '혼자서 환상 여행을 할 때 껴안기 좋은 애착 파트너', emoji: '🫂', link: 'https://link.coupang.com/a/d8jN7S' },
+    { name: '초대형 U자 촉감 바디필로우', description: '혼자서 환상 여행을 할 때 껴안기 좋은 애착 파트너', emoji: '🫂', link: 'https://link.coupang.com/a/d8jN7S' },
     COMMON_GEL,
   ],
   FMRT: [
@@ -120,7 +120,7 @@ export const femaleProductsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   VMRT: [
-    { name: '프리미엄 배스밤 입욕제 세트', description: '오직 나만을 위한 럭셔리한 휴식 시간', emoji: '🛁', link: 'https://link.coupang.com/a/d8jHYu', imageUrl: '/images/bathbomb.png' },
+    { name: '러쉬 Best 섹스밤 입욕제', description: '오직 나만을 위한 럭셔리한 휴식 시간', emoji: '🛁', link: 'https://link.coupang.com/a/d8jHYu', imageUrl: '/images/bathbomb.png' },
     COMMON_GEL,
   ],
   VMRN: [
@@ -128,7 +128,7 @@ export const femaleProductsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   FSAT: [
-    { name: '입문용 수면 안대', description: '상상력을 현실의 스킨십으로 끌어오는 마법', emoji: '🎭', link: 'https://link.coupang.com/a/d8T9bR' },
+    { name: '입문용 짜릿 안대', description: '상상력을 현실의 스킨십으로 끌어오는 마법', emoji: '🎭', link: 'https://link.coupang.com/a/d8T9bR' },
     COMMON_GEL,
   ],
   FSAN: [
@@ -144,11 +144,11 @@ export const femaleProductsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   FMAT: [
-    { name: '프리미엄 배스밤 입욕제 세트', description: '서사의 주인공에게 걸맞은 사치스러운 거품 목욕', emoji: '🛁', link: 'https://link.coupang.com/a/d8jHYu', imageUrl: '/images/bathbomb.png' },
+    { name: '러쉬 Best 섹스밤 입욕제', description: '서사의 주인공에게 걸맞은 사치스러운 거품 목욕', emoji: '🛁', link: 'https://link.coupang.com/a/d8jHYu', imageUrl: '/images/bathbomb.png' },
     COMMON_GEL,
   ],
   FMAN: [
-    { name: '초대형 U자/I자 촉감 바디필로우', description: '혼자서 환상 여행을 할 때 껴안기 좋은 애착 파트너', emoji: '🫂', link: 'https://link.coupang.com/a/d8jN7S' },
+    { name: '초대형 U자 촉감 바디필로우', description: '혼자서 환상 여행을 할 때 껴안기 좋은 애착 파트너', emoji: '🫂', link: 'https://link.coupang.com/a/d8jN7S' },
     COMMON_GEL,
   ],
   FMRT: [
