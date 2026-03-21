@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import type { Result as ResultType } from '../types';
-import type { PersonalityType } from '../types';
+import type { Result as ResultType, PersonalityType, Gender } from '../types';
 import { getProductsForType } from '../data/products';
 import AdBanner from './AdBanner';
 
@@ -16,6 +15,7 @@ const KAKAO_APP_KEY = '4570e75c05df4248b7729c5bd0bf94af';
 
 interface ResultProps {
   result: ResultType;
+  gender?: Gender | null;
   onRestart: () => void;
 }
 
@@ -26,8 +26,11 @@ function renderBoldText(text: string) {
   );
 }
 
-export default function Result({ result, onRestart }: ResultProps) {
-  const products = getProductsForType(result.type as PersonalityType);
+export default function Result({ result, gender, onRestart }: ResultProps) {
+  const products = getProductsForType(result.type as PersonalityType, gender || undefined);
+
+  const displayTitle = gender === 'female' ? result.femaleTitle : result.title;
+  const displayEmoji = gender === 'female' ? result.femaleEmoji : result.emoji;
 
   useEffect(() => {
     // SDK 로딩 대기 및 초기화
@@ -52,7 +55,7 @@ export default function Result({ result, onRestart }: ResultProps) {
 
   const handleInstagramShare = () => {
     const cleanDesc = result.description[0].replace(/\*\*/g, '');
-    const shareText = `[밤BTI] 나의 결과: ${result.title} ${result.emoji}\n${cleanDesc}\n\n당신도 테스트해보세요! ${window.location.origin}`;
+    const shareText = `[밤BTI] 나의 결과: ${displayTitle} ${displayEmoji}\n${cleanDesc}\n\n당신도 테스트해보세요! ${window.location.origin}`;
 
     if (navigator.clipboard) {
       navigator.clipboard.writeText(shareText);
@@ -89,7 +92,7 @@ export default function Result({ result, onRestart }: ResultProps) {
       window.Kakao.Share.sendDefault({
         objectType: 'feed',
         content: {
-          title: `[밤BTI] 나의 결과: ${result.title} ${result.emoji}`,
+          title: `[밤BTI] 나의 결과: ${displayTitle} ${displayEmoji}`,
           description: result.description[0].replace(/\*\*/g, ''),
           imageUrl: `${siteUrl}/og-image-v3.png`,
           link: {
@@ -157,7 +160,7 @@ export default function Result({ result, onRestart }: ResultProps) {
               transition={{ delay: 0.5 }}
               className="text-3xl md:text-4xl font-bold neon-text break-keep"
             >
-              {result.title}
+              {displayTitle}
             </motion.h1>
           </div>
 
@@ -168,7 +171,7 @@ export default function Result({ result, onRestart }: ResultProps) {
             transition={{ delay: 0.5, type: 'spring', stiffness: 200 }}
             className="text-6xl md:text-8xl select-none opacity-90 shrink-0 ml-4"
           >
-            {result.emoji}
+            {displayEmoji}
           </motion.span>
         </div>
 
@@ -218,7 +221,7 @@ export default function Result({ result, onRestart }: ResultProps) {
         className="w-full max-w-2xl mt-8"
       >
         <h3 className="text-lg font-bold text-gray-300 mb-4 break-keep">
-          🎁 [{result.title}] 님을 더욱 즐겁게 할 맞춤 추천템
+          🎁 [{displayTitle}] 님을 더욱 즐겁게 할 맞춤 추천템
         </h3>
         <div className="space-y-3">
           {products.map((product, index) => (

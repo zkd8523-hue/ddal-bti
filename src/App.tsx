@@ -9,6 +9,7 @@ import LayoutWithSidebarAds from './components/LayoutWithSidebarAds';
 import { questions } from './data/questions';
 import { results } from './data/results';
 import { calculateResult } from './utils/calculateResult';
+import { initGA, analytics } from './utils/analytics';
 import type { Screen, Answer, PersonalityType, Gender } from './types';
 
 const getInitialState = () => {
@@ -31,6 +32,11 @@ const getInitialState = () => {
 
 function App() {
   const initialState = getInitialState();
+
+  // GA4 초기화
+  useEffect(() => {
+    initGA();
+  }, []);
 
   // 화면 상태 관리
   const [screen, setScreen] = useState<Screen>(initialState.screen);
@@ -58,8 +64,16 @@ function App() {
     }));
   }, [screen, currentQuestionIndex, answers, resultType, gender]);
 
+  // 결과 화면 진입 시 이벤트 추적
+  useEffect(() => {
+    if (screen === 'result' && resultType) {
+      analytics.trackResultViewed(resultType);
+    }
+  }, [screen, resultType]);
+
   // 테스트 시작
   const handleStart = () => {
+    analytics.trackTestStarted();
     setScreen('gender');
     setCurrentQuestionIndex(0);
     setAnswers([]);
@@ -69,6 +83,7 @@ function App() {
 
   // 성별 선택 처리
   const handleGenderSelect = (selectedGender: Gender) => {
+    analytics.trackGenderSelected(selectedGender);
     setGender(selectedGender);
     setScreen('question');
   };
@@ -76,6 +91,13 @@ function App() {
   // 답변 선택 처리
   const handleAnswer = (selectedPoint: string) => {
     const currentQuestion = questions[currentQuestionIndex];
+
+    // GA4 이벤트 추적
+    analytics.trackQuestionAnswered(
+      currentQuestion.id,
+      selectedPoint,
+      currentQuestionIndex + 1
+    );
 
     // 답변 저장
     const newAnswer: Answer = {
@@ -98,11 +120,16 @@ function App() {
 
   // 로딩 완료 후 결과 화면으로
   const handleLoadingComplete = () => {
+    // 테스트 완료 이벤트 추적
+    if (resultType) {
+      analytics.trackTestCompleted(resultType, gender, questions.length);
+    }
     setScreen('result');
   };
 
   // 테스트 재시작
   const handleRestart = () => {
+    analytics.trackTestRestarted();
     setScreen('home');
     setCurrentQuestionIndex(0);
     setAnswers([]);
@@ -120,6 +147,8 @@ function App() {
         type: resultType,
         title: `준비 중인 유형입니다 (${resultType})`,
         emoji: '❓',
+        femaleTitle: `준비 중인 유형입니다 (${resultType})`,
+        femaleEmoji: '❓',
         description: [
           '테스트 채점 로직은 정상 작동했습니다!',
           '다만 아직 캐릭터 상세 설명이 모두 추가되지 않아 임시 화면이 나옵니다.',
@@ -164,7 +193,7 @@ function App() {
         )}
 
         {screen === 'result' && resultData && (
-          <Result key="result" result={resultData} onRestart={handleRestart} />
+          <Result key="result" result={resultData} gender={gender} onRestart={handleRestart} />
         )}
       </AnimatePresence>
     </div>
