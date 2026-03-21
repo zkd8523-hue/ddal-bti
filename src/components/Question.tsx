@@ -48,7 +48,7 @@ export default function Question({
             className="text-2xl md:text-3xl font-bold text-center mb-12 text-white"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.1 }}
+            transition={{ duration: 0.3 }}
           >
             {question.question}
           </motion.h2>
@@ -56,9 +56,9 @@ export default function Question({
           <div className="space-y-4">
             {/* 선택지 A */}
             <motion.button
-              initial={{ x: -100, opacity: 0 }}
+              initial={{ x: -50, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.2 }}
+              transition={{ delay: 0.05, duration: 0.3 }}
               whileHover={{ scale: 1.02, x: 10 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => onAnswer(question.optionA.point)}
@@ -69,9 +69,9 @@ export default function Question({
 
             {/* 선택지 B */}
             <motion.button
-              initial={{ x: -100, opacity: 0 }}
+              initial={{ x: -50, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.3 }}
+              transition={{ delay: 0.1, duration: 0.3 }}
               whileHover={{ scale: 1.02, x: 10 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => onAnswer(question.optionB.point)}

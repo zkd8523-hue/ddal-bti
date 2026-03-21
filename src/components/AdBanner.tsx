@@ -14,8 +14,8 @@ export default function AdBanner({ variant = 'result' }: AdBannerProps) {
     >
       {/* 광고 영역 - 실제 배너 이미지/스크립트로 교체 */}
       <div className="relative rounded-xl overflow-hidden border border-gray-700">
-        <div className="bg-gradient-to-r from-gray-800 to-gray-900 px-4 py-4 flex flex-row items-center gap-4">
-          <div className="w-14 h-14 bg-white rounded-lg p-1.5 flex-shrink-0 shadow-md">
+        <div className="bg-gradient-to-r from-gray-800 to-gray-900 px-5 py-5 flex flex-row items-center gap-5">
+          <div className="w-20 h-20 md:w-24 md:h-24 bg-white rounded-xl p-2 flex-shrink-0 shadow-md">
             <img 
               src="/images/tissue.png" 
               alt="크리넥스" 
