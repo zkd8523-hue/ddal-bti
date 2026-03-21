@@ -30,9 +30,24 @@ export default function Result({ result, onRestart }: ResultProps) {
   const products = getProductsForType(result.type as PersonalityType);
 
   useEffect(() => {
-    if (window.Kakao && !window.Kakao.isInitialized()) {
-      window.Kakao.init(KAKAO_APP_KEY);
-    }
+    // SDK 로딩 대기 및 초기화
+    const initKakao = () => {
+      if (window.Kakao) {
+        if (!window.Kakao.isInitialized()) {
+          try {
+            window.Kakao.init(KAKAO_APP_KEY);
+            console.log('Kakao SDK 초기화 완료');
+          } catch (error) {
+            console.error('Kakao SDK 초기화 실패:', error);
+          }
+        }
+      } else {
+        // SDK 로딩 대기
+        setTimeout(initKakao, 100);
+      }
+    };
+
+    initKakao();
   }, []);
 
   const handleInstagramShare = () => {
@@ -57,29 +72,44 @@ export default function Result({ result, onRestart }: ResultProps) {
       return;
     }
 
-    const siteUrl = window.location.origin;
+    if (!window.Kakao.isInitialized()) {
+      alert('카카오 SDK가 초기화되지 않았습니다.');
+      return;
+    }
 
-    window.Kakao.Share.sendDefault({
-      objectType: 'feed',
-      content: {
-        title: `[밤BTI] 나의 결과: ${result.type}`,
-        description: `"${result.title}" - ${result.description[0]}`,
-        imageUrl: `${siteUrl}/og-image-v3.png`,
-        link: {
-          mobileWebUrl: siteUrl,
-          webUrl: siteUrl,
-        },
-      },
-      buttons: [
-        {
-          title: '나도 테스트하기',
+    if (!window.Kakao.Share) {
+      alert('카카오 공유 기능을 사용할 수 없습니다. SDK 버전을 확인해주세요.');
+      return;
+    }
+
+    try {
+      const siteUrl = window.location.origin;
+
+      window.Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: `[밤BTI] 나의 결과: ${result.type}`,
+          description: `"${result.title}" - ${result.description[0]}`,
+          imageUrl: `${siteUrl}/og-image-v3.png`,
           link: {
             mobileWebUrl: siteUrl,
             webUrl: siteUrl,
           },
         },
-      ],
-    });
+        buttons: [
+          {
+            title: '나도 테스트하기',
+            link: {
+              mobileWebUrl: siteUrl,
+              webUrl: siteUrl,
+            },
+          },
+        ],
+      });
+    } catch (error) {
+      console.error('카카오 공유 실패:', error);
+      alert('공유하기에 실패했습니다. 잠시 후 다시 시도해주세요.');
+    }
   };
 
   return (

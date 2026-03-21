@@ -89,5 +89,10 @@ export const productsByType: Record<string, Product[]> = {
 };
 
 export function getProductsForType(type: PersonalityType): Product[] {
-  return productsByType[type] || productsByType.default;
+  const products = productsByType[type] || productsByType.default;
+  // 공통 마감 아이템을 제외한 고유 상품 필터링 (핫리로드 대비 이름으로 비교)
+  const specificProducts = products.filter(p => p.name !== COMMON_GEL.name);
+  
+  // 고유 상품이 있으면 그 중 첫 번째 1종만 반환, 없으면 기본 상품 1종 반환
+  return specificProducts.length > 0 ? [specificProducts[0]] : [products[0]];
 }

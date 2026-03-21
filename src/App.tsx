@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import Home from './components/Home';
 import Question from './components/Question';
@@ -10,18 +10,47 @@ import { results } from './data/results';
 import { calculateResult } from './utils/calculateResult';
 import type { Screen, Answer, PersonalityType } from './types';
 
+const getInitialState = () => {
+  try {
+    const saved = sessionStorage.getItem('appState');
+    if (saved) {
+      return JSON.parse(saved);
+    }
+  } catch (e) {
+    console.error('Failed to parse appState', e);
+  }
+  return {
+    screen: 'home',
+    currentQuestionIndex: 0,
+    answers: [],
+    resultType: null
+  };
+};
+
 function App() {
+  const initialState = getInitialState();
+
   // 화면 상태 관리
-  const [screen, setScreen] = useState<Screen>('home');
+  const [screen, setScreen] = useState<Screen>(initialState.screen);
 
   // 현재 질문 인덱스
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(initialState.currentQuestionIndex);
 
   // 사용자 답변 저장
-  const [answers, setAnswers] = useState<Answer[]>([]);
+  const [answers, setAnswers] = useState<Answer[]>(initialState.answers);
 
   // 최종 결과 타입
-  const [resultType, setResultType] = useState<PersonalityType | null>(null);
+  const [resultType, setResultType] = useState<PersonalityType | null>(initialState.resultType);
+
+  // 상태가 변경될 때마다 sessionStorage에 저장하여, 앱 전환 후 새로고침 되어도 유지되도록 함
+  useEffect(() => {
+    sessionStorage.setItem('appState', JSON.stringify({
+      screen,
+      currentQuestionIndex,
+      answers,
+      resultType
+    }));
+  }, [screen, currentQuestionIndex, answers, resultType]);
 
   // 테스트 시작
   const handleStart = () => {
@@ -65,6 +94,7 @@ function App() {
     setCurrentQuestionIndex(0);
     setAnswers([]);
     setResultType(null);
+    sessionStorage.removeItem('appState');
   };
 
   // 현재 질문 가져오기
