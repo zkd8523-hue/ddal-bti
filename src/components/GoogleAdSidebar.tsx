@@ -14,7 +14,7 @@ export default function GoogleAdSidebar({ position, adSlot }: GoogleAdSidebarPro
     try {
       if (typeof window !== 'undefined') {
         // AdSense 스크립트가 로드되었는지 확인
-        const adsbygoogle = (window as any).adsbygoogle;
+        const adsbygoogle = window.adsbygoogle;
         if (adsbygoogle) {
           adsbygoogle.push({});
         }
