@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react';
-import { motion } from 'framer-motion';
 import GoogleAdSidebar from './GoogleAdSidebar';
 
 interface LayoutWithSidebarAdsProps {
@@ -16,12 +15,7 @@ export default function LayoutWithSidebarAds({
   showAds = true,
 }: LayoutWithSidebarAdsProps) {
   return (
-    <motion.div 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="relative min-h-screen"
-    >
+    <div className="relative min-h-screen">
       {/* 좌측 광고 */}
       {showAds && (
         <GoogleAdSidebar position="left" adSlot={LEFT_AD_SLOT_ID} />
@@ -36,6 +30,6 @@ export default function LayoutWithSidebarAds({
       {showAds && (
         <GoogleAdSidebar position="right" adSlot={RIGHT_AD_SLOT_ID} />
       )}
-    </motion.div>
+    </div>
   );
 }

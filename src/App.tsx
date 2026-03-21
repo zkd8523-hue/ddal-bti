@@ -165,19 +165,17 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-900">
-      <AnimatePresence mode="wait">
-        {screen === 'home' && (
-          <LayoutWithSidebarAds key="home-wrapper" showAds={true}>
+      <LayoutWithSidebarAds showAds={screen === 'home' || screen === 'question'}>
+        <AnimatePresence mode="wait">
+          {screen === 'home' && (
             <Home key="home" onStart={handleStart} />
-          </LayoutWithSidebarAds>
-        )}
+          )}
 
-        {screen === 'gender' && (
-          <GenderSelect key="gender" onSelect={handleGenderSelect} />
-        )}
+          {screen === 'gender' && (
+            <GenderSelect key="gender" onSelect={handleGenderSelect} />
+          )}
 
-        {screen === 'question' && currentQuestion && (
-          <LayoutWithSidebarAds key="question-wrapper" showAds={true}>
+          {screen === 'question' && currentQuestion && (
             <Question
               key={`question-${currentQuestion.id}`}
               question={currentQuestion}
@@ -185,17 +183,17 @@ function App() {
               totalQuestions={questions.length}
               onAnswer={handleAnswer}
             />
-          </LayoutWithSidebarAds>
-        )}
+          )}
 
-        {screen === 'loading' && (
-          <Loading key="loading" onComplete={handleLoadingComplete} />
-        )}
+          {screen === 'loading' && (
+            <Loading key="loading" onComplete={handleLoadingComplete} />
+          )}
 
-        {screen === 'result' && resultData && (
-          <Result key="result" result={resultData} gender={gender} onRestart={handleRestart} />
-        )}
-      </AnimatePresence>
+          {screen === 'result' && resultData && (
+            <Result key="result" result={resultData} gender={gender} onRestart={handleRestart} />
+          )}
+        </AnimatePresence>
+      </LayoutWithSidebarAds>
     </div>
   );
 }

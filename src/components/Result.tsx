@@ -12,8 +12,11 @@ declare global {
   }
 }
 
-// TODO: 카카오 디벨로퍼스에서 발급받은 JavaScript 키로 교체하세요
-const KAKAO_APP_KEY = '4570e75c05df4248b7729c5bd0bf94af';
+const KAKAO_APP_KEY = import.meta.env.VITE_KAKAO_APP_KEY;
+
+if (!KAKAO_APP_KEY) {
+  console.error('KAKAO_APP_KEY가 설정되지 않았습니다. .env 파일을 확인하세요.');
+}
 
 interface ResultProps {
   result: ResultType;
@@ -55,15 +58,25 @@ export default function Result({ result, gender, onRestart }: ResultProps) {
     initKakao();
   }, []);
 
-  const handleInstagramShare = () => {
+  const handleInstagramShare = async () => {
     // GA4 이벤트 추적
     analytics.trackInstagramShare(result.type as PersonalityType);
 
     const cleanDesc = result.description[0].replace(/\*\*/g, '');
     const shareText = `[밤BTI] 나의 결과: ${displayTitle} ${displayEmoji}\n${cleanDesc}\n\n당신도 테스트해보세요! ${window.location.origin}`;
 
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(shareText);
+    // 클립보드 복사 시도
+    try {
+      if (navigator.clipboard) {
+        await navigator.clipboard.writeText(shareText);
+        alert('📋 링크가 클립보드에 복사되었습니다!\n인스타그램 스토리에서 붙여넣으세요.');
+      } else {
+        // Fallback for browsers without clipboard API
+        alert('📋 다음 텍스트를 복사해주세요:\n\n' + shareText);
+      }
+    } catch (error) {
+      console.error('클립보드 복사 실패:', error);
+      alert('📋 클립보드 복사에 실패했습니다. 수동으로 복사해주세요.');
     }
 
     // 인스타그램 앱 열기
@@ -77,17 +90,17 @@ export default function Result({ result, gender, onRestart }: ResultProps) {
 
   const handleKakaoShare = () => {
     if (!window.Kakao) {
-      alert('카카오 SDK를 불러오지 못했습니다.');
+      alert('❌ 카카오 SDK를 불러오지 못했습니다.\n페이지를 새로고침 해주세요.');
       return;
     }
 
     if (!window.Kakao.isInitialized()) {
-      alert('카카오 SDK가 초기화되지 않았습니다.');
+      alert('❌ 카카오 SDK가 초기화되지 않았습니다.\n잠시 후 다시 시도해주세요.');
       return;
     }
 
     if (!window.Kakao.Share) {
-      alert('카카오 공유 기능을 사용할 수 없습니다. SDK 버전을 확인해주세요.');
+      alert('❌ 카카오 공유 기능을 사용할 수 없습니다.\n브라우저를 업데이트해주세요.');
       return;
     }
 
@@ -120,7 +133,7 @@ export default function Result({ result, gender, onRestart }: ResultProps) {
       });
     } catch (error) {
       console.error('카카오 공유 실패:', error);
-      alert('공유하기에 실패했습니다. 잠시 후 다시 시도해주세요.');
+      alert('❌ 공유하기에 실패했습니다.\n잠시 후 다시 시도해주세요.');
     }
   };
 
