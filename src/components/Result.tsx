@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import type { Result as ResultType, PersonalityType, Gender } from '../types';
 import { getProductsForType } from '../data/products';
+import { analytics } from '../utils/analytics';
 import AdBanner from './AdBanner';
 
 declare global {
@@ -54,6 +55,9 @@ export default function Result({ result, gender, onRestart }: ResultProps) {
   }, []);
 
   const handleInstagramShare = () => {
+    // GA4 이벤트 추적
+    analytics.trackInstagramShare(result.type as PersonalityType);
+
     const cleanDesc = result.description[0].replace(/\*\*/g, '');
     const shareText = `[밤BTI] 나의 결과: ${displayTitle} ${displayEmoji}\n${cleanDesc}\n\n당신도 테스트해보세요! ${window.location.origin}`;
 
@@ -87,6 +91,9 @@ export default function Result({ result, gender, onRestart }: ResultProps) {
     }
 
     try {
+      // GA4 이벤트 추적
+      analytics.trackKakaoShare(result.type as PersonalityType);
+
       const siteUrl = window.location.origin;
 
       window.Kakao.Share.sendDefault({
@@ -230,6 +237,7 @@ export default function Result({ result, gender, onRestart }: ResultProps) {
               href={product.link}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => analytics.trackProductClick(product.name, product.link, result.type as PersonalityType, index + 1)}
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 1.3 + index * 0.1 }}
