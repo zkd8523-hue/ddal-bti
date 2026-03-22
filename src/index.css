@@ -6,10 +6,16 @@
   --color-neon-pink: #F472B6;
 
   --animate-pulse-glow: pulse-glow 1.5s ease-in-out infinite;
+  --animate-border-glow: border-glow 3s ease-in-out infinite;
 
   @keyframes pulse-glow {
     0%, 100% { box-shadow: 0 0 15px rgba(168, 85, 247, 0.4); transform: scale(1); }
     50% { box-shadow: 0 0 30px rgba(236, 72, 153, 0.7); transform: scale(1.01); }
+  }
+
+  @keyframes border-glow {
+    0%, 100% { border-color: rgba(168, 85, 247, 0.5); box-shadow: 0 0 15px rgba(168, 85, 247, 0.2); }
+    50% { border-color: rgba(236, 72, 153, 0.6); box-shadow: 0 0 20px rgba(236, 72, 153, 0.3); }
   }
 }
 

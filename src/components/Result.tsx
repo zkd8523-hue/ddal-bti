@@ -254,7 +254,7 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 1.3 + index * 0.1 }}
-                className="flex items-center gap-3 p-4 md:gap-5 md:p-6 bg-gray-800 rounded-2xl border-2 border-neon-purple/50 shadow-[0_0_15px_rgba(157,78,221,0.2)] hover:shadow-[0_0_25px_rgba(157,78,221,0.5)] hover:border-neon-magenta transition-all duration-300 group"
+                className="flex items-center gap-3 p-4 md:gap-5 md:p-6 bg-gray-800 rounded-2xl border-2 border-neon-purple/50 animate-border-glow hover:shadow-[0_0_25px_rgba(157,78,221,0.5)] hover:border-neon-magenta transition-all duration-300 group"
               >
                 <div className="w-20 h-20 md:w-28 md:h-28 bg-gray-700 rounded-xl flex-shrink-0 flex items-center justify-center overflow-hidden border border-gray-600 shadow-inner">
                   {product.imageUrl ? (

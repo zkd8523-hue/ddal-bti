@@ -6,7 +6,7 @@ interface LoadingProps {
 }
 
 const loadingMessages = [
-  '당신의 밤 성향을 분석하는 중...',
+  '당신의 솔플 성향을 분석하는 중...',
   '숨겨진 패턴을 찾고 있어요...',
   '거의 다 됐어요! 🎉',
 ];
