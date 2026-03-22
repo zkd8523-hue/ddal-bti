@@ -527,11 +527,11 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
             </div>
 
             {/* 4. 별명 (폭주기관차 토끼 등) */}
-            <div className="text-center mb-10">
-              <h1 className="text-9xl font-black text-white neon-text mb-4 tracking-tight drop-shadow-2xl">
+            <div className="text-center mb-10 w-full px-4">
+              <h1 className="text-[100px] font-black text-white neon-text mb-6 tracking-tight drop-shadow-2xl whitespace-nowrap leading-tight">
                 {displayTitle}
               </h1>
-              <p className="text-4xl text-neon-pink font-bold italic tracking-wide opacity-90">
+              <p className="text-5xl text-neon-pink font-bold italic tracking-wide opacity-90 break-keep">
                 "{result.subtitle}"
               </p>
             </div>
