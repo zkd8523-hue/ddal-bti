@@ -24,7 +24,14 @@ export default function Question({
           <span>문제 {currentIndex + 1}</span>
           <span>{totalQuestions}개 중</span>
         </div>
-        <div className="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+        <div
+          className="w-full h-2 bg-gray-800 rounded-full overflow-hidden"
+          role="progressbar"
+          aria-valuenow={currentIndex + 1}
+          aria-valuemin={1}
+          aria-valuemax={totalQuestions}
+          aria-label={`${totalQuestions}개 중 ${currentIndex + 1}번째 문제`}
+        >
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}

@@ -4,6 +4,7 @@ import { toPng } from 'html-to-image';
 import type { Result as ResultType, PersonalityType, Gender } from '../types';
 import { getProductsForType } from '../data/products';
 import { analytics } from '../utils/analytics';
+import { isIOS, canUseWebShare, dataURLToBlob } from '../utils/deviceDetection';
 import AdBanner from './AdBanner';
 
 declare global {
@@ -137,18 +138,48 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
     setIsDownloading(true);
 
     try {
+      // 이미지를 data URL로 생성
       const dataUrl = await toPng(resultCardRef.current, {
         quality: 0.95,
         pixelRatio: 2,
         backgroundColor: '#1F2937',
       });
 
+      const fileName = `밤BTI-${result.type}-${displayTitle}.png`;
+
+      // iOS: Web Share API 사용
+      if (isIOS() && canUseWebShare()) {
+        try {
+          const blob = dataURLToBlob(dataUrl);
+          const file = new File([blob], fileName, { type: 'image/png' });
+
+          await navigator.share({
+            files: [file],
+            title: `밤BTI 결과: ${displayTitle}`,
+            text: `나의 밤BTI 결과는 "${displayTitle}" ${displayEmoji}`,
+          });
+
+          analytics.trackNativeShare(result.type as PersonalityType);
+          return;
+        } catch (shareError) {
+          // 사용자가 취소한 경우 조용히 처리
+          if ((shareError as Error).name === 'AbortError') {
+            console.log('사용자가 공유를 취소했습니다.');
+            return;
+          }
+          console.error('Web Share API 실패:', shareError);
+          // 폴백으로 계속 진행
+        }
+      }
+
+      // Android/Desktop: 기존 다운로드 방식
       const link = document.createElement('a');
-      link.download = `밤BTI-${result.type}-${displayTitle}.png`;
+      link.download = fileName;
       link.href = dataUrl;
       link.click();
 
       analytics.trackImageDownload(result.type as PersonalityType);
+
     } catch (error) {
       console.error('이미지 생성 실패:', error);
       alert('이미지 저장에 실패했습니다. 다시 시도해주세요.');
@@ -166,14 +197,23 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
       await navigator.clipboard.writeText(resultUrl);
       alert('✅ 링크가 복사되었습니다!');
       analytics.trackLinkCopy(result.type as PersonalityType);
-    } catch (error) {
-      const input = document.createElement('input');
-      input.value = resultUrl;
-      document.body.appendChild(input);
-      input.select();
-      document.execCommand('copy');
-      document.body.removeChild(input);
-      alert('✅ 링크가 복사되었습니다!');
+    } catch {
+      // Clipboard API 미지원 브라우저 fallback
+      const textarea = document.createElement('textarea');
+      textarea.value = resultUrl;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        alert('✅ 링크가 복사되었습니다!');
+        analytics.trackLinkCopy(result.type as PersonalityType);
+      } catch {
+        alert('링크 복사에 실패했습니다. 직접 복사해주세요:\n' + resultUrl);
+      }
+      document.body.removeChild(textarea);
     }
   };
 
@@ -238,15 +278,16 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
             </motion.h1>
           </div>
 
-          {/* 대표 이모지 */}
-          <motion.span
+          {/* 대표 캐릭터 이미지 */}
+          <motion.img
+            src={`/images/shares/${result.type}.png`}
+            alt={displayTitle}
+            onError={(e) => { e.currentTarget.style.display = 'none'; }}
             initial={{ scale: 0, rotate: -20 }}
             animate={{ scale: 1, rotate: 0 }}
             transition={{ delay: 0.5, type: 'spring', stiffness: 200 }}
-            className="text-6xl md:text-8xl select-none opacity-90 shrink-0 ml-4"
-          >
-            {displayEmoji}
-          </motion.span>
+            className="w-40 h-40 md:w-56 md:h-56 select-none opacity-90 shrink-0 ml-2 rounded-2xl object-cover"
+          />
         </div>
 
         {/* 특징 리스트 */}
@@ -306,7 +347,7 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
           className="w-full max-w-2xl mt-8"
         >
           <h3 className="text-lg font-bold text-gray-300 mb-4 break-keep">
-            🧩 [{displayTitle}]을 완성하는 마지막 퍼즐
+            같은 [{displayTitle}]들이 선택한 HOT템 !
           </h3>
           <div className="space-y-3">
             {products.map((product, index) => (
@@ -326,6 +367,7 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
                     <img
                       src={product.imageUrl}
                       alt={product.name}
+                      loading="lazy"
                       className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                       referrerPolicy="no-referrer"
                     />
@@ -343,7 +385,7 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
               </motion.a>
             ))}
           </div>
-          <p className="text-[10px] text-gray-600 mt-2 text-center">
+          <p className="text-[11px] text-gray-600 mt-2 text-center">
             이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다
           </p>
         </motion.div>
@@ -368,7 +410,7 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
                 disabled={isDownloading}
                 className="px-6 py-4 text-base font-bold bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full hover:shadow-2xl transition-all duration-300 disabled:opacity-50"
               >
-                {isDownloading ? '⏳ 생성 중...' : '📥 이미지 저장'}
+                {isDownloading ? '⏳ 생성 중...' : (isIOS() ? '📤 이미지 공유' : '📥 이미지 저장')}
               </button>
 
               <button

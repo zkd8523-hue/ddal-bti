@@ -19,9 +19,9 @@ export const results: Result[] = [
   },
   {
     type: 'VSAN',
-    title: '본능 100% 여우',
+    title: '본능 저격수 여우',
     emoji: '🦊',
-    femaleTitle: '본능 100% 여우',
+    femaleTitle: '본능 저격수 여우',
     femaleEmoji: '🦊',
     description: [
       '**썸네일**만 보고도 **직감적**으로 "이거다!" 싶으면 바로 달립니다.',
@@ -35,9 +35,9 @@ export const results: Result[] = [
   },
   {
     type: 'VSRT',
-    title: '안목 1티어 부엉이',
+    title: '명작 컬렉터 부엉이',
     emoji: '🦉',
-    femaleTitle: '안목 1티어 부엉이',
+    femaleTitle: '명작 컬렉터 부엉이',
     femaleEmoji: '🦉',
     description: [
       '나만의 확고한 취향. 수년 전 저장된 **"구관이 명관"** 리스트 멤버십 회원.',

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bam-bti.vercel.app/sitemap.xml

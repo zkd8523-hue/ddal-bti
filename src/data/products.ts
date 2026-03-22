@@ -53,31 +53,31 @@ export const productsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   FSAT: [
-    { name: '수면용 초소형 노이즈차단 무선 이어폰', description: '옆으로 누워도 귀가 안 아픈 ASMR 몰입템', emoji: '🎧', link: '#' },
+    { name: '이넬릭서 바디스프레이 남자 향수 풀세트', description: '나만의 독특한 아우라를 완성하는, 상상력을 자극하는 세련된 향기', emoji: '💨', link: 'https://link.coupang.com/a/d9u8p5', imageUrl: '/images/bodyspray.png' },
     COMMON_GEL,
   ],
   FSAN: [
-    { name: '아로마 롤온 / 라벤더 오일', description: '뇌내 상상력의 촉각을 돕는 향기 테라피', emoji: '🌸', link: 'https://link.coupang.com/a/d8jMe5' },
+    { name: '아로마 롤온 / 라벤더 오일', description: '뇌내 상상력의 촉각을 돕는 향기 테라피', emoji: '🌸', link: 'https://link.coupang.com/a/d8jMe5', imageUrl: '/images/aroma.png' },
     COMMON_GEL,
   ],
   FSRT: [
-    { name: '맥세이프 스마트폰 바닥형 그립톡', description: '폰을 세워두고 두 손자유 상상 플레이를 위해', emoji: '📱', link: 'https://link.coupang.com/a/d8jM0f' },
+    { name: '맥세이프 스마트폰 바닥형 그립톡', description: '폰을 세워두고 두 손자유 상상 플레이를 위해', emoji: '📱', link: 'https://link.coupang.com/a/d8jM0f', imageUrl: '/images/griptok.png' },
     COMMON_GEL,
   ],
   FSRN: [
-    { name: '나그참파 인센스 스틱 & 홀더', description: '나만의 거룩하고 퓨어한 절간 냄새 세팅', emoji: '🥢', link: 'https://link.coupang.com/a/d8jNx0' },
+    { name: '나그참파 인센스 스틱 & 홀더', description: '나만의 거룩하고 퓨어한 절간 냄새 세팅', emoji: '🥢', link: 'https://link.coupang.com/a/d8jNx0', imageUrl: '/images/incense.png' },
     COMMON_GEL,
   ],
   FMAT: [
-    { name: '수면용 일회용 온열 안대', description: '눈을 감고 상상력을 증폭시키는 마법', emoji: '🎭', link: 'https://link.coupang.com/a/d8jOA9' },
+    { name: '수면용 일회용 온열 안대', description: '눈을 감고 상상력을 증폭시키는 마법', emoji: '🎭', link: 'https://link.coupang.com/a/d8jOA9', imageUrl: '/images/steam_eye.png' },
     COMMON_GEL,
   ],
   FMAN: [
-    { name: '초대형 U자 촉감 바디필로우', description: '혼자서 환상 여행을 할 때 껴안기 좋은 애착 파트너', emoji: '🫂', link: 'https://link.coupang.com/a/d8jN7S' },
+    { name: '초대형 U자 촉감 바디필로우', description: '혼자서 환상 여행을 할 때 껴안기 좋은 애착 파트너', emoji: '🫂', link: 'https://link.coupang.com/a/d8jN7S', imageUrl: '/images/Pillow.png' },
     COMMON_GEL,
   ],
   FMRT: [
-    { name: '일회용 수면 온열 안대 (12매입)', description: '눈이 눌리지 않는 쾌적한 100% 완전한 어둠', emoji: '🎭', link: 'https://link.coupang.com/a/d8jOA9' },
+    { name: '일회용 수면 온열 안대 (12매입)', description: '눈이 눌리지 않는 쾌적한 100% 완전한 어둠', emoji: '🎭', link: 'https://link.coupang.com/a/d8jOA9', imageUrl: '/images/steam_eye.png' },
     COMMON_GEL,
   ],
   FMRN: [
@@ -93,15 +93,15 @@ export const femaleProductsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   VSAT: [
-    { name: '홈플래닛 미니 무선 전동 마사지건', description: '파우치에 쏙 들어가는 트렌디한 짜릿함', emoji: '🔫', link: 'https://link.coupang.com/a/d8T2Bf' },
+    { name: '홈플래닛 미니 무선 전동 마사지건', description: '파우치에 쏙 들어가는 트렌디한 짜릿함', emoji: '🔫', link: 'https://link.coupang.com/a/d8T2Bf', imageUrl: '/images/massagegun.png' },
     COMMON_GEL,
   ],
   VSAN: [
-    { name: '1+1 닥터데이즈 마사지젤', description: '건조함 없이 촉촉한 본능적인 마무리', emoji: '💧', link: 'https://link.coupang.com/a/d8T5gy' },
+    { name: '1+1 닥터데이즈 마사지젤', description: '건조함 없이 촉촉한 본능적인 마무리', emoji: '💧', link: 'https://link.coupang.com/a/d8T5gy', imageUrl: '/images/massagegel.png' },
     COMMON_GEL,
   ],
   VSRT: [
-    { name: '디센느 스탠드 태블릿 핸드폰 거치대', description: '양손의 완벽한 자유를 선사하는 확실한 도구', emoji: '📱', link: 'https://link.coupang.com/a/d8T5DR' },
+    { name: '디센느 스탠드 태블릿 핸드폰 거치대', description: '양손의 완벽한 자유를 선사하는 확실한 도구', emoji: '📱', link: 'https://link.coupang.com/a/d8T5DR', imageUrl: '/images/tab_holder.png' },
     COMMON_GEL,
   ],
   VSRN: [
@@ -112,7 +112,7 @@ export const femaleProductsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   VMAN: [
-    { name: 'VANKYO 스마트폰 미러링 미니 빔 프로젝터', description: '작은 화면은 답답하니까, 룸 스케일 프라이빗 영화관', emoji: '📽️', link: 'https://link.coupang.com/a/d8T6OL' },
+    { name: 'VANKYO 스마트폰 미러링 미니 빔 프로젝터', description: '작은 화면은 답답하니까, 룸 스케일 프라이빗 영화관', emoji: '📽️', link: 'https://link.coupang.com/a/d8T6OL', imageUrl: '/images/minibeam.png' },
     COMMON_GEL,
   ],
   VMRT: [
@@ -120,23 +120,23 @@ export const femaleProductsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   VMRN: [
-    { name: '우드윅 미니자 스콜자 캔들', description: '흔들리는 불꽃과 향기로 채우는 로맨스의 극대화', emoji: '🕯️', link: 'https://link.coupang.com/a/d8T7YL' },
+    { name: '우드윅 미니자 스콜자 캔들', description: '흔들리는 불꽃과 향기로 채우는 로맨스의 극대화', emoji: '🕯️', link: 'https://link.coupang.com/a/d8T7YL', imageUrl: '/images/candle.png' },
     COMMON_GEL,
   ],
   FSAT: [
-    { name: '입문용 짜릿 안대', description: '상상력을 현실의 스킨십으로 끌어오는 마법', emoji: '🎭', link: 'https://link.coupang.com/a/d8T9bR' },
+    { name: '입문용 두근두근 안대', description: '상상력을 현실의 스킨십으로 끌어오는 마법', emoji: '🎭', link: 'https://link.coupang.com/a/d8T9bR', imageUrl: '/images/eyemask_sexy.png' },
     COMMON_GEL,
   ],
   FSAN: [
-    { name: '살냄새 매혹 고체향수', description: '피부 체온에 녹아 즉각 상상력을 유발하는 아찔함', emoji: '🌸', link: 'https://link.coupang.com/a/d8T9yG' },
+    { name: '살냄새 매혹 고체향수', description: '피부 체온에 녹아 즉각 상상력을 유발하는 아찔함', emoji: '🌸', link: 'https://link.coupang.com/a/d8T9yG', imageUrl: '/images/perfume_solid.png' },
     COMMON_GEL,
   ],
   FSRT: [
-    { name: '로맨틱 실크 새틴 슬립 파자마 원피스', description: '맨살에 스치기만 해도 기분 좋은 실크의 촉감', emoji: '🕊️', link: 'https://link.coupang.com/a/d8T93v' },
+    { name: '로맨틱 실크 새틴 슬립 파자마 원피스', description: '맨살에 스치기만 해도 기분 좋은 실크의 촉감', emoji: '🕊️', link: 'https://link.coupang.com/a/d8T93v', imageUrl: '/images/pajamas.png' },
     COMMON_GEL,
   ],
   FSRN: [
-    { name: '해피스팀 아로마 온열 안대', description: '따뜻한 온기와 아로마 향으로 극대화되는 뇌내 비행', emoji: '♨️', link: 'https://link.coupang.com/a/d8UarR' },
+    { name: '해피스팀 아로마 온열 안대', description: '따뜻한 온기와 아로마 향으로 극대화되는 뇌내 비행', emoji: '♨️', link: 'https://link.coupang.com/a/d8UarR', imageUrl: '/images/steam_eye.png' },
     COMMON_GEL,
   ],
   FMAT: [
