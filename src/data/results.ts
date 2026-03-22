@@ -3,10 +3,10 @@ import type { Result } from '../types';
 export const results: Result[] = [
   {
     type: 'VSAT',
-    title: '하이테크 폭주기관차',
-    emoji: '🚀',
-    femaleTitle: '도파민 얼리어답터',
-    femaleEmoji: '💅',
+    title: '폭주기관차 토끼',
+    emoji: '🐰',
+    femaleTitle: '폭주기관차 토끼',
+    femaleEmoji: '🐰',
     description: [
       '눈으로 직접 확인되는 확실한 자극을 사랑하는 **비주얼 중독자**.',
       '분위기 잡는 시간은 아깝다! **5분 컷**도 가능한 **속전속결** 실력파.',
@@ -19,10 +19,10 @@ export const results: Result[] = [
   },
   {
     type: 'VSAN',
-    title: '1분 컷 스나이퍼',
-    emoji: '🎯',
-    femaleTitle: '본능적 쾌락주의자',
-    femaleEmoji: '🐆',
+    title: '본능 100% 여우',
+    emoji: '🦊',
+    femaleTitle: '본능 100% 여우',
+    femaleEmoji: '🦊',
     description: [
       '**썸네일**만 보고도 **직감적**으로 "이거다!" 싶으면 바로 달립니다.',
       '길게 끄는 것은 질색. **하이라이트만 쏙쏙** 빼먹는 놀라운 **스킵 능력**의 소유자.',
@@ -35,10 +35,10 @@ export const results: Result[] = [
   },
   {
     type: 'VSRT',
-    title: '믿보영상 감별사',
-    emoji: '🧐',
-    femaleTitle: '실패 없는 큐레이터',
-    femaleEmoji: '🍷',
+    title: '안목 1티어 부엉이',
+    emoji: '🦉',
+    femaleTitle: '안목 1티어 부엉이',
+    femaleEmoji: '🦉',
     description: [
       '나만의 확고한 취향. 수년 전 저장된 **"구관이 명관"** 리스트 멤버십 회원.',
       '하지만 장비 욕심은 커서, 똑같은 명작도 **VR이나 최신 기구**로 매번 색다르게 즐깁니다.',
@@ -51,10 +51,10 @@ export const results: Result[] = [
   },
   {
     type: 'VSRN',
-    title: '효율의 끝판왕',
-    emoji: '💯',
-    femaleTitle: '미니멀리스트',
-    femaleEmoji: '🤍',
+    title: '프로 효율러 고양이',
+    emoji: '😼',
+    femaleTitle: '프로 효율러 고양이',
+    femaleEmoji: '😼',
     description: [
       '내가 가장 사랑하는 픽, 즐겨 찾는 **특정 채널만** 주구장창 파고듭니다.',
       '번거로운 세팅이나 도구? 그딴 건 내게 사치. 오로지 **화면과 내 손 하나**면 충분합니다.',
@@ -67,10 +67,10 @@ export const results: Result[] = [
   },
   {
     type: 'VMAT',
-    title: '방구석 일론머스크',
-    emoji: '💡',
-    femaleTitle: '무드 디렉터',
-    femaleEmoji: '🕯️',
+    title: '방구석 무드디렉터 베어',
+    emoji: '🐻',
+    femaleTitle: '방구석 무드디렉터 베어',
+    femaleEmoji: '🐻',
     description: [
       '온갖 조명, 향기, 젤, 진동 기구까지 **모든 세팅이 완벽**해야 출항합니다.',
       '매번 새롭고 강렬한 **시각적 충격**을 찾아 방대한 영해를 헤매는 **항해사**.',
@@ -83,10 +83,10 @@ export const results: Result[] = [
   },
   {
     type: 'VMAN',
-    title: '도파민 미어캣',
-    emoji: '🔍',
-    femaleTitle: '도파민 서퍼',
-    femaleEmoji: '🌊',
+    title: '도파민 서퍼 미어캣',
+    emoji: '🦦',
+    femaleTitle: '도파민 서퍼 미어캣',
+    femaleEmoji: '🦦',
     description: [
       '모니터에 수많은 탭을 띄워 놓고 한 편의 작품을 고르듯 아주 **신중**합니다.',
       '사실 본 게임보다 마음에 드는 **영상을 찾는 디깅** 자체가 더 짜릿합니다.',
@@ -99,10 +99,10 @@ export const results: Result[] = [
   },
   {
     type: 'VMRT',
-    title: '은밀한 오마카세',
-    emoji: '🍣',
-    femaleTitle: '시크릿 소믈리에',
-    femaleEmoji: '🥂',
+    title: '침대 위 미식가 펭귄',
+    emoji: '🐧',
+    femaleTitle: '침대 위 미식가 펭귄',
+    femaleEmoji: '🐧',
     description: [
       '내가 가장 사랑하는 **"클래식 명작"**을 띄우며 경건하게 사전 준비를 합니다.',
       '이 순간을 위해 영혼까지 끌어 모아 공수한 **애착 장비**가 필수입니다.',
@@ -115,10 +115,10 @@ export const results: Result[] = [
   },
   {
     type: 'VMRN',
-    title: '사골국 장인',
-    emoji: '🍲',
-    femaleTitle: '지독한 로맨티스트',
-    femaleEmoji: '💌',
+    title: '사골국 순정 판다',
+    emoji: '🐼',
+    femaleTitle: '사골국 순정 판다',
+    femaleEmoji: '🐼',
     description: [
       '항상 보던 **"그 영상"**을 틀어두면 마음의 평화와 **이너피스(Inner Peace)**가 찾아옵니다.',
       '수많은 신문물이 쏟아져도 오직 **맨몸의 퓨어한 감각** 하나로 버티는 뚝심.',
@@ -131,10 +131,10 @@ export const results: Result[] = [
   },
   {
     type: 'FSAT',
-    title: '풀착장 망상가',
-    emoji: '🧠',
-    femaleTitle: '멀티버스 감독',
-    femaleEmoji: '🎬',
+    title: '풀착장 우주 퍼그',
+    emoji: '🐶',
+    femaleTitle: '풀착장 우주 퍼그',
+    femaleEmoji: '🐶',
     description: [
       '텍스트, 오디오 혹은 **순수한 뇌내 망상**만으로도 충분히 에베레스트 정상에 오릅니다.',
       '이 뛰어난 상상력을 폭발적으로 증폭시켜 줄 **"기계의 힘"**을 아주 똑똑하게 빌립니다.',
@@ -147,10 +147,10 @@ export const results: Result[] = [
   },
   {
     type: 'FSAN',
-    title: '전두엽 풀악셀',
-    emoji: '⚡',
-    femaleTitle: '찰나의 몽상가',
-    femaleEmoji: '💫',
+    title: '전두엽 풀악셀 치타',
+    emoji: '🐆',
+    femaleTitle: '전두엽 풀악셀 치타',
+    femaleEmoji: '🐆',
     description: [
       '화려한 영상보다 나의 톡톡 튀는 **19금 상상력** 한 번이 100배 더 짜릿합니다.',
       '매번 다른 상황극, 복잡한 인물 관계를 머릿속에서 **즉석으로 짜내는 명감독**.',
@@ -163,10 +163,10 @@ export const results: Result[] = [
   },
   {
     type: 'FSRT',
-    title: '템빨 연금술사',
-    emoji: '🧪',
-    femaleTitle: '시크릿 마법사',
-    femaleEmoji: '🔮',
+    title: '템빨 마법사 댕댕이',
+    emoji: '🐕',
+    femaleTitle: '템빨 마법사 댕댕이',
+    femaleEmoji: '🐕',
     description: [
       '언제나 마음속 한편엔 **"가장 완벽한 그 상황"**이라는 나만의 **치트키 망상**을 품고 있습니다.',
       '비장의 **루틴 시나리오**를 틀고, 아껴둔 **스페셜 아이템(버프)**까지 곁들여 최단 시간 기록을 깹니다.',
@@ -179,10 +179,10 @@ export const results: Result[] = [
   },
   {
     type: 'FSRN',
-    title: '자연인 망상러',
-    emoji: '🍃',
-    femaleTitle: '순수 감각파',
-    femaleEmoji: '🕊️',
+    title: '자연인 몽상가 나무늘보',
+    emoji: '🦥',
+    femaleTitle: '자연인 몽상가 나무늘보',
+    femaleEmoji: '🦥',
     description: [
       '내 머릿속 **데이터센터**에는 나만을 위한 **최고의 시나리오**가 저장되어 있습니다.',
       '불필요하고 자극적인 외부 매체는 배제하고 **내 몸과 상상력**만이 만들어내는 **순수함**에 집중합니다.',
@@ -195,10 +195,10 @@ export const results: Result[] = [
   },
   {
     type: 'FMAT',
-    title: '세계관 창조주',
-    emoji: '🌌',
-    femaleTitle: '로맨스 판타지 여주인공',
-    femaleEmoji: '🏰',
+    title: '세계관 창조주 고양이',
+    emoji: '🐈',
+    femaleTitle: '세계관 창조주 고양이',
+    femaleEmoji: '🐈',
     description: [
       '머릿속 **판타지와 복잡한 상황극**을 현실로 끌어오기 위해 방을 수상한 아이템들로 도배합니다.',
       '시간이 얼마나 걸리든, 이 장기전의 모든 **디테일(감촉, 설정, 사운드)**을 하나하나 다 맛봅니다.',
@@ -211,10 +211,10 @@ export const results: Result[] = [
   },
   {
     type: 'FMAN',
-    title: '무한리필 몽상가',
-    emoji: '☁️',
-    femaleTitle: '끝없는 시나리오 작가',
-    femaleEmoji: '✍️',
+    title: '무한리필 몽상가 햄스터',
+    emoji: '🐹',
+    femaleTitle: '무한리필 몽상가 햄스터',
+    femaleEmoji: '🐹',
     description: [
       '눈을 감고 **상상의 늪**에 빠지면 **두 시간**도 모자랍니다. 침대가 우주선이 된 기분이죠.',
       '어제는 로맨틱, 오늘은 스릴러! 매일매일 머릿속 **넷플릭스 세계관**이 다이나믹하게 돌변합니다.',
@@ -227,10 +227,10 @@ export const results: Result[] = [
   },
   {
     type: 'FMRT',
-    title: '뇌내 망상 끝판왕',
-    emoji: '👑',
-    femaleTitle: '애착 서사 덕후',
-    femaleEmoji: '📖',
+    title: '망상 끝판왕 사자',
+    emoji: '🦁',
+    femaleTitle: '망상 끝판왕 사자',
+    femaleEmoji: '🦁',
     description: [
       '수백 번을 돌려 상상해 본 **"나만의 완벽한 시나리오"**를 마치 어제 본 것처럼 또 음미합니다.',
       '**상상력의 한계를 돌파**하게 해주는 **애착 장비**가 함께라면 세상에 부러운 것이 없습니다.',
@@ -243,10 +243,10 @@ export const results: Result[] = [
   },
   {
     type: 'FMRN',
-    title: '슬로우 모션 장인',
-    emoji: '🦄',
-    femaleTitle: '감정선 장인',
-    femaleEmoji: '🥀',
+    title: '슬로우 모션 거북이',
+    emoji: '🐢',
+    femaleTitle: '슬로우 모션 거북이',
+    femaleEmoji: '🐢',
     description: [
       '모니터나 자극적인 도구가 굳이 왜 필요한가? 나에게는 **무적의 상상력**과 **소나무 같은 취향**이 있는데.',
       '익숙한 상상 속 등장인물들에 한참 **감정에 이입**하며, 아주 **느리고 로맨틱한** 시간을 보냅니다.',
