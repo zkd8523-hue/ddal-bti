@@ -25,18 +25,17 @@ export default function Home({ onStart }: HomeProps) {
         initial={{ y: -30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.8, duration: 0.7 }}
-        className="text-xl md:text-2xl text-gray-300 mb-4 text-center break-keep"
+        className="text-xl md:text-2xl text-gray-300 mb-6 text-center break-keep"
       >
-        16가지 은밀한 취향 테스트
+        16가지 은밀한 취향
       </motion.p>
 
       <motion.p
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 1.3, duration: 0.7 }}
-        className="text-lg md:text-xl text-neon-purple mb-12 text-center max-w-md break-keep"
+        className="text-lg md:text-xl text-neon-purple mb-12 text-center max-w-sm break-keep leading-relaxed"
       >
-        당신의 은밀한 취향,<br />
         12문제로 완벽 분석
       </motion.p>
 
