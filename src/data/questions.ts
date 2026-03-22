@@ -59,7 +59,7 @@ export const questions: Question[] = [
   {
     id: 5,
     axis: 2,
-    question: '의식(?)을 시작할 때, 당신의 스타일은?',
+    question: '의식을 시작할 때, 당신의 스타일은?',
     optionA: {
       text: '🔥 바로 본론 직진, 워밍업 따위 필요 없다',
       point: 'S'
@@ -87,13 +87,13 @@ export const questions: Question[] = [
   {
     id: 7,
     axis: 3,
-    question: '검색창에 뭘 치는 편이야?',
+    question: '판타지 속 나의 포지션은?',
     optionA: {
-      text: '🎢 매번 새로운 키워드를 실험한다',
+      text: '🎭 매번 다른 역할을 시도해본다',
       point: 'A'
     },
     optionB: {
-      text: '🏡 늘 치던 그 검색어가 있다',
+      text: '👑 나만의 확고한 포지션이 있다',
       point: 'R'
     }
   },

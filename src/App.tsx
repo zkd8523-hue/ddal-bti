@@ -13,6 +13,22 @@ import { initGA, analytics } from './utils/analytics';
 import type { Screen, Answer, PersonalityType, Gender } from './types';
 
 const getInitialState = () => {
+  // URL 쿼리 파라미터로 공유된 결과인지 확인
+  const params = new URLSearchParams(window.location.search);
+  const sharedType = params.get('type');
+  const sharedGender = params.get('gender');
+
+  if (sharedType) {
+    return {
+      screen: 'result' as Screen,
+      currentQuestionIndex: 0,
+      answers: [],
+      resultType: sharedType as PersonalityType,
+      gender: (sharedGender as Gender) || null,
+      isShared: true
+    };
+  }
+
   try {
     const saved = sessionStorage.getItem('appState');
     if (saved) {
@@ -26,7 +42,8 @@ const getInitialState = () => {
     currentQuestionIndex: 0,
     answers: [],
     resultType: null,
-    gender: null
+    gender: null,
+    isShared: false
   };
 };
 
@@ -52,6 +69,9 @@ function App() {
 
   // 성별 정보
   const [gender, setGender] = useState<Gender | null>(initialState.gender || null);
+
+  // 공유받은 결과인지 여부
+  const [isShared] = useState<boolean>(initialState.isShared || false);
 
   // 상태가 변경될 때마다 sessionStorage에 저장하여, 앱 전환 후 새로고침 되어도 유지되도록 함
   useEffect(() => {
@@ -190,7 +210,7 @@ function App() {
           )}
 
           {screen === 'result' && resultData && (
-            <Result key="result" result={resultData} gender={gender} onRestart={handleRestart} />
+            <Result key="result" result={resultData} gender={gender} isShared={isShared} onRestart={handleRestart} />
           )}
         </AnimatePresence>
       </LayoutWithSidebarAds>
