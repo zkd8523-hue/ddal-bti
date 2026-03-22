@@ -17,9 +17,9 @@ export default function GenderSelect({ onSelect }: GenderSelectProps) {
         initial={{ y: -30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.3 }}
-        className="text-3xl md:text-4xl font-bold text-center mb-12 neon-text"
+        className="text-2xl md:text-4xl font-bold text-center mb-12 neon-text break-keep leading-relaxed px-4"
       >
-        당신의 성별을 선택해주세요
+        솔플을 즐기는 당신의 성별은?
       </motion.h2>
 
       <div className="w-full max-w-md space-y-4">
