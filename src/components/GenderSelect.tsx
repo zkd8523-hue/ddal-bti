@@ -31,10 +31,10 @@ export default function GenderSelect({ onSelect }: GenderSelectProps) {
           whileHover={{ scale: 1.02, x: 10 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => onSelect('male')}
-          className="w-full p-6 text-left text-lg bg-gray-800 hover:bg-gray-750 rounded-xl border-2 border-transparent hover:border-neon-purple transition-all duration-200"
+          className="w-full p-6 text-left text-lg bg-gray-800 hover:bg-gray-750 rounded-2xl border-2 border-transparent hover:border-neon-purple transition-all duration-200 group flex items-center shadow-lg"
         >
-          <span className="text-2xl mr-3">👨</span>
-          남성
+          <span className="text-3xl mr-4 group-hover:scale-110 transition-transform">🤴</span>
+          <span className="font-bold text-gray-200 group-hover:text-white">남성</span>
         </motion.button>
 
         {/* 여성 버튼 */}
@@ -45,10 +45,10 @@ export default function GenderSelect({ onSelect }: GenderSelectProps) {
           whileHover={{ scale: 1.02, x: 10 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => onSelect('female')}
-          className="w-full p-6 text-left text-lg bg-gray-800 hover:bg-gray-750 rounded-xl border-2 border-transparent hover:border-neon-magenta transition-all duration-200"
+          className="w-full p-6 text-left text-lg bg-gray-800 hover:bg-gray-750 rounded-2xl border-2 border-transparent hover:border-neon-magenta transition-all duration-200 group flex items-center shadow-lg"
         >
-          <span className="text-2xl mr-3">👩</span>
-          여성
+          <span className="text-3xl mr-4 group-hover:scale-110 transition-transform">👸</span>
+          <span className="font-bold text-gray-200 group-hover:text-white">여성</span>
         </motion.button>
       </div>
 
