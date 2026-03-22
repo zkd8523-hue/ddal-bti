@@ -6,6 +6,8 @@ import { getProductsForType } from '../data/products';
 import { analytics } from '../utils/analytics';
 import { isIOS, canUseWebShare, dataURLToBlob } from '../utils/deviceDetection';
 import AdBanner from './AdBanner';
+import GoogleAdBanner from './GoogleAdBanner';
+const RESULT_HORIZONTAL_AD_SLOT_ID = '2924839631'; // FIXME: 실제 가로형 광고 슬롯 ID로 교체 필요
 
 declare global {
   interface Window {
@@ -412,8 +414,16 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
         </motion.div>
       )}
 
-      {/* 배너 광고 영역 (공유받은 결과에서는 숨김) */}
-      {!isShared && <AdBanner variant="result" />}
+      {/* 광고 영역 (공유받은 결과에서는 숨김) */}
+      {!isShared && (
+        <div className="w-full max-w-2xl mt-8">
+          {/* 구글 애드센스 가로 배너 */}
+          <GoogleAdBanner adSlot={RESULT_HORIZONTAL_AD_SLOT_ID} />
+          
+          {/* 쿠팡 파트너스 배너 */}
+          <AdBanner variant="result" />
+        </div>
+      )}
 
       {/* 버튼 영역 */}
       <motion.div
