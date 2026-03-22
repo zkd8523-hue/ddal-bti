@@ -440,35 +440,35 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
         {!isShared && (
           <>
             {/* 이미지 저장 & 링크 복사 */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3 md:gap-4">
               <button
                 onClick={handleDownloadImage}
                 disabled={isDownloading}
-                className="px-6 py-4 text-base font-bold bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full hover:shadow-2xl transition-all duration-300 disabled:opacity-50"
+                className="px-2 md:px-6 py-4 text-sm md:text-base font-bold bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full hover:shadow-2xl transition-all duration-300 disabled:opacity-50 whitespace-nowrap overflow-hidden text-ellipsis"
               >
-                {isDownloading ? '⏳ 생성 중...' : (isIOS() ? '📤 이미지 공유' : '📥 이미지 저장')}
+                {isDownloading ? '⏳ 생성 중' : (isIOS() ? '📤 이미지 공유' : '📥 이미지 저장')}
               </button>
 
               <button
                 onClick={handleCopyLink}
-                className="px-6 py-4 text-base font-bold bg-gray-700 text-white rounded-full hover:shadow-2xl transition-all duration-300"
+                className="px-2 md:px-6 py-4 text-sm md:text-base font-bold bg-gray-700 text-white rounded-full hover:shadow-2xl transition-all duration-300 whitespace-nowrap overflow-hidden text-ellipsis"
               >
                 🔗 링크 복사
               </button>
             </div>
 
             {/* 카카오톡 & X 공유 */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3 md:gap-4">
               <button
                 onClick={handleKakaoShare}
-                className="px-6 py-4 text-base font-bold bg-[#FEE500] text-[#191919] rounded-full hover:shadow-2xl transition-all duration-300"
+                className="px-2 md:px-6 py-4 text-sm md:text-base font-bold bg-[#FEE500] text-[#191919] rounded-full hover:shadow-2xl transition-all duration-300 whitespace-nowrap overflow-hidden text-ellipsis"
               >
                 💬 카카오톡
               </button>
 
               <button
                 onClick={handleTwitterShare}
-                className="px-6 py-4 text-base font-bold bg-black text-white rounded-full hover:shadow-2xl transition-all duration-300"
+                className="px-2 md:px-6 py-4 text-sm md:text-base font-bold bg-black text-white rounded-full hover:shadow-2xl transition-all duration-300 whitespace-nowrap overflow-hidden text-ellipsis"
               >
                 🐦 X 공유
               </button>
