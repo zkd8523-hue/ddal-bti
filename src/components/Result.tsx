@@ -94,6 +94,7 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
       analytics.trackKakaoShare(result.type as PersonalityType);
 
       const siteUrl = window.location.origin;
+      const imageUrlHost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'https://bam-bti.vercel.app' : siteUrl;
       const resultUrl = `${siteUrl}/?type=${result.type}${gender ? `&gender=${gender}` : ''}`;
 
       window.Kakao.Share.sendDefault({
@@ -101,7 +102,7 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
         content: {
           title: `[밤BTI] 나의 결과: ${displayTitle} ${displayEmoji}`,
           description: result.description[0].replace(/\*\*/g, ''),
-          imageUrl: `${siteUrl}/images/shares/${result.type}.png`,
+          imageUrl: `${imageUrlHost}/images/shares/${result.type}.png?v=2`,
           link: {
             mobileWebUrl: resultUrl,
             webUrl: resultUrl,
