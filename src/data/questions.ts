@@ -5,7 +5,7 @@ export const questions: Question[] = [
   {
     id: 1,
     axis: 1,
-    question: '경건하고 거룩한(?) 의식을 치르기 전, 나의 사전 세팅은?',
+    question: '혼자만의 은밀한 의식(?)을 치르기 전, 나의 사전 세팅은?',
     optionA: {
       text: '🕯️ 조명부터 소품까지 완벽 세팅',
       point: 'V'
@@ -141,9 +141,9 @@ export const questions: Question[] = [
   {
     id: 11,
     axis: 4,
-    question: '새 제품 출시 소식을 들었을 때?',
+    question: '쿠팡에서 19금 아이템 추천이 뜨면?',
     optionA: {
-      text: '💳 바로 카트에 담는다',
+      text: '💳 일단 카트에 담고 본다',
       point: 'T'
     },
     optionB: {

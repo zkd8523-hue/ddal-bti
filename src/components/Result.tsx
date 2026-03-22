@@ -222,7 +222,7 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
                   {opposite && (
                     <>
                       <span className="text-gray-600">/</span>
-                      <span className="text-gray-600 opacity-40">{opposite}</span>
+                      <span className="text-gray-600 opacity-90">{opposite}</span>
                     </>
                   )}
                 </div>
