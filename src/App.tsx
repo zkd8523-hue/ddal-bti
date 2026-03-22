@@ -12,6 +12,12 @@ import { calculateResult } from './utils/calculateResult';
 import { initGA, analytics } from './utils/analytics';
 import type { Screen, Answer, PersonalityType, Gender } from './types';
 
+const clearUrlParams = () => {
+  const url = new URL(window.location.href);
+  url.search = '';
+  window.history.replaceState({}, '', url.toString());
+};
+
 const getInitialState = () => {
   // URL 쿼리 파라미터로 공유된 결과인지 확인
   const params = new URLSearchParams(window.location.search);
@@ -71,7 +77,7 @@ function App() {
   const [gender, setGender] = useState<Gender | null>(initialState.gender || null);
 
   // 공유받은 결과인지 여부
-  const [isShared] = useState<boolean>(initialState.isShared || false);
+  const [isShared, setIsShared] = useState<boolean>(initialState.isShared || false);
 
   // 상태가 변경될 때마다 sessionStorage에 저장하여, 앱 전환 후 새로고침 되어도 유지되도록 함
   useEffect(() => {
@@ -94,6 +100,8 @@ function App() {
   // 테스트 시작
   const handleStart = () => {
     analytics.trackTestStarted();
+    clearUrlParams();
+    setIsShared(false);
     setScreen('gender');
     setCurrentQuestionIndex(0);
     setAnswers([]);
@@ -150,6 +158,8 @@ function App() {
   // 테스트 재시작
   const handleRestart = () => {
     analytics.trackTestRestarted();
+    clearUrlParams();
+    setIsShared(false);
     setScreen('home');
     setCurrentQuestionIndex(0);
     setAnswers([]);

@@ -126,5 +126,49 @@ export const analytics = {
       result_type: resultType,
       position: position
     } as any);
+  },
+
+  // 이미지 다운로드
+  trackImageDownload: (resultType: PersonalityType) => {
+    ga4.event({
+      category: 'Share',
+      action: 'image_download',
+      label: resultType,
+      result_type: resultType,
+      share_platform: 'image'
+    } as any);
+  },
+
+  // 링크 복사
+  trackLinkCopy: (resultType: PersonalityType) => {
+    ga4.event({
+      category: 'Share',
+      action: 'link_copy',
+      label: resultType,
+      result_type: resultType,
+      share_platform: 'clipboard'
+    } as any);
+  },
+
+  // X(트위터) 공유
+  trackTwitterShare: (resultType: PersonalityType) => {
+    ga4.event({
+      category: 'Share',
+      action: 'twitter_share',
+      label: resultType,
+      result_type: resultType,
+      share_platform: 'twitter'
+    } as any);
+  },
+
+  // 네이티브 공유
+  trackNativeShare: (resultType: PersonalityType) => {
+    ga4.event({
+      category: 'Share',
+      action: 'native_share',
+      label: resultType,
+      result_type: resultType,
+      share_platform: 'native'
+    } as any);
   }
 };

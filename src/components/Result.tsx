@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import { toPng } from 'html-to-image';
 import type { Result as ResultType, PersonalityType, Gender } from '../types';
 import { getProductsForType } from '../data/products';
 import { analytics } from '../utils/analytics';
@@ -44,6 +45,10 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
 
   const displayTitle = gender === 'female' ? result.femaleTitle : result.title;
   const displayEmoji = gender === 'female' ? result.femaleEmoji : result.emoji;
+
+  // 이미지 저장을 위한 ref와 상태
+  const resultCardRef = useRef<HTMLDivElement>(null);
+  const [isDownloading, setIsDownloading] = useState(false);
 
   useEffect(() => {
     // SDK 로딩 대기 및 초기화
@@ -96,7 +101,7 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
         content: {
           title: `[밤BTI] 나의 결과: ${displayTitle} ${displayEmoji}`,
           description: result.description[0].replace(/\*\*/g, ''),
-          imageUrl: `${siteUrl}/og-image-v3.png`,
+          imageUrl: `${siteUrl}/images/shares/${result.type}.png`,
           link: {
             mobileWebUrl: resultUrl,
             webUrl: resultUrl,
@@ -125,6 +130,64 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
     }
   };
 
+  // 이미지 다운로드
+  const handleDownloadImage = async () => {
+    if (!resultCardRef.current) return;
+    setIsDownloading(true);
+
+    try {
+      const dataUrl = await toPng(resultCardRef.current, {
+        quality: 0.95,
+        pixelRatio: 2,
+        backgroundColor: '#1F2937',
+      });
+
+      const link = document.createElement('a');
+      link.download = `밤BTI-${result.type}-${displayTitle}.png`;
+      link.href = dataUrl;
+      link.click();
+
+      analytics.trackImageDownload(result.type as PersonalityType);
+    } catch (error) {
+      console.error('이미지 생성 실패:', error);
+      alert('이미지 저장에 실패했습니다. 다시 시도해주세요.');
+    } finally {
+      setIsDownloading(false);
+    }
+  };
+
+  // 링크 복사
+  const handleCopyLink = async () => {
+    const siteUrl = window.location.origin;
+    const resultUrl = `${siteUrl}/?type=${result.type}${gender ? `&gender=${gender}` : ''}`;
+
+    try {
+      await navigator.clipboard.writeText(resultUrl);
+      alert('✅ 링크가 복사되었습니다!');
+      analytics.trackLinkCopy(result.type as PersonalityType);
+    } catch (error) {
+      const input = document.createElement('input');
+      input.value = resultUrl;
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+      alert('✅ 링크가 복사되었습니다!');
+    }
+  };
+
+  // X 공유
+  const handleTwitterShare = () => {
+    const siteUrl = window.location.origin;
+    const resultUrl = `${siteUrl}/?type=${result.type}${gender ? `&gender=${gender}` : ''}`;
+    const text = `나의 밤BTI 결과는 "${displayTitle}" ${displayEmoji}\n\n`;
+
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(resultUrl)}`;
+    window.open(twitterUrl, '_blank');
+
+    analytics.trackTwitterShare(result.type as PersonalityType);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -144,6 +207,7 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
 
       {/* 결과 카드 */}
       <motion.div
+        ref={resultCardRef}
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.2 }}
@@ -295,12 +359,42 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
         className="w-full max-w-2xl mt-8 space-y-4"
       >
         {!isShared && (
-          <button
-            onClick={handleKakaoShare}
-            className="w-full px-8 py-4 text-lg font-bold bg-[#FEE500] text-[#191919] rounded-full hover:shadow-2xl transition-all duration-300"
-          >
-            💬 카카오톡으로 공유하기
-          </button>
+          <>
+            {/* 이미지 저장 & 링크 복사 */}
+            <div className="grid grid-cols-2 gap-4">
+              <button
+                onClick={handleDownloadImage}
+                disabled={isDownloading}
+                className="px-6 py-4 text-base font-bold bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full hover:shadow-2xl transition-all duration-300 disabled:opacity-50"
+              >
+                {isDownloading ? '⏳ 생성 중...' : '📥 이미지 저장'}
+              </button>
+
+              <button
+                onClick={handleCopyLink}
+                className="px-6 py-4 text-base font-bold bg-gray-700 text-white rounded-full hover:shadow-2xl transition-all duration-300"
+              >
+                🔗 링크 복사
+              </button>
+            </div>
+
+            {/* 카카오톡 & X 공유 */}
+            <div className="grid grid-cols-2 gap-4">
+              <button
+                onClick={handleKakaoShare}
+                className="px-6 py-4 text-base font-bold bg-[#FEE500] text-[#191919] rounded-full hover:shadow-2xl transition-all duration-300"
+              >
+                💬 카카오톡
+              </button>
+
+              <button
+                onClick={handleTwitterShare}
+                className="px-6 py-4 text-base font-bold bg-black text-white rounded-full hover:shadow-2xl transition-all duration-300"
+              >
+                🐦 X 공유
+              </button>
+            </div>
+          </>
         )}
 
         <button
