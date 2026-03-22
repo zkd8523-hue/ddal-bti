@@ -252,9 +252,22 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
         transition={{ delay: 0.2 }}
         className="w-full max-w-2xl bg-gray-800 rounded-2xl p-8 neon-border"
       >
-        {/* 헤더: 배지+타이틀+설명 (왼쪽) + 이미지 (오른쪽) */}
-        <div className="flex items-start justify-between gap-3 mb-6">
-          <div className="flex-1 min-w-0">
+        {/* 헤더: 배지+타이틀+설명 (모바일 세로, PC 가로) */}
+        <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-6 mb-8">
+          {/* 모바일에서는 이미지 먼저 (순서 변경용 md:order-last 등 사용 가능하지만 직관적으로 배치) */}
+          <div className="block md:hidden mb-2">
+            <motion.img
+              src={`/images/shares/${result.type}.png`}
+              alt={displayTitle}
+              onError={(e) => { e.currentTarget.style.display = 'none'; }}
+              initial={{ scale: 0, rotate: -20 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ delay: 0.5, type: 'spring', stiffness: 200 }}
+              className="w-48 h-48 select-none opacity-95 shrink-0 rounded-2xl object-cover shadow-2xl"
+            />
+          </div>
+
+          <div className="flex-1 min-w-0 w-full flex flex-col items-center md:items-start text-center md:text-left">
             {/* 타입 배지 */}
             <motion.div
               initial={{ y: -20, opacity: 0 }}
@@ -270,7 +283,7 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="text-3xl md:text-4xl font-bold neon-text break-keep mb-4"
+              className="text-4xl md:text-4xl font-bold neon-text break-keep mb-4"
             >
               {displayTitle}
             </motion.h1>
@@ -281,7 +294,7 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
                 initial={{ y: -10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.55 }}
-                className="text-sm text-gray-400 italic mb-4"
+                className="text-base md:text-sm text-gray-400 italic mb-6"
               >
                 "{result.subtitle}"
               </motion.p>
@@ -292,7 +305,7 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
               initial={{ y: 10, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.6 }}
-              className="space-y-2"
+              className="space-y-3 w-full"
             >
               {result.description.map((desc, index) => (
                 <motion.div
@@ -300,25 +313,27 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
                   initial={{ x: -20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: 0.7 + index * 0.1 }}
-                  className="flex items-start space-x-2"
+                  className="flex items-start space-x-2 text-left md:text-left"
                 >
-                  <span className="text-neon-purple text-sm mt-0.5 shrink-0">✦</span>
-                  <p className="text-gray-300 text-sm break-keep leading-relaxed">{renderBoldText(desc)}</p>
+                  <span className="text-neon-purple text-lg mt-0.5 shrink-0">✦</span>
+                  <p className="text-gray-300 text-base md:text-sm break-keep leading-relaxed">{renderBoldText(desc)}</p>
                 </motion.div>
               ))}
             </motion.div>
           </div>
 
-          {/* 대표 캐릭터 이미지 */}
-          <motion.img
-            src={`/images/shares/${result.type}.png`}
-            alt={displayTitle}
-            onError={(e) => { e.currentTarget.style.display = 'none'; }}
-            initial={{ scale: 0, rotate: -20 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{ delay: 0.5, type: 'spring', stiffness: 200 }}
-            className="w-36 h-36 md:w-48 md:h-48 select-none opacity-90 shrink-0 rounded-2xl object-cover"
-          />
+          {/* PC용 대표 캐릭터 이미지 (오른쪽 배치 고정) */}
+          <div className="hidden md:block">
+            <motion.img
+              src={`/images/shares/${result.type}.png`}
+              alt={displayTitle}
+              onError={(e) => { e.currentTarget.style.display = 'none'; }}
+              initial={{ scale: 0, rotate: -20 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ delay: 0.5, type: 'spring', stiffness: 200 }}
+              className="md:w-52 md:h-52 select-none opacity-95 shrink-0 rounded-2xl object-cover shadow-2xl"
+            />
+          </div>
         </div>
 
         {/* 축별 설명 */}
