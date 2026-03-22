@@ -493,40 +493,55 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
         <div
           ref={storyCardRef}
           style={{ width: '1080px', height: '1920px' }}
-          className="bg-[#111827] flex flex-col items-center justify-between p-20 relative overflow-hidden"
+          className="bg-[#0f172a] flex flex-col items-center justify-center p-20 relative overflow-hidden"
         >
-          {/* 배경 장식 */}
-          <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-neon-purple/20 rounded-full blur-[120px]" />
-          <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-neon-magenta/20 rounded-full blur-[120px]" />
+          {/* 배경 그라데이션 광효과 (더 몽환적으로) */}
+          <div className="absolute top-[-5%] left-[-10%] w-[800px] h-[800px] bg-neon-purple/30 rounded-full blur-[150px] animate-pulse" />
+          <div className="absolute bottom-[-5%] right-[-10%] w-[800px] h-[800px] bg-neon-magenta/30 rounded-full blur-[150px] animate-pulse" />
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" />
 
-          {/* 헤더 */}
-          <div className="z-10 text-center w-full">
-            <p className="text-3xl text-gray-400 mb-8 font-medium">나의 밤BTI 결과는?</p>
-            <div className="inline-block px-12 py-4 bg-gradient-to-r from-neon-purple to-neon-magenta rounded-full text-5xl font-black mb-8 shadow-2xl">
+          {/* 메인 콘텐츠 컨테이너 (중앙 집중형) */}
+          <div className="z-10 flex flex-col items-center w-full max-w-4xl">
+            {/* 1. 헤더: 나의 밤BTI 결과 */}
+            <p className="text-4xl text-gray-400 font-medium tracking-widest mb-4 opacity-80 uppercase">
+              My Bam-BTI Result
+            </p>
+            
+            {/* 2. 영문 타입 (FMAT 등) */}
+            <div className="text-[120px] font-black tracking-tighter leading-none mb-12 italic bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-gray-500 drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]">
               {result.type}
             </div>
-          </div>
 
-          {/* 메인 콘텐츠 */}
-          <div className="z-10 flex flex-col items-center w-full">
-            <div className="w-[600px] h-[600px] mb-12 relative">
-              <div className="absolute inset-0 bg-gradient-to-b from-neon-purple/20 to-neon-magenta/20 rounded-3xl blur-2xl" />
-              <img
-                src={`/images/shares/${result.type}.png`}
-                alt={displayTitle}
-                className="w-full h-full object-cover rounded-3xl shadow-2xl relative z-10 border-4 border-white/10"
-              />
+            {/* 3. 사진 (메인 캐릭터) */}
+            <div className="relative mb-14">
+              <div className="absolute inset-0 bg-gradient-to-tr from-neon-purple to-neon-magenta rounded-[40px] blur-3xl opacity-40 scale-110" />
+              <div className="relative w-[650px] h-[650px] rounded-[40px] overflow-hidden border-[6px] border-white/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.7)] group">
+                <img
+                  src={`/images/shares/${result.type}.png`}
+                  alt={displayTitle}
+                  className="w-full h-full object-cover scale-105"
+                />
+                {/* 비네팅 효과 */}
+                <div className="absolute inset-0 shadow-[inset_0_0_120px_rgba(0,0,0,0.6)]" />
+              </div>
             </div>
-            <h1 className="text-8xl font-black neon-text mb-6 text-center leading-tight">
-              {displayTitle}
-            </h1>
-            <p className="text-3xl text-gray-400 italic mb-12">"{result.subtitle}"</p>
-            
-            <div className="w-full space-y-6 px-10">
+
+            {/* 4. 별명 (폭주기관차 토끼 등) */}
+            <div className="text-center mb-10">
+              <h1 className="text-9xl font-black text-white neon-text mb-4 tracking-tight drop-shadow-2xl">
+                {displayTitle}
+              </h1>
+              <p className="text-4xl text-neon-pink font-bold italic tracking-wide opacity-90">
+                "{result.subtitle}"
+              </p>
+            </div>
+
+            {/* 5. 부연설명 (핵심 2-3개만) */}
+            <div className="w-full space-y-8 px-12 mt-4">
               {result.description.slice(0, 3).map((desc, index) => (
-                <div key={index} className="flex items-start space-x-4">
-                  <span className="text-neon-purple text-4xl mt-1 shrink-0">✦</span>
-                  <p className="text-gray-200 text-3xl font-medium leading-relaxed text-left break-keep">
+                <div key={index} className="flex items-center justify-center gap-6 bg-white/5 py-6 px-10 rounded-3xl border border-white/10 backdrop-blur-sm shadow-xl">
+                  <span className="text-neon-purple text-5xl">✦</span>
+                  <p className="text-[34px] text-gray-100 font-semibold leading-relaxed break-keep text-center">
                     {desc.replace(/\*\*/g, '')}
                   </p>
                 </div>
@@ -534,16 +549,9 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
             </div>
           </div>
 
-          {/* 푸터 */}
-          <div className="z-10 w-full flex flex-col items-center">
-            <div className="h-1 w-32 bg-gradient-to-r from-neon-purple to-neon-magenta rounded-full mb-10 opacity-50" />
-            <div className="flex items-center gap-4 bg-white/5 px-10 py-5 rounded-2xl border border-white/10">
-              <span className="text-4xl">🌙</span>
-              <p className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
-                밤BTI 테스트 검색
-              </p>
-            </div>
-            <p className="mt-8 text-2xl text-gray-500 font-medium">bam-bti.vercel.app</p>
+          {/* 깔끔한 하단 로고 느낌의 텍스트만 (삭제된 푸터 대신) */}
+          <div className="absolute bottom-20 z-10 opacity-30">
+            <p className="text-3xl font-light tracking-[1em] text-white">BAM-BTI.VERCEL.APP</p>
           </div>
         </div>
       </div>
