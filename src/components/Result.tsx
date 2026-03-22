@@ -49,6 +49,7 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
 
   // 이미지 저장을 위한 ref와 상태
   const resultCardRef = useRef<HTMLDivElement>(null);
+  const storyCardRef = useRef<HTMLDivElement>(null);
   const [isDownloading, setIsDownloading] = useState(false);
 
   useEffect(() => {
@@ -136,11 +137,15 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
     setIsDownloading(true);
 
     try {
-      // 이미지를 data URL로 생성
-      const dataUrl = await toPng(resultCardRef.current, {
+      // 인스타그램 스토리용 ref가 있으면 그것을, 없으면 기본 ref를 사용
+      const targetRef = storyCardRef.current || resultCardRef.current;
+      if (!targetRef) return;
+
+      // 이미지를 data URL로 생성 (인스타그램 스토리 비율 9:16 고려)
+      const dataUrl = await toPng(targetRef, {
         quality: 0.95,
-        pixelRatio: 2,
-        backgroundColor: '#1F2937',
+        pixelRatio: 3, // 고해상도를 위해 3으로 상향
+        backgroundColor: '#111827',
       });
 
       const fileName = `밤BTI-${result.type}-${displayTitle}.png`;
@@ -483,6 +488,65 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
           {isShared ? '🔥 나도 테스트하기' : '🔄 다시 테스트하기'}
         </button>
       </motion.div>
+      {/* 인스타그램 스토리용 숨겨진 카드 (이미지 저장 시에만 사용) */}
+      <div className="fixed left-[-9999px] top-[-9999px]">
+        <div
+          ref={storyCardRef}
+          style={{ width: '1080px', height: '1920px' }}
+          className="bg-[#111827] flex flex-col items-center justify-between p-20 relative overflow-hidden"
+        >
+          {/* 배경 장식 */}
+          <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-neon-purple/20 rounded-full blur-[120px]" />
+          <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-neon-magenta/20 rounded-full blur-[120px]" />
+
+          {/* 헤더 */}
+          <div className="z-10 text-center w-full">
+            <p className="text-3xl text-gray-400 mb-8 font-medium">나의 밤BTI 결과는?</p>
+            <div className="inline-block px-12 py-4 bg-gradient-to-r from-neon-purple to-neon-magenta rounded-full text-5xl font-black mb-8 shadow-2xl">
+              {result.type}
+            </div>
+          </div>
+
+          {/* 메인 콘텐츠 */}
+          <div className="z-10 flex flex-col items-center w-full">
+            <div className="w-[600px] h-[600px] mb-12 relative">
+              <div className="absolute inset-0 bg-gradient-to-b from-neon-purple/20 to-neon-magenta/20 rounded-3xl blur-2xl" />
+              <img
+                src={`/images/shares/${result.type}.png`}
+                alt={displayTitle}
+                className="w-full h-full object-cover rounded-3xl shadow-2xl relative z-10 border-4 border-white/10"
+              />
+            </div>
+            <h1 className="text-8xl font-black neon-text mb-6 text-center leading-tight">
+              {displayTitle}
+            </h1>
+            <p className="text-3xl text-gray-400 italic mb-12">"{result.subtitle}"</p>
+            
+            <div className="w-full space-y-6 px-10">
+              {result.description.slice(0, 3).map((desc, index) => (
+                <div key={index} className="flex items-start space-x-4">
+                  <span className="text-neon-purple text-4xl mt-1 shrink-0">✦</span>
+                  <p className="text-gray-200 text-3xl font-medium leading-relaxed text-left break-keep">
+                    {desc.replace(/\*\*/g, '')}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* 푸터 */}
+          <div className="z-10 w-full flex flex-col items-center">
+            <div className="h-1 w-32 bg-gradient-to-r from-neon-purple to-neon-magenta rounded-full mb-10 opacity-50" />
+            <div className="flex items-center gap-4 bg-white/5 px-10 py-5 rounded-2xl border border-white/10">
+              <span className="text-4xl">🌙</span>
+              <p className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
+                밤BTI 테스트 검색
+              </p>
+            </div>
+            <p className="mt-8 text-2xl text-gray-500 font-medium">bam-bti.vercel.app</p>
+          </div>
+        </div>
+      </div>
     </motion.div>
   );
 }
