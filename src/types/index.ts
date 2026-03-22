@@ -31,6 +31,7 @@ export interface Result {
   emoji: string; // 대표 이모지
   femaleTitle: string; // 여성용 캐릭터 별명
   femaleEmoji: string; // 여성용 대표 이모지
+  subtitle: string; // 한줄 태그라인
   description: string[]; // 특징 리스트
   imageUrl?: string; // 이미지 (추후 추가)
   traits: {

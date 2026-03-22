@@ -72,8 +72,6 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
     initKakao();
   }, []);
 
-
-
   const handleKakaoShare = () => {
     if (!window.Kakao) {
       alert('❌ 카카오 SDK를 불러오지 못했습니다.\n페이지를 새로고침 해주세요.');
@@ -254,15 +252,15 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
         transition={{ delay: 0.2 }}
         className="w-full max-w-2xl bg-gray-800 rounded-2xl p-8 neon-border"
       >
-        {/* 헤더: 배지+타이틀 (왼쪽) + 이모지 (오른쪽) */}
-        <div className="flex items-start justify-between mb-6">
-          <div>
+        {/* 헤더: 배지+타이틀+설명 (왼쪽) + 이미지 (오른쪽) */}
+        <div className="flex items-start justify-between gap-3 mb-6">
+          <div className="flex-1 min-w-0">
             {/* 타입 배지 */}
             <motion.div
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="inline-block px-6 py-2 bg-gradient-to-r from-neon-purple to-neon-magenta rounded-full text-xl font-bold mb-4"
+              className="inline-block px-6 py-2 bg-gradient-to-r from-neon-purple to-neon-magenta rounded-full text-xl font-bold mb-3"
             >
               {result.type}
             </motion.div>
@@ -272,10 +270,31 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="text-3xl md:text-4xl font-bold neon-text break-keep"
+              className="text-3xl md:text-4xl font-bold neon-text break-keep mb-4"
             >
               {displayTitle}
             </motion.h1>
+
+            {/* 특징 리스트 */}
+            <motion.div
+              initial={{ y: 10, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.6 }}
+              className="space-y-2"
+            >
+              {result.description.map((desc, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.7 + index * 0.1 }}
+                  className="flex items-start space-x-2"
+                >
+                  <span className="text-neon-purple text-sm mt-0.5 shrink-0">✦</span>
+                  <p className="text-gray-300 text-sm break-keep leading-relaxed">{renderBoldText(desc)}</p>
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
 
           {/* 대표 캐릭터 이미지 */}
@@ -286,30 +305,9 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
             initial={{ scale: 0, rotate: -20 }}
             animate={{ scale: 1, rotate: 0 }}
             transition={{ delay: 0.5, type: 'spring', stiffness: 200 }}
-            className="w-40 h-40 md:w-56 md:h-56 select-none opacity-90 shrink-0 ml-2 rounded-2xl object-cover"
+            className="w-36 h-36 md:w-48 md:h-48 select-none opacity-90 shrink-0 rounded-2xl object-cover"
           />
         </div>
-
-        {/* 특징 리스트 */}
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.6 }}
-          className="space-y-3 mb-8"
-        >
-          {result.description.map((desc, index) => (
-            <motion.div
-              key={index}
-              initial={{ x: -20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.7 + index * 0.1 }}
-              className="flex items-start space-x-3"
-            >
-              <span className="text-neon-purple text-xl">✦</span>
-              <p className="text-gray-300 break-keep leading-relaxed">{renderBoldText(desc)}</p>
-            </motion.div>
-          ))}
-        </motion.div>
 
         {/* 축별 설명 */}
         <motion.div
@@ -344,12 +342,16 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 1.2 }}
-          className="w-full max-w-2xl mt-8"
+          className="w-full max-w-2xl mt-12 mb-4"
         >
-          <h3 className="text-lg font-bold text-gray-300 mb-4 break-keep">
-            같은 [{displayTitle}]들이 선택한 HOT템 !
-          </h3>
-          <div className="space-y-3">
+          <div className="flex items-center gap-2 mb-6 px-1">
+            <span className="text-neon-purple animate-pulse">✨</span>
+            <h3 className="text-lg md:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 break-keep">
+              오직 [{displayTitle}]님만을 위한 특별한 추천
+            </h3>
+          </div>
+          
+          <div className="space-y-4">
             {products.map((product, index) => (
               <motion.a
                 key={index}
@@ -360,32 +362,39 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 1.3 + index * 0.1 }}
-                className="flex items-center gap-3 p-4 md:gap-5 md:p-6 bg-gray-800 rounded-2xl border-2 border-neon-purple/50 animate-border-glow hover:shadow-[0_0_25px_rgba(157,78,221,0.5)] hover:border-neon-magenta transition-all duration-300 group"
+                className="flex items-center gap-4 p-4 md:p-5 bg-white/[0.03] backdrop-blur-md rounded-2xl border border-white/10 hover:border-neon-purple/50 hover:bg-white/[0.06] transition-all duration-300 group relative overflow-hidden"
               >
-                <div className="w-20 h-20 md:w-28 md:h-28 bg-gray-700 rounded-xl flex-shrink-0 flex items-center justify-center overflow-hidden border border-gray-600 shadow-inner">
+                {/* 배경 광 효과 */}
+                <div className="absolute inset-0 bg-gradient-to-r from-neon-purple/0 via-neon-purple/5 to-neon-purple/0 opacity-0 group-hover:opacity-100 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                
+                <div className="w-20 h-20 md:w-24 md:h-24 bg-gray-800/50 rounded-xl flex-shrink-0 flex items-center justify-center overflow-hidden border border-white/5 shadow-xl transition-transform duration-500 group-hover:scale-105">
                   {product.imageUrl ? (
                     <img
                       src={product.imageUrl}
                       alt={product.name}
                       loading="lazy"
-                      className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                      className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
                       referrerPolicy="no-referrer"
                     />
                   ) : (
-                    <span className="text-4xl md:text-6xl transform group-hover:scale-110 transition-transform duration-500">{product.emoji}</span>
+                    <span className="text-4xl md:text-5xl transform group-hover:scale-110 transition-transform duration-500 opacity-90">{product.emoji}</span>
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-bold text-base md:text-xl text-white group-hover:text-neon-pink transition-colors line-clamp-2">
+                  <p className="font-bold text-base md:text-lg text-white group-hover:text-neon-purple transition-colors line-clamp-1">
                     {product.name}
                   </p>
-                  <p className="text-xs md:text-base text-gray-400 line-clamp-2 mt-1">{product.description}</p>
+                  <p className="text-xs md:text-sm text-gray-400 group-hover:text-gray-300 line-clamp-2 mt-1 font-light leading-relaxed">
+                    {product.description}
+                  </p>
                 </div>
-                <span className="text-gray-500 text-lg md:text-2xl group-hover:text-neon-purple transition-colors ml-1">→</span>
+                <div className="ml-2 flex items-center justify-center w-8 h-8 rounded-full bg-white/5 border border-white/10 group-hover:bg-neon-purple group-hover:text-white transition-all">
+                  <span className="text-sm font-bold opacity-70 group-hover:opacity-100">→</span>
+                </div>
               </motion.a>
             ))}
           </div>
-          <p className="text-[11px] text-gray-600 mt-2 text-center">
+          <p className="text-[10px] text-gray-600 mt-4 text-center opacity-70 italic">
             이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다
           </p>
         </motion.div>
