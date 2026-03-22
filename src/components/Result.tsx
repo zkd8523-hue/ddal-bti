@@ -275,6 +275,18 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
               {displayTitle}
             </motion.h1>
 
+            {/* 부제 */}
+            {result.subtitle && (
+              <motion.p
+                initial={{ y: -10, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.55 }}
+                className="text-sm text-gray-400 italic mb-4"
+              >
+                "{result.subtitle}"
+              </motion.p>
+            )}
+
             {/* 특징 리스트 */}
             <motion.div
               initial={{ y: 10, opacity: 0 }}

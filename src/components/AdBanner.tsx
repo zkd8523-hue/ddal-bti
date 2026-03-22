@@ -30,12 +30,9 @@ export default function AdBanner({ variant = 'result' }: AdBannerProps) {
               />
             </div>
             <div className="flex-1 min-w-0">
-              <div className="flex items-start gap-1.5 mb-1">
-                <span className="text-[9px] md:text-[10px] text-gray-500 bg-gray-800 px-1 py-0.5 rounded border border-gray-700 mt-0.5 shrink-0">AD</span>
-                <p className="text-gray-300 text-sm md:text-base font-bold line-clamp-2 leading-tight group-hover:text-white transition-colors">
-                  🧻 나무야 미안해!
-                </p>
-              </div>
+              <p className="text-gray-300 text-sm md:text-base font-bold line-clamp-2 leading-tight group-hover:text-white transition-colors mb-1">
+                🧻 나무야 미안해!
+              </p>
               <p className="text-gray-500 text-[11px] md:text-xs line-clamp-2 leading-snug">
                 몇개 안 남았던데.. 로켓배송으로 미리 챙겨!
               </p>
