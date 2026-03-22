@@ -25,7 +25,7 @@ export default function Home({ onStart }: HomeProps) {
         initial={{ y: -30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.8, duration: 0.7 }}
-        className="text-xl md:text-2xl text-gray-300 mb-6 text-center break-keep"
+        className="text-xl md:text-2xl text-gray-300 mb-2 text-center break-keep"
       >
         16가지 은밀한 취향
       </motion.p>
@@ -34,7 +34,7 @@ export default function Home({ onStart }: HomeProps) {
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 1.3, duration: 0.7 }}
-        className="text-lg md:text-xl text-neon-purple mb-12 text-center max-w-sm break-keep leading-relaxed"
+        className="text-lg md:text-xl text-neon-purple mb-10 text-center max-w-sm break-keep leading-relaxed"
       >
         12문제로 완벽 분석
       </motion.p>
