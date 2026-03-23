@@ -12,13 +12,29 @@ export default function Home({ onStart }: HomeProps) {
       exit={{ opacity: 0 }}
       className="flex flex-col items-center justify-center min-h-screen px-6"
     >
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.05, duration: 0.6 }}
+        className="text-3xl mb-2"
+      >
+        🌙
+      </motion.p>
+
       <motion.h1
         initial={{ y: -30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.1, duration: 0.5 }}
-        className="text-5xl md:text-7xl font-bold mb-6 neon-text text-center break-keep"
+        className="mb-6 text-center select-none"
       >
-        밤BTI
+        <span className="inline-flex items-baseline gap-0.5">
+          <span className="text-6xl md:text-8xl font-black bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-pink-200 drop-shadow-[0_0_25px_rgba(244,114,182,0.5)]">
+            밤
+          </span>
+          <span className="text-5xl md:text-7xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-neon-purple via-neon-magenta to-neon-pink neon-text">
+            BTI
+          </span>
+        </span>
       </motion.h1>
 
       <motion.p
@@ -46,7 +62,7 @@ export default function Home({ onStart }: HomeProps) {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={onStart}
-        className="px-14 py-5 text-xl font-bold bg-gradient-to-r from-neon-purple to-neon-magenta rounded-full neon-border hover:shadow-2xl transition-all duration-300 animate-pulse-glow"
+        className="px-14 py-5 text-xl font-bold bg-gradient-to-r from-pink-400 to-rose-300 text-white rounded-full neon-border hover:shadow-2xl transition-all duration-300 animate-pulse-glow"
       >
         내 밤 유형 알아보기
       </motion.button>

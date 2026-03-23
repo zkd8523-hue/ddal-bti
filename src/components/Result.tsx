@@ -170,7 +170,7 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
         objectType: 'feed',
         content: {
           title: `[밤BTI] 나의 결과: ${displayTitle} ${displayEmoji}`,
-          description: `인구의 ${getPopularityLabel(result.type as PersonalityType)} | ${result.description[0].replace(/\*\*/g, '')}`,
+          description: `${result.description[0].replace(/\*\*/g, '')}`,
           imageUrl: `${imageUrlHost}/images/shares/${result.type}.png?v=2`,
           link: {
             mobileWebUrl: resultUrl,
@@ -701,7 +701,7 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
 
             {/* 2.5. 인구 퍼센티지 */}
             <p className="text-[36px] text-neon-purple font-bold tracking-wider mb-8">
-              인구의 {getPopularityLabel(result.type as PersonalityType)}
+              전체 인구의 {getPopularityLabel(result.type as PersonalityType)}
             </p>
 
             {/* 3. 사진 (메인 캐릭터) */}
