@@ -83,60 +83,48 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
     // 모바일 감지
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-    // 카카오 SDK 사용 가능하면 시도
-    if (window.Kakao?.isInitialized?.() && window.Kakao?.Share) {
-      try {
-        const imageUrlHost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'https://bam-bti.vercel.app' : siteUrl;
+    // 모바일에서만 카카오 SDK 사용 (데스크톱은 4011 에러 발생하므로 스킵)
+    if (isMobile && window.Kakao?.isInitialized?.() && window.Kakao?.Share) {
+      const imageUrlHost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'https://bam-bti.vercel.app' : siteUrl;
 
-        window.Kakao.Share.sendDefault({
-          objectType: 'feed',
-          content: {
-            title: `[밤BTI] 나의 결과: ${displayTitle} ${displayEmoji}`,
-            description: result.description[0].replace(/\*\*/g, ''),
-            imageUrl: `${imageUrlHost}/images/shares/${result.type}.png?v=2`,
+      window.Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: `[밤BTI] 나의 결과: ${displayTitle} ${displayEmoji}`,
+          description: result.description[0].replace(/\*\*/g, ''),
+          imageUrl: `${imageUrlHost}/images/shares/${result.type}.png?v=2`,
+          link: {
+            mobileWebUrl: resultUrl,
+            webUrl: resultUrl,
+          },
+        },
+        buttons: [
+          {
+            title: '결과 자세히 보기',
             link: {
               mobileWebUrl: resultUrl,
               webUrl: resultUrl,
             },
           },
-          buttons: [
-            {
-              title: '결과 자세히 보기',
-              link: {
-                mobileWebUrl: resultUrl,
-                webUrl: resultUrl,
-              },
+          {
+            title: '나도 테스트하기',
+            link: {
+              mobileWebUrl: siteUrl,
+              webUrl: siteUrl,
             },
-            {
-              title: '나도 테스트하기',
-              link: {
-                mobileWebUrl: siteUrl,
-                webUrl: siteUrl,
-              },
-            },
-          ],
-        });
-        return;
-      } catch (error) {
-        console.error('카카오 SDK 공유 실패, 폴백 사용:', error);
-      }
+          },
+        ],
+      });
+      return;
     }
 
-    // 폴백: 데스크톱이거나 SDK 실패 시
-    if (!isMobile) {
-      // 데스크톱: 카카오톡 공유 URL scheme 시도
-      const shareText = `[밤BTI] 나의 결과: ${displayTitle} ${displayEmoji}\n${resultUrl}`;
-      navigator.clipboard.writeText(shareText).then(() => {
-        alert('📋 공유 링크가 복사되었습니다!\n카카오톡에 붙여넣기 해주세요.');
-      }).catch(() => {
-        // clipboard 실패 시 prompt로 폴백
-        prompt('아래 링크를 복사하여 카카오톡에 공유해주세요:', resultUrl);
-      });
-    } else {
-      // 모바일: 카카오톡 앱으로 직접 공유 시도
-      const shareText = encodeURIComponent(`[밤BTI] 나의 결과: ${displayTitle} ${displayEmoji}\n${resultUrl}`);
-      window.location.href = `kakaotalk://msg/text/send?text=${shareText}`;
-    }
+    // 데스크톱: 클립보드 복사
+    const shareText = `[밤BTI] 나의 결과: ${displayTitle} ${displayEmoji}\n${resultUrl}`;
+    navigator.clipboard.writeText(shareText).then(() => {
+      alert('📋 공유 링크가 복사되었습니다!\n카카오톡에 붙여넣기 해주세요.');
+    }).catch(() => {
+      prompt('아래 링크를 복사하여 카카오톡에 공유해주세요:', resultUrl);
+    });
   };
 
   // 이미지 다운로드
