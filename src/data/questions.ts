@@ -1,7 +1,7 @@
 import type { Question } from '../types';
 
 export const questions: Question[] = [
-  // 축 1: V(Visual) vs F(Fantasy) - 3문항
+  // 1. [Axis 1: V/F]
   {
     id: 1,
     axis: 1,
@@ -15,34 +15,7 @@ export const questions: Question[] = [
       point: 'F'
     }
   },
-  {
-    id: 2,
-    axis: 1,
-    question: '영화를 볼 때 더 흥분되는 장면은?',
-    optionA: {
-      text: '🎬 아름다운 비주얼의 베드신',
-      point: 'V'
-    },
-    optionB: {
-      text: '📖 대사로만 암시되는 은밀한 순간',
-      point: 'F'
-    }
-  },
-  {
-    id: 3,
-    axis: 1,
-    question: '스위치가 켜지는 순간은?',
-    optionA: {
-      text: '👀 확실하게 눈으로 보여야 불이 붙는다',
-      point: 'V'
-    },
-    optionB: {
-      text: '🌙 상상만으로도 충분히 뜨거워진다',
-      point: 'F'
-    }
-  },
-
-  // 축 2: S(Speed) vs M(Marathon) - 3문항
+  // 2. [Axis 2: S/M]
   {
     id: 4,
     axis: 2,
@@ -56,34 +29,7 @@ export const questions: Question[] = [
       point: 'M'
     }
   },
-  {
-    id: 5,
-    axis: 2,
-    question: '의식을 시작할 때, 당신의 스타일은?',
-    optionA: {
-      text: '🔥 바로 본론 직진, 워밍업 따위 필요 없다',
-      point: 'S'
-    },
-    optionB: {
-      text: '🍷 조명 끄고, 분위기부터 천천히',
-      point: 'M'
-    }
-  },
-  {
-    id: 6,
-    axis: 2,
-    question: '끝나고 난 후, 당신의 다음 행동은?',
-    optionA: {
-      text: '😴 완벽한 피니시 후 바로 꿀잠',
-      point: 'S'
-    },
-    optionB: {
-      text: '🔥 잠깐, 아직 밤은 긴데…?',
-      point: 'M'
-    }
-  },
-
-  // 축 3: A(Adventure) vs R(Routine) - 3문항
+  // 3. [Axis 3: A/R]
   {
     id: 7,
     axis: 3,
@@ -97,34 +43,7 @@ export const questions: Question[] = [
       point: 'R'
     }
   },
-  {
-    id: 8,
-    axis: 3,
-    question: '은밀한 의식을 치르는 장소는?',
-    optionA: {
-      text: '🌍 화장실, 차 안, 어디든 가능',
-      point: 'A'
-    },
-    optionB: {
-      text: '🛏️ 무조건 내 방, 내 침대 위에서만',
-      point: 'R'
-    }
-  },
-  {
-    id: 9,
-    axis: 3,
-    question: '오늘따라 평소와 다른 걸 해볼까 싶을 때?',
-    optionA: {
-      text: '🎉 새로운 시도는 언제나 환영이지!',
-      point: 'A'
-    },
-    optionB: {
-      text: '🤔 아니야… 원래 하던 게 제일 좋아',
-      point: 'R'
-    }
-  },
-
-  // 축 4: T(Tool) vs N(Natural) - 3문항
+  // 4. [Axis 4: T/N]
   {
     id: 10,
     axis: 4,
@@ -138,10 +57,53 @@ export const questions: Question[] = [
       point: 'N'
     }
   },
+  // 5. [Axis 1: V/F]
+  {
+    id: 2,
+    axis: 1,
+    question: '영화를 볼 때 더 끌리는 장면은?',
+    optionA: {
+      text: '🎬 아름다운 비주얼의 베드신',
+      point: 'V'
+    },
+    optionB: {
+      text: '📖 대화로 암시되는 은밀한 긴장감',
+      point: 'F'
+    }
+  },
+  // 6. [Axis 2: S/M]
+  {
+    id: 5,
+    axis: 2,
+    question: '의식을 시작할 때, 당신의 스타일은?',
+    optionA: {
+      text: '🔥 바로 본론 직진, 워밍업 따위 필요 없다',
+      point: 'S'
+    },
+    optionB: {
+      text: '🍷 조명 끄고, 분위기부터 천천히',
+      point: 'M'
+    }
+  },
+  // 7. [Axis 3: A/R]
+  {
+    id: 8,
+    axis: 3,
+    question: '은밀한 의식을 치르는 장소는?',
+    optionA: {
+      text: '🌍 화장실, 차 안, 어디든 가능',
+      point: 'A'
+    },
+    optionB: {
+      text: '🛏️ 무조건 내 방, 내 침대 위에서만',
+      point: 'R'
+    }
+  },
+  // 8. [Axis 4: T/N]
   {
     id: 11,
     axis: 4,
-    question: '쿠팡에서 19금 아이템 추천이 뜨면?',
+    question: "최첨단 '19금' 아이템을 발견한다면?",
     optionA: {
       text: '💳 일단 카트에 담고 본다',
       point: 'T'
@@ -151,6 +113,49 @@ export const questions: Question[] = [
       point: 'N'
     }
   },
+  // 9. [Axis 1: V/F]
+  {
+    id: 3,
+    axis: 1,
+    question: '스위치가 켜지는 순간은?',
+    optionA: {
+      text: '👀 확실하게 눈으로 보여야 불이 붙는다',
+      point: 'V'
+    },
+    optionB: {
+      text: '🌙 상상만으로도 충분히 뜨거워진다',
+      point: 'F'
+    }
+  },
+  // 10. [Axis 2: S/M]
+  {
+    id: 6,
+    axis: 2,
+    question: '끝나고 난 후, 당신의 다음 행동은?',
+    optionA: {
+      text: '😴 완벽한 피니시 후 바로 꿀잠',
+      point: 'S'
+    },
+    optionB: {
+      text: '🔥 잠깐, 아직 밤은 긴데…?',
+      point: 'M'
+    }
+  },
+  // 11. [Axis 3: A/R]
+  {
+    id: 9,
+    axis: 3,
+    question: '오늘따라 평소와 다른 걸 해볼까 싶을 때?',
+    optionA: {
+      text: '🎉 새로운 시도는 언제나 환영이지!',
+      point: 'A'
+    },
+    optionB: {
+      text: '🤔 아니야… 원래 하던 게 제일 좋아',
+      point: 'R'
+    }
+  },
+  // 12. [Axis 4: T/N]
   {
     id: 12,
     axis: 4,
