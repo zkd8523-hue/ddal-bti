@@ -144,7 +144,7 @@ export const femaleProductsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   FMAN: [
-    { name: '초대형 U자 촉감 바디필로우', description: '혼자서 환상 여행을 할 때 껴안기 좋은 애착 파트너', emoji: '🫂', link: 'https://link.coupang.com/a/d8jN7S' },
+    { name: '초대형 U자 촉감 바디필로우', description: '혼자서 환상 여행을 할 때 껴안기 좋은 애착 파트너', emoji: '🫂', link: 'https://link.coupang.com/a/d8jN7S', imageUrl: '/images/Pillow.png' },
     COMMON_GEL,
   ],
   FMRT: [
@@ -152,7 +152,7 @@ export const femaleProductsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   FMRN: [
-    { name: '나그참파 인센스 스틱 & 홀더', description: '나만의 깊은 감정선으로 차분하게 빠져드는 이너피스', emoji: '🥢', link: 'https://link.coupang.com/a/d8jNx0' },
+    { name: '나그참파 인센스 스틱 & 홀더', description: '나만의 깊은 감정선으로 차분하게 빠져드는 이너피스', emoji: '🥢', link: 'https://link.coupang.com/a/d8jNx0', imageUrl: '/images/incense.png' },
     COMMON_GEL,
   ]
 };

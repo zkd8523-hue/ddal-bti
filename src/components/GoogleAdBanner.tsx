@@ -11,17 +11,22 @@ export default function GoogleAdBanner({ adSlot }: GoogleAdBannerProps) {
   useEffect(() => {
     if (isAdLoaded.current) return;
 
-    try {
-      if (typeof window !== 'undefined') {
-        const adsbygoogle = (window as any).adsbygoogle;
-        if (adsbygoogle) {
-          adsbygoogle.push({});
-          isAdLoaded.current = true;
+    // 레이아웃이 완전히 잡힌 후(특히 framer-motion 애니메이션 등) 광고를 요청합니다.
+    const timer = setTimeout(() => {
+      try {
+        if (typeof window !== 'undefined') {
+          const adsbygoogle = (window as any).adsbygoogle;
+          if (adsbygoogle) {
+            adsbygoogle.push({});
+            isAdLoaded.current = true;
+          }
         }
+      } catch (err) {
+        console.error('AdSense Banner load error:', err);
       }
-    } catch (err) {
-      console.error('AdSense Banner load error:', err);
-    }
+    }, 300);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const isProd = import.meta.env.PROD;

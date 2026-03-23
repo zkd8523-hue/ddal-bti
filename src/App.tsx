@@ -35,16 +35,8 @@ const getInitialState = () => {
     };
   }
 
-  try {
-    const saved = sessionStorage.getItem('appState');
-    if (saved) {
-      return JSON.parse(saved);
-    }
-  } catch (e) {
-    console.error('Failed to parse appState', e);
-  }
   return {
-    screen: 'home',
+    screen: 'home' as Screen,
     currentQuestionIndex: 0,
     answers: [],
     resultType: null,
@@ -90,7 +82,12 @@ function App() {
     }));
   }, [screen, currentQuestionIndex, answers, resultType, gender]);
 
-  // 결과 화면 진입 시 이벤트 추적
+  // 화면 전환 시 페이지뷰 추적
+  useEffect(() => {
+    analytics.trackPageView(screen);
+  }, [screen]);
+
+  // 결과 화면 진입 시 추가 이벤트 추적
   useEffect(() => {
     if (screen === 'result' && resultType) {
       analytics.trackResultViewed(resultType);

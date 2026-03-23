@@ -13,12 +13,11 @@ export default function GoogleAdSidebar({ position, adSlot }: GoogleAdSidebarPro
 
   useEffect(() => {
     // AdSense 광고 로드
-    if (isAdLoaded.current) return;
+    // 요소가 보이지 않는 상태(mobile 등)에서는 push하지 않음 (TagError 방지)
+    if (isAdLoaded.current || window.innerWidth < 1024) return;
 
     try {
       if (typeof window !== 'undefined') {
-        // AdSense 스크립트가 로드되었는지 확인
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const adsbygoogle = (window as any).adsbygoogle;
         if (adsbygoogle) {
           adsbygoogle.push({});

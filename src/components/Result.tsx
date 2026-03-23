@@ -498,7 +498,7 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
           {/* 배경 그라데이션 광효과 (더 몽환적으로) */}
           <div className="absolute top-[-5%] left-[-10%] w-[800px] h-[800px] bg-neon-purple/30 rounded-full blur-[150px] animate-pulse" />
           <div className="absolute bottom-[-5%] right-[-10%] w-[800px] h-[800px] bg-neon-magenta/30 rounded-full blur-[150px] animate-pulse" />
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" />
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('/carbon-fibre.png')] opacity-10" />
 
           {/* 메인 콘텐츠 컨테이너 (중앙 집중형) */}
           <div className="z-10 flex flex-col items-center w-full max-w-4xl">

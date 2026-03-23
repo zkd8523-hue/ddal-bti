@@ -4,22 +4,40 @@ import type { Gender, PersonalityType } from '../types';
 
 const ga4 = (ReactGA as any).default || ReactGA;
 
+let isGAInitialized = false;
+
 // GA4 초기화
 export const initGA = () => {
+  if (isGAInitialized) return;
+  
   const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID;
 
   if (measurementId) {
-    ga4.initialize(measurementId);
-    console.log('GA4 initialized with ID:', measurementId);
+    ga4.initialize(measurementId, {
+      testMode: import.meta.env.MODE === 'development',
+      gaOptions: {
+        site_speed_sample_rate: 100
+      }
+    });
+    isGAInitialized = true;
+    console.log('✅ GA4 initialized with ID:', measurementId);
+    
+    // 초기 페이지뷰 전송
+    ga4.send({
+      hitType: 'pageview',
+      page: window.location.pathname + window.location.search,
+      title: document.title
+    });
   } else {
-    console.warn('GA4 Measurement ID not found');
+    console.warn('❌ GA4 Measurement ID not found. VITE_GA_MEASUREMENT_ID 환경변수를 확인하세요.');
   }
 };
 
-// 이벤트 추적 함수들
+  // 이벤트 추적 함수들
 export const analytics = {
   // 테스트 시작
   trackTestStarted: () => {
+    console.log('📊 GA Event: test_started');
     ga4.event({
       category: 'Test',
       action: 'test_started',
@@ -29,6 +47,7 @@ export const analytics = {
 
   // 성별 선택
   trackGenderSelected: (gender: Gender) => {
+    console.log('📊 GA Event: gender_selected', gender);
     ga4.event({
       category: 'User',
       action: 'gender_selected',
@@ -41,6 +60,8 @@ export const analytics = {
 
   // 질문 답변
   trackQuestionAnswered: (questionId: number, answer: string, questionNumber: number) => {
+    // 너무 많은 로그를 방지하기 위해 주석 처리하거나 필요 시에만
+    // console.log(`📊 GA Event: question_answered (${questionNumber}/12)`);
     ga4.event({
       category: 'Test',
       action: 'question_answered',
@@ -57,6 +78,7 @@ export const analytics = {
 
   // 테스트 완료
   trackTestCompleted: (resultType: PersonalityType, gender: Gender | null, totalQuestions: number) => {
+    console.log('📊 GA Event: test_completed', { resultType, gender });
     ga4.event({
       category: 'Test',
       action: 'test_completed',
@@ -77,6 +99,7 @@ export const analytics = {
 
   // 결과 확인
   trackResultViewed: (resultType: PersonalityType) => {
+    console.log('📊 GA Event: result_viewed', resultType);
     ga4.event({
       category: 'Test',
       action: 'result_viewed',
@@ -87,6 +110,7 @@ export const analytics = {
 
   // 테스트 재시작
   trackTestRestarted: () => {
+    console.log('📊 GA Event: test_restarted');
     ga4.event({
       category: 'Test',
       action: 'test_restarted',
@@ -96,6 +120,7 @@ export const analytics = {
 
   // 페이지뷰 추적 (화면 전환 시)
   trackPageView: (screenName: string) => {
+    console.log(`🚀 GA PageView: /${screenName}`);
     ga4.send({
       hitType: 'pageview',
       page: `/${screenName}`,
@@ -105,6 +130,7 @@ export const analytics = {
 
   // 카카오톡 공유
   trackKakaoShare: (resultType: PersonalityType) => {
+    console.log('📊 GA Event: kakao_share', resultType);
     ga4.event({
       category: 'Share',
       action: 'kakao_share',
@@ -116,6 +142,7 @@ export const analytics = {
 
   // 추천 상품 클릭
   trackProductClick: (productName: string, productLink: string, resultType: PersonalityType, position: number) => {
+    console.log('📊 GA Event: product_click', { productName, position });
     ga4.event({
       category: 'Affiliate',
       action: 'product_click',
@@ -130,6 +157,7 @@ export const analytics = {
 
   // 이미지 다운로드
   trackImageDownload: (resultType: PersonalityType) => {
+    console.log('📊 GA Event: image_download', resultType);
     ga4.event({
       category: 'Share',
       action: 'image_download',
@@ -141,6 +169,7 @@ export const analytics = {
 
   // 링크 복사
   trackLinkCopy: (resultType: PersonalityType) => {
+    console.log('📊 GA Event: link_copy', resultType);
     ga4.event({
       category: 'Share',
       action: 'link_copy',
@@ -152,6 +181,7 @@ export const analytics = {
 
   // X(트위터) 공유
   trackTwitterShare: (resultType: PersonalityType) => {
+    console.log('📊 GA Event: twitter_share', resultType);
     ga4.event({
       category: 'Share',
       action: 'twitter_share',
@@ -163,6 +193,7 @@ export const analytics = {
 
   // 네이티브 공유
   trackNativeShare: (resultType: PersonalityType) => {
+    console.log('📊 GA Event: native_share', resultType);
     ga4.event({
       category: 'Share',
       action: 'native_share',
