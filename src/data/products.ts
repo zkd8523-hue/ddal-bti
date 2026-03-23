@@ -81,8 +81,7 @@ export const productsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   FMRN: [
-    { name: '올리브영 1위 마사지 바디오일', description: '맨살의 터치감을 예술로 끌어올려 주는 부드러움', emoji: '🧴', link: 'https://link.coupang.com/a/d8jPaa', imageUrl: '/images/massageoil.png' },
-    { name: '힐링 배스밤 입욕제', description: '분위기를 한층 고조시키는 소품', emoji: '🛁', link: 'https://link.coupang.com/a/d8jDNB', imageUrl: '/images/bathbomb.png' },
+    { name: '나그참파 인센스 스틱 & 홀더', description: '나만의 거룩하고 퓨어한 절간 냄새 세팅', emoji: '🥢', link: 'https://link.coupang.com/a/d8jNx0', imageUrl: '/images/incense.png' },
     COMMON_GEL,
   ]
 };
