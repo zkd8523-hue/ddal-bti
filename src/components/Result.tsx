@@ -81,12 +81,17 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
       return;
     }
 
-    if (!kakao.isInitialized()) {
-      try {
-        kakao.init(KAKAO_APP_KEY);
-        console.log('Kakao SDK 초기화 (클릭 시점에 재시도)');
-      } catch (error) {
-        console.error('Kakao SDK 초기화 실패:', error);
+    // PC에서 4011 에러 방지: cleanup 후 재초기화
+    // (데스크톱에서 세션 상태가 꼬이는 문제 해결)
+    try {
+      kakao.cleanup();
+      kakao.init(KAKAO_APP_KEY);
+      console.log('Kakao SDK cleanup + 재초기화 완료');
+    } catch (error) {
+      console.error('Kakao SDK 재초기화 실패:', error);
+      if (!kakao.isInitialized()) {
+        alert('카카오 SDK 초기화에 실패했습니다. 페이지를 새로고침 해주세요.');
+        return;
       }
     }
 
