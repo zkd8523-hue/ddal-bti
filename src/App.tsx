@@ -102,6 +102,19 @@ function App() {
     setScreen('question');
   };
 
+  // 이전 질문으로 돌아가기
+  const handleBack = () => {
+    if (currentQuestionIndex > 0) {
+      // 마지막 답변 제거하고 이전 질문으로
+      setAnswers(answers.slice(0, -1));
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
+    } else {
+      // 첫 번째 질문이면 성별 선택으로
+      setAnswers([]);
+      setScreen('gender');
+    }
+  };
+
   // 답변 선택 처리
   const handleAnswer = (selectedPoint: string) => {
     const currentQuestion = questions[currentQuestionIndex];
@@ -198,6 +211,7 @@ function App() {
               currentIndex={currentQuestionIndex}
               totalQuestions={questions.length}
               onAnswer={handleAnswer}
+              onBack={handleBack}
             />
           )}
 

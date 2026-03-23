@@ -6,6 +6,7 @@ interface QuestionProps {
   currentIndex: number;
   totalQuestions: number;
   onAnswer: (point: string) => void;
+  onBack: () => void;
 }
 
 export default function Question({
@@ -13,6 +14,7 @@ export default function Question({
   currentIndex,
   totalQuestions,
   onAnswer,
+  onBack,
 }: QuestionProps) {
   const progress = ((currentIndex + 1) / totalQuestions) * 100;
 
@@ -87,6 +89,20 @@ export default function Question({
               {question.optionB.text}
             </motion.button>
           </div>
+
+          {/* 뒤로가기 버튼 */}
+          <motion.button
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.3 }}
+            onClick={onBack}
+            className="mt-8 mx-auto flex items-center gap-2 text-gray-500 hover:text-gray-300 transition-colors duration-200"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+            <span className="text-sm">이전 질문</span>
+          </motion.button>
         </motion.div>
       </AnimatePresence>
     </div>

@@ -7,6 +7,7 @@ import { getProductsForType } from '../data/products';
 import { analytics } from '../utils/analytics';
 import { isIOS, canUseWebShare, dataURLToBlob } from '../utils/deviceDetection';
 import AdBanner from './AdBanner';
+import { getPopularityLabel, getRarityTier } from '../data/typePopularity';
 
 declare global {
   interface Window {
@@ -35,6 +36,51 @@ interface ResultProps {
   onRestart: () => void;
 }
 
+function countMatchingAxes(typeA: string, typeB: string): number {
+  let count = 0;
+  for (let i = 0; i < 4; i++) {
+    if (typeA[i] === typeB[i]) count++;
+  }
+  return count;
+}
+
+// 축별 차이 비트마스크 → 15가지 고유 궁합 멘트
+// bit0=자극(V/F), bit1=속도(S/M), bit2=탐험(A/R), bit3=장비(T/N)
+const compatibilityDescs: Record<number, string> = {
+  // 찰떡궁합 (3/4 일치, 1개만 다름)
+  1:  '콘텐츠 고를 때만 티격태격하는 베프',
+  2:  '하나만 빼면 완벽한데, 그게 속도야…',
+  4:  '평소엔 잘 맞다가 루틴 문제로 살짝 삐끗',
+  8:  '장비 취향 빼면 영혼의 단짝',
+  // 은근 통하는 사이 (2/4 일치)
+  3:  '반은 같고 반은 달라서 매번 새로운 사이',
+  5:  '자극 원천도 탐험심도 다른 신선한 조합',
+  9:  '리듬은 맞는데 취향이 다른 묘한 관계',
+  6:  '기본 코드는 같은데 실전 스타일은 정반대',
+  10: '핵심은 통하는데 디테일에서 갈리는 케미',
+  12: '큰 그림은 같은데 실행 방식이 정반대',
+  // 정반대 매력 (0~1/4 일치)
+  7:  '장비 취향만 같은 의외의 한 끗',
+  11: '탐험 성향만 통하는 극과 극',
+  13: '속도감만 맞는 기묘한 동질감',
+  14: '자극 취향만 같고 나머진 미지의 세계',
+  15: '완전한 정반대, 만나면 불꽃 튀는 관계',
+};
+
+function getCompatibilityDesc(myType: string, otherType: string): string {
+  let mask = 0;
+  for (let i = 0; i < 4; i++) {
+    if (myType[i] !== otherType[i]) mask |= (1 << i);
+  }
+  return compatibilityDescs[mask] || '';
+}
+
+const compatibilityGroups = [
+  { key: 'best', label: '찰떡궁합', emoji: '💕', match: (n: number) => n === 3 },
+  { key: 'good', label: '은근 통하는 사이', emoji: '🤝', match: (n: number) => n === 2 },
+  { key: 'opposite', label: '정반대 매력', emoji: '🔥', match: (n: number) => n <= 1 },
+] as const;
+
 function renderBoldText(text: string) {
   const parts = text.split(/\*\*(.*?)\*\*/g);
   return parts.map((part, i) =>
@@ -53,7 +99,8 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
   const storyCardRef = useRef<HTMLDivElement>(null);
   const [isDownloading, setIsDownloading] = useState(false);
 
-  // 다른 유형 둘러보기 상태
+  // 나와의 궁합 상태
+  const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [selectedExploreType, setSelectedExploreType] = useState<PersonalityType | null>(null);
   const exploreDetailRef = useRef<HTMLDivElement>(null);
   const selectedExploreResult = selectedExploreType
@@ -126,7 +173,7 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
         objectType: 'feed',
         content: {
           title: `[밤BTI] 나의 결과: ${displayTitle} ${displayEmoji}`,
-          description: result.description[0].replace(/\*\*/g, ''),
+          description: `인구의 ${getPopularityLabel(result.type as PersonalityType)} | ${result.description[0].replace(/\*\*/g, '')}`,
           imageUrl: `${imageUrlHost}/images/shares/${result.type}.png?v=2`,
           link: {
             mobileWebUrl: resultUrl,
@@ -298,14 +345,22 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
           </div>
 
           <div className="flex-1 min-w-0 w-full flex flex-col items-center md:items-start text-center md:text-left">
-            {/* 타입 배지 */}
+            {/* 타입 배지 + 인구 퍼센티지 */}
             <motion.div
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="inline-block px-6 py-2 bg-gradient-to-r from-neon-purple to-neon-magenta rounded-full text-xl font-bold mb-3"
+              className="flex items-center gap-3 mb-3"
             >
-              {result.type}
+              <span className="px-6 py-2 bg-gradient-to-r from-neon-purple to-neon-magenta rounded-full text-xl font-bold">
+                {result.type}
+              </span>
+              <span className="text-sm text-gray-400">
+                전체 인구의 <span className="text-lg font-bold text-neon-purple">{getPopularityLabel(result.type as PersonalityType)}</span>
+              </span>
+              {getRarityTier(result.type as PersonalityType) === 'legendary' && (
+                <span className="text-xs text-neon-magenta font-semibold">희귀 유형</span>
+              )}
             </motion.div>
 
             {/* 타이틀 */}
@@ -391,6 +446,172 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
             })}
           </div>
         </motion.div>
+      </motion.div>
+
+      {/* 나와의 궁합 섹션 */}
+      <motion.div
+        initial={{ y: 30, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 1.1 }}
+        className="w-full max-w-2xl mt-8"
+      >
+        <p className="text-sm text-gray-400 mb-2 px-1">다른 유형은 어떨까?</p>
+        <div className="flex items-center gap-2 mb-4 px-1">
+          <span className="text-neon-purple">🔍</span>
+          <h3 className="text-lg md:text-xl font-bold text-white">
+            나와의 궁합
+          </h3>
+        </div>
+
+        {/* 궁합 그룹 아코디언 */}
+        <div className="space-y-3">
+          {compatibilityGroups.map((group) => {
+            const groupResults = allResults.filter(
+              (r) => r.type !== result.type && group.match(countMatchingAxes(result.type, r.type))
+            );
+            if (groupResults.length === 0) return null;
+            const isOpen = openGroup === group.key;
+
+            return (
+              <div key={group.key}>
+                {/* 그룹 헤더 */}
+                <button
+                  onClick={() => {
+                    setOpenGroup(isOpen ? null : group.key);
+                    setSelectedExploreType(null);
+                  }}
+                  className={`w-full flex items-center justify-between px-5 py-4 rounded-xl border transition-all duration-200 ${
+                    isOpen
+                      ? 'bg-gray-800 border-neon-purple/40'
+                      : 'bg-gray-800/50 border-gray-700 hover:border-gray-500'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-xl">{group.emoji}</span>
+                    <span className="text-white font-bold text-base">{group.label}</span>
+                    <span className="text-xs text-gray-500">{groupResults.length}개 유형</span>
+                  </div>
+                  <motion.span
+                    animate={{ rotate: isOpen ? 180 : 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="text-gray-400 text-sm"
+                  >
+                    ▼
+                  </motion.span>
+                </button>
+
+                {/* 그룹 내용 (아코디언) */}
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="grid grid-cols-2 gap-3 pt-3">
+                        {groupResults.map((r) => {
+                          const isSelected = r.type === selectedExploreType;
+                          return (
+                            <button
+                              key={r.type}
+                              onClick={() => {
+                                const next = isSelected ? null : (r.type as PersonalityType);
+                                setSelectedExploreType(next);
+                                if (next) {
+                                  setTimeout(() => {
+                                    exploreDetailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                                  }, 100);
+                                }
+                              }}
+                              className={`p-3 rounded-xl border text-left transition-all duration-200 ${
+                                isSelected
+                                  ? 'bg-neon-purple/20 border-neon-purple shadow-lg shadow-neon-purple/20'
+                                  : 'bg-gray-800/50 border-gray-700 hover:border-gray-500 hover:bg-gray-800/80'
+                              }`}
+                            >
+                              <div className="text-2xl mb-1">{gender === 'female' ? r.femaleEmoji : r.emoji}</div>
+                              <p className="text-xs text-gray-400 font-mono">{r.type}</p>
+                              <p className="text-sm text-white font-semibold truncate">
+                                {gender === 'female' ? r.femaleTitle : r.title}
+                              </p>
+                              <p className="text-[11px] text-gray-500 mt-1 truncate">{getCompatibilityDesc(result.type, r.type)}</p>
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      {/* 선택된 유형 상세 정보 */}
+                      <AnimatePresence mode="wait">
+                        {selectedExploreResult && (
+                          <motion.div
+                            ref={exploreDetailRef}
+                            key={selectedExploreResult.type}
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="mt-3 p-6 bg-gray-800 rounded-2xl border border-neon-purple/30">
+                              <div className="flex items-center gap-4 mb-4">
+                                <img
+                                  src={`/images/shares/${selectedExploreResult.type}.png`}
+                                  alt={gender === 'female' ? selectedExploreResult.femaleTitle : selectedExploreResult.title}
+                                  onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                                  className="w-20 h-20 rounded-xl object-cover shadow-lg"
+                                />
+                                <div>
+                                  <span className="inline-block px-3 py-1 bg-gradient-to-r from-neon-purple to-neon-magenta rounded-full text-sm font-bold mb-1">
+                                    {selectedExploreResult.type}
+                                  </span>
+                                  <h4 className="text-xl font-bold text-white">
+                                    {gender === 'female' ? selectedExploreResult.femaleTitle : selectedExploreResult.title}
+                                  </h4>
+                                  <p className="text-sm text-gray-400 italic">"{selectedExploreResult.subtitle}"</p>
+                                </div>
+                              </div>
+
+                              <div className="space-y-2 mb-4">
+                                {selectedExploreResult.description.map((desc, index) => (
+                                  <div key={index} className="flex items-start space-x-2">
+                                    <span className="text-neon-purple text-sm mt-0.5 shrink-0">✦</span>
+                                    <p className="text-gray-300 text-sm break-keep leading-relaxed">{renderBoldText(desc)}</p>
+                                  </div>
+                                ))}
+                              </div>
+
+                              <div className="border-t border-gray-700 pt-4">
+                                <p className="text-xs text-gray-400 mb-2">📊 성향 분석</p>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm break-keep">
+                                  {[selectedExploreResult.traits.axis1, selectedExploreResult.traits.axis2, selectedExploreResult.traits.axis3, selectedExploreResult.traits.axis4].map((trait, i) => {
+                                    const opposite = axisOpposites[trait];
+                                    return (
+                                      <div key={i} className="flex items-center gap-2">
+                                        <span className="text-white font-semibold">{trait}</span>
+                                        {opposite && (
+                                          <>
+                                            <span className="text-gray-600">/</span>
+                                            <span className="text-gray-600 opacity-90">{opposite}</span>
+                                          </>
+                                        )}
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+        </div>
       </motion.div>
 
       {/* 맞춤형 추천 상품 섹션 (공유받은 결과에서는 숨김) */}
@@ -513,128 +734,6 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
           {isShared ? '🔥 나도 테스트하기' : '🔄 다시 테스트하기'}
         </button>
       </motion.div>
-      {/* 다른 유형 둘러보기 섹션 */}
-      <motion.div
-        initial={{ y: 30, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: isShared ? 1.4 : 1.8 }}
-        className="w-full max-w-2xl mt-12"
-      >
-        <div className="flex items-center gap-2 mb-6 px-1">
-          <span className="text-neon-purple">🔍</span>
-          <h3 className="text-lg md:text-xl font-bold text-white">
-            다른 유형 구경하기
-          </h3>
-        </div>
-
-        {/* 유형 그리드 */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {allResults.map((r) => {
-            const isMyType = r.type === result.type;
-            const isSelected = r.type === selectedExploreType;
-            return (
-              <button
-                key={r.type}
-                onClick={() => {
-                  const next = isSelected ? null : (r.type as PersonalityType);
-                  setSelectedExploreType(next);
-                  if (next) {
-                    setTimeout(() => {
-                      exploreDetailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    }, 100);
-                  }
-                }}
-                className={`relative p-3 rounded-xl border text-left transition-all duration-200 ${
-                  isSelected
-                    ? 'bg-neon-purple/20 border-neon-purple shadow-lg shadow-neon-purple/20'
-                    : isMyType
-                      ? 'bg-gray-800/80 border-neon-purple/50'
-                      : 'bg-gray-800/50 border-gray-700 hover:border-gray-500 hover:bg-gray-800/80'
-                }`}
-              >
-                {isMyType && (
-                  <span className="absolute -top-2 -right-2 text-[10px] bg-neon-purple px-2 py-0.5 rounded-full font-bold">
-                    MY
-                  </span>
-                )}
-                <div className="text-2xl mb-1">{gender === 'female' ? r.femaleEmoji : r.emoji}</div>
-                <p className="text-xs text-gray-400 font-mono">{r.type}</p>
-                <p className="text-sm text-white font-semibold truncate">
-                  {gender === 'female' ? r.femaleTitle : r.title}
-                </p>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* 선택된 유형 상세 정보 */}
-        <AnimatePresence mode="wait">
-          {selectedExploreResult && (
-            <motion.div
-              ref={exploreDetailRef}
-              key={selectedExploreResult.type}
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="overflow-hidden"
-            >
-              <div className="mt-4 p-6 bg-gray-800 rounded-2xl border border-neon-purple/30">
-                {/* 헤더 */}
-                <div className="flex items-center gap-4 mb-4">
-                  <img
-                    src={`/images/shares/${selectedExploreResult.type}.png`}
-                    alt={gender === 'female' ? selectedExploreResult.femaleTitle : selectedExploreResult.title}
-                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
-                    className="w-20 h-20 rounded-xl object-cover shadow-lg"
-                  />
-                  <div>
-                    <span className="inline-block px-3 py-1 bg-gradient-to-r from-neon-purple to-neon-magenta rounded-full text-sm font-bold mb-1">
-                      {selectedExploreResult.type}
-                    </span>
-                    <h4 className="text-xl font-bold text-white">
-                      {gender === 'female' ? selectedExploreResult.femaleTitle : selectedExploreResult.title}
-                    </h4>
-                    <p className="text-sm text-gray-400 italic">"{selectedExploreResult.subtitle}"</p>
-                  </div>
-                </div>
-
-                {/* 특징 리스트 */}
-                <div className="space-y-2 mb-4">
-                  {selectedExploreResult.description.map((desc, index) => (
-                    <div key={index} className="flex items-start space-x-2">
-                      <span className="text-neon-purple text-sm mt-0.5 shrink-0">✦</span>
-                      <p className="text-gray-300 text-sm break-keep leading-relaxed">{renderBoldText(desc)}</p>
-                    </div>
-                  ))}
-                </div>
-
-                {/* 성향 분석 */}
-                <div className="border-t border-gray-700 pt-4">
-                  <p className="text-xs text-gray-400 mb-2">📊 성향 분석</p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm break-keep">
-                    {[selectedExploreResult.traits.axis1, selectedExploreResult.traits.axis2, selectedExploreResult.traits.axis3, selectedExploreResult.traits.axis4].map((trait, i) => {
-                      const opposite = axisOpposites[trait];
-                      return (
-                        <div key={i} className="flex items-center gap-2">
-                          <span className="text-white font-semibold">{trait}</span>
-                          {opposite && (
-                            <>
-                              <span className="text-gray-600">/</span>
-                              <span className="text-gray-600 opacity-90">{opposite}</span>
-                            </>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
-
       {/* 인스타그램 스토리용 숨겨진 카드 (이미지 저장 시에만 사용) */}
       <div className="fixed left-[-9999px] top-[-9999px]">
         <div
@@ -658,6 +757,11 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
             <div className="text-[120px] font-black tracking-tighter leading-none mb-12 italic bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-gray-500 drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]">
               {result.type}
             </div>
+
+            {/* 2.5. 인구 퍼센티지 */}
+            <p className="text-[36px] text-neon-purple font-bold tracking-wider mb-8">
+              인구의 {getPopularityLabel(result.type as PersonalityType)}
+            </p>
 
             {/* 3. 사진 (메인 캐릭터) */}
             <div className="relative mb-14">
