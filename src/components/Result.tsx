@@ -74,20 +74,42 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
   }, []);
 
   const handleKakaoShare = () => {
-    const siteUrl = window.location.origin;
-    const resultUrl = `${siteUrl}/?type=${result.type}${gender ? `&gender=${gender}` : ''}`;
+    const kakao = (window as any).Kakao;
 
-    // GA4 이벤트 추적
-    analytics.trackKakaoShare(result.type as PersonalityType);
+    if (!kakao) {
+      alert('❌ 카카오 SDK를 불러오지 못했습니다. 페이지를 새로고침 해주세요.');
+      return;
+    }
 
-    // 모바일 감지
-    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    if (!kakao.isInitialized()) {
+      try {
+        kakao.init(KAKAO_APP_KEY);
+        console.log('Kakao SDK 초기화 (클릭 시점에 재시도)');
+      } catch (error) {
+        console.error('Kakao SDK 초기화 실패:', error);
+      }
+    }
 
-    // 모바일에서만 카카오 SDK 사용 (데스크톱은 4011 에러 발생하므로 스킵)
-    if (isMobile && window.Kakao?.isInitialized?.() && window.Kakao?.Share) {
-      const imageUrlHost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'https://bam-bti.vercel.app' : siteUrl;
+    if (!kakao.Share) {
+      alert('❌ 카카오 공유 기능을 로드하지 못했습니다. 브라우저를 업데이트하거나 네트워크를 확인해주세요.');
+      return;
+    }
 
-      window.Kakao.Share.sendDefault({
+    try {
+      // GA4 이벤트 추적
+      analytics.trackKakaoShare(result.type as PersonalityType);
+
+      const siteUrl = window.location.origin;
+      // 로컬 테스트 중에도 이미지는 실제 배포된 서버의 것을 사용해야 카카오톡에서 보입니다.
+      const imageUrlHost = siteUrl.includes('localhost') || siteUrl.includes('127.0.0.1') 
+        ? 'https://bam-bti.vercel.app' 
+        : siteUrl;
+      
+      const resultUrl = `${siteUrl}/?type=${result.type}${gender ? `&gender=${gender}` : ''}`;
+
+      console.log('카카오 공유 시도:', { siteUrl, imageUrlHost, resultUrl });
+
+      kakao.Share.sendDefault({
         objectType: 'feed',
         content: {
           title: `[밤BTI] 나의 결과: ${displayTitle} ${displayEmoji}`,
@@ -115,16 +137,10 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
           },
         ],
       });
-      return;
+    } catch (error: any) {
+      console.error('카카오 공유 실패 상세 에러:', error);
+      alert(`❌ 공유하기에 실패했습니다.\n사유: ${error.message || '알 수 없는 오류'}\n브라우저의 팝업 차단 설정을 확인해 보세요.`);
     }
-
-    // 데스크톱: 클립보드 복사
-    const shareText = `[밤BTI] 나의 결과: ${displayTitle} ${displayEmoji}\n${resultUrl}`;
-    navigator.clipboard.writeText(shareText).then(() => {
-      alert('📋 공유 링크가 복사되었습니다!\n카카오톡에 붙여넣기 해주세요.');
-    }).catch(() => {
-      prompt('아래 링크를 복사하여 카카오톡에 공유해주세요:', resultUrl);
-    });
   };
 
   // 이미지 다운로드

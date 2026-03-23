@@ -71,17 +71,6 @@ function App() {
   // 공유받은 결과인지 여부
   const [isShared, setIsShared] = useState<boolean>(initialState.isShared || false);
 
-  // 상태가 변경될 때마다 sessionStorage에 저장하여, 앱 전환 후 새로고침 되어도 유지되도록 함
-  useEffect(() => {
-    sessionStorage.setItem('appState', JSON.stringify({
-      screen,
-      currentQuestionIndex,
-      answers,
-      resultType,
-      gender
-    }));
-  }, [screen, currentQuestionIndex, answers, resultType, gender]);
-
   // 화면 전환 시 페이지뷰 추적
   useEffect(() => {
     analytics.trackPageView(screen);
@@ -162,7 +151,6 @@ function App() {
     setAnswers([]);
     setResultType(null);
     setGender(null);
-    sessionStorage.removeItem('appState');
   };
 
   // 현재 질문 가져오기
