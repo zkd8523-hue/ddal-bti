@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ReactGA from 'react-ga4';
-import type { Gender, PersonalityType } from '../types';
+import type { PersonalityType } from '../types';
 
 const ga4 = (ReactGA as any).default || ReactGA;
 
@@ -21,13 +21,7 @@ export const initGA = () => {
     });
     isGAInitialized = true;
     console.log('✅ GA4 initialized with ID:', measurementId);
-    
-    // 초기 페이지뷰 전송
-    ga4.send({
-      hitType: 'pageview',
-      page: window.location.pathname + window.location.search,
-      title: document.title
-    });
+    // 초기 페이지뷰는 trackPageView(screen)에서 처리하므로 여기서는 생략
   } else {
     console.warn('❌ GA4 Measurement ID not found. VITE_GA_MEASUREMENT_ID 환경변수를 확인하세요.');
   }
@@ -43,19 +37,6 @@ export const analytics = {
       action: 'test_started',
       label: '밤BTI 테스트 시작'
     });
-  },
-
-  // 성별 선택
-  trackGenderSelected: (gender: Gender) => {
-    console.log('📊 GA Event: gender_selected', gender);
-    ga4.event({
-      category: 'User',
-      action: 'gender_selected',
-      label: gender === 'male' ? '남성' : '여성'
-    });
-
-    // 사용자 속성 설정
-    ga4.set({ gender });
   },
 
   // 질문 답변
@@ -77,23 +58,19 @@ export const analytics = {
   },
 
   // 테스트 완료
-  trackTestCompleted: (resultType: PersonalityType, gender: Gender | null, totalQuestions: number) => {
-    console.log('📊 GA Event: test_completed', { resultType, gender });
+  trackTestCompleted: (resultType: PersonalityType, totalQuestions: number) => {
+    console.log('📊 GA Event: test_completed', { resultType });
     ga4.event({
       category: 'Test',
       action: 'test_completed',
       label: resultType,
       nonInteraction: false,
-      // 커스텀 파라미터
       result_type: resultType,
-      gender: gender || 'unknown',
       total_questions: totalQuestions
     } as any);
 
-    // 사용자 속성 업데이트
     ga4.set({
       result_type: resultType,
-      gender: gender || 'unknown'
     });
   },
 
@@ -124,6 +101,7 @@ export const analytics = {
     ga4.send({
       hitType: 'pageview',
       page: `/${screenName}`,
+      page_location: `${window.location.origin}/${screenName}${window.location.search}`,
       title: screenName
     });
   },
@@ -200,6 +178,18 @@ export const analytics = {
       label: resultType,
       result_type: resultType,
       share_platform: 'native'
+    } as any);
+  },
+
+  // 로딩 화면 이탈
+  trackLoadingAbandoned: (progressPercent: number) => {
+    console.log('📊 GA Event: loading_abandoned', { progressPercent });
+    ga4.event({
+      category: 'Test',
+      action: 'loading_abandoned',
+      label: `${progressPercent}%에서 이탈`,
+      value: progressPercent,
+      progress_percent: progressPercent
     } as any);
   }
 };

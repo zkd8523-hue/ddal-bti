@@ -13,48 +13,48 @@ export default function Home({ onStart }: HomeProps) {
       className="flex flex-col items-center justify-center min-h-screen px-6"
     >
       <motion.h1
-        initial={{ y: -50, opacity: 0 }}
+        initial={{ y: -30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.3, duration: 0.8 }}
+        transition={{ delay: 0.1, duration: 0.5 }}
         className="text-5xl md:text-7xl font-bold mb-6 neon-text text-center break-keep"
       >
         밤BTI
       </motion.h1>
 
       <motion.p
-        initial={{ y: -30, opacity: 0 }}
+        initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.8, duration: 0.7 }}
+        transition={{ delay: 0.3, duration: 0.4 }}
         className="text-xl md:text-2xl text-gray-300 mb-2 text-center break-keep"
       >
-        16가지 은밀한 취향
+        나의 은밀한 취향은 16가지 중 어디?
       </motion.p>
 
       <motion.p
-        initial={{ y: -20, opacity: 0 }}
+        initial={{ y: -10, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 1.3, duration: 0.7 }}
-        className="text-lg md:text-xl text-neon-purple mb-10 text-center max-w-sm break-keep leading-relaxed"
+        transition={{ delay: 0.5, duration: 0.4 }}
+        className="text-base text-gray-500 mb-10 text-center break-keep"
       >
-        12문제로 완벽 분석
+        12문제 · 1분이면 끝
       </motion.p>
 
       <motion.button
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ delay: 1.8, duration: 0.5, type: 'spring', stiffness: 200, damping: 20 }}
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 0.6, duration: 0.4, type: 'spring', stiffness: 200, damping: 20 }}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={onStart}
-        className="px-12 py-4 text-xl font-bold bg-gradient-to-r from-neon-purple to-neon-magenta rounded-full neon-border hover:shadow-2xl transition-all duration-300 animate-pulse-glow"
+        className="px-14 py-5 text-xl font-bold bg-gradient-to-r from-neon-purple to-neon-magenta rounded-full neon-border hover:shadow-2xl transition-all duration-300 animate-pulse-glow"
       >
-        시작하기
+        내 밤 유형 알아보기
       </motion.button>
 
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2.3, duration: 0.6 }}
+        transition={{ delay: 0.9, duration: 0.4 }}
         className="mt-8 text-sm text-gray-500"
       >
         ⚠️ 성인 유머가 포함되어 있습니다

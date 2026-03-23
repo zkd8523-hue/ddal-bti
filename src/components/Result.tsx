@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toPng } from 'html-to-image';
-import type { Result as ResultType, PersonalityType, Gender } from '../types';
+import type { Result as ResultType, PersonalityType } from '../types';
 import { results as allResults } from '../data/results';
 import { getProductsForType } from '../data/products';
 import { analytics } from '../utils/analytics';
-import { isIOS, canUseWebShare, dataURLToBlob } from '../utils/deviceDetection';
+import { dataURLToBlob } from '../utils/deviceDetection';
 import AdBanner from './AdBanner';
 import { getPopularityLabel, getRarityTier } from '../data/typePopularity';
 
@@ -16,7 +16,7 @@ declare global {
   }
 }
 
-const KAKAO_APP_KEY = import.meta.env.VITE_KAKAO_APP_KEY || '4570e75c05df4248b7729c5bd0bf94af';
+const KAKAO_APP_KEY = import.meta.env.VITE_KAKAO_APP_KEY || 'bb1fd31c096bfbc922047336876b1746';
 
 const axisOpposites: Record<string, string> = {
   '시각파 (Visual)': '상상파 (Fantasy)',
@@ -31,7 +31,6 @@ const axisOpposites: Record<string, string> = {
 
 interface ResultProps {
   result: ResultType;
-  gender?: Gender | null;
   isShared?: boolean;
   onRestart: () => void;
 }
@@ -45,21 +44,17 @@ function countMatchingAxes(typeA: string, typeB: string): number {
 }
 
 // 축별 차이 비트마스크 → 15가지 고유 궁합 멘트
-// bit0=자극(V/F), bit1=속도(S/M), bit2=탐험(A/R), bit3=장비(T/N)
 const compatibilityDescs: Record<number, string> = {
-  // 찰떡궁합 (3/4 일치, 1개만 다름)
   1:  '콘텐츠 고를 때만 티격태격하는 베프',
   2:  '하나만 빼면 완벽한데, 그게 속도야…',
   4:  '평소엔 잘 맞다가 루틴 문제로 살짝 삐끗',
   8:  '장비 취향 빼면 영혼의 단짝',
-  // 은근 통하는 사이 (2/4 일치)
   3:  '반은 같고 반은 달라서 매번 새로운 사이',
   5:  '자극 원천도 탐험심도 다른 신선한 조합',
   9:  '리듬은 맞는데 취향이 다른 묘한 관계',
   6:  '기본 코드는 같은데 실전 스타일은 정반대',
   10: '핵심은 통하는데 디테일에서 갈리는 케미',
   12: '큰 그림은 같은데 실행 방식이 정반대',
-  // 정반대 매력 (0~1/4 일치)
   7:  '장비 취향만 같은 의외의 한 끗',
   11: '탐험 성향만 통하는 극과 극',
   13: '속도감만 맞는 기묘한 동질감',
@@ -88,21 +83,20 @@ function renderBoldText(text: string) {
   );
 }
 
-export default function Result({ result, gender, isShared = false, onRestart }: ResultProps) {
-  const products = getProductsForType(result.type as PersonalityType, gender || undefined);
+export default function Result({ result, isShared = false, onRestart }: ResultProps) {
+  const products = getProductsForType(result.type as PersonalityType);
 
-  const displayTitle = gender === 'female' ? result.femaleTitle : result.title;
-  const displayEmoji = gender === 'female' ? result.femaleEmoji : result.emoji;
+  const displayTitle = result.title;
+  const displayEmoji = result.emoji;
 
   // 이미지 저장을 위한 ref와 상태
   const resultCardRef = useRef<HTMLDivElement>(null);
   const storyCardRef = useRef<HTMLDivElement>(null);
+  const exploreDetailRef = useRef<HTMLDivElement>(null);
   const [isDownloading, setIsDownloading] = useState(false);
-
-  // 나와의 궁합 상태
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [selectedExploreType, setSelectedExploreType] = useState<PersonalityType | null>(null);
-  const exploreDetailRef = useRef<HTMLDivElement>(null);
+
   const selectedExploreResult = selectedExploreType
     ? allResults.find((r) => r.type === selectedExploreType) || null
     : null;
@@ -114,7 +108,7 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
         if (!window.Kakao.isInitialized()) {
           try {
             window.Kakao.init(KAKAO_APP_KEY);
-            console.log('Kakao SDK 초기화 완료');
+            console.log('Kakao SDK 초기화 완료, 키:', KAKAO_APP_KEY.slice(0, 8) + '...', '버전:', window.Kakao.VERSION);
           } catch (error) {
             console.error('Kakao SDK 초기화 실패:', error);
           }
@@ -136,15 +130,13 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
       return;
     }
 
-    // PC에서 4011 에러 방지: cleanup 후 재초기화
-    // (데스크톱에서 세션 상태가 꼬이는 문제 해결)
-    try {
-      kakao.cleanup();
-      kakao.init(KAKAO_APP_KEY);
-      console.log('Kakao SDK cleanup + 재초기화 완료');
-    } catch (error) {
-      console.error('Kakao SDK 재초기화 실패:', error);
-      if (!kakao.isInitialized()) {
+    // 초기화되지 않은 경우에만 초기화 (cleanup 없이)
+    if (!kakao.isInitialized()) {
+      try {
+        kakao.init(KAKAO_APP_KEY);
+        console.log('Kakao SDK 초기화 완료');
+      } catch (error) {
+        console.error('Kakao SDK 초기화 실패:', error);
         alert('카카오 SDK 초기화에 실패했습니다. 페이지를 새로고침 해주세요.');
         return;
       }
@@ -165,9 +157,14 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
         ? 'https://bam-bti.vercel.app' 
         : siteUrl;
       
-      const resultUrl = `${siteUrl}/?type=${result.type}${gender ? `&gender=${gender}` : ''}`;
+      const resultUrl = `${siteUrl}/?type=${result.type}&utm_source=kakao&utm_medium=social&utm_campaign=share`;
 
-      console.log('카카오 공유 시도:', { siteUrl, imageUrlHost, resultUrl });
+      console.log('카카오 공유 시도:', {
+        siteUrl, imageUrlHost, resultUrl,
+        sdkVersion: kakao.VERSION,
+        isInitialized: kakao.isInitialized(),
+        appKey: KAKAO_APP_KEY.slice(0, 8) + '...',
+      });
 
       kakao.Share.sendDefault({
         objectType: 'feed',
@@ -191,8 +188,8 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
           {
             title: '나도 테스트하기',
             link: {
-              mobileWebUrl: siteUrl,
-              webUrl: siteUrl,
+              mobileWebUrl: `${siteUrl}/?utm_source=kakao&utm_medium=social&utm_campaign=share_test`,
+              webUrl: `${siteUrl}/?utm_source=kakao&utm_medium=social&utm_campaign=share_test`,
             },
           },
         ],
@@ -222,36 +219,14 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
 
       const fileName = `밤BTI-${result.type}-${displayTitle}.png`;
 
-      // iOS: Web Share API 사용
-      if (isIOS() && canUseWebShare()) {
-        try {
-          const blob = dataURLToBlob(dataUrl);
-          const file = new File([blob], fileName, { type: 'image/png' });
-
-          await navigator.share({
-            files: [file],
-            title: `밤BTI 결과: ${displayTitle}`,
-            text: `나의 밤BTI 결과는 "${displayTitle}" ${displayEmoji}`,
-          });
-
-          analytics.trackNativeShare(result.type as PersonalityType);
-          return;
-        } catch (shareError) {
-          // 사용자가 취소한 경우 조용히 처리
-          if ((shareError as Error).name === 'AbortError') {
-            console.log('사용자가 공유를 취소했습니다.');
-            return;
-          }
-          console.error('Web Share API 실패:', shareError);
-          // 폴백으로 계속 진행
-        }
-      }
-
-      // Android/Desktop: 기존 다운로드 방식
+      // 모든 플랫폼: blob URL로 변환 후 다운로드
+      const blob = dataURLToBlob(dataUrl);
+      const blobUrl = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.download = fileName;
-      link.href = dataUrl;
+      link.href = blobUrl;
       link.click();
+      URL.revokeObjectURL(blobUrl);
 
       analytics.trackImageDownload(result.type as PersonalityType);
 
@@ -263,39 +238,10 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
     }
   };
 
-  // 링크 복사
-  const handleCopyLink = async () => {
-    const siteUrl = window.location.origin;
-    const resultUrl = `${siteUrl}/?type=${result.type}${gender ? `&gender=${gender}` : ''}`;
-
-    try {
-      await navigator.clipboard.writeText(resultUrl);
-      alert('✅ 링크가 복사되었습니다!');
-      analytics.trackLinkCopy(result.type as PersonalityType);
-    } catch {
-      // Clipboard API 미지원 브라우저 fallback
-      const textarea = document.createElement('textarea');
-      textarea.value = resultUrl;
-      textarea.style.position = 'fixed';
-      textarea.style.opacity = '0';
-      document.body.appendChild(textarea);
-      textarea.focus();
-      textarea.select();
-      try {
-        document.execCommand('copy');
-        alert('✅ 링크가 복사되었습니다!');
-        analytics.trackLinkCopy(result.type as PersonalityType);
-      } catch {
-        alert('링크 복사에 실패했습니다. 직접 복사해주세요:\n' + resultUrl);
-      }
-      document.body.removeChild(textarea);
-    }
-  };
-
   // X 공유
   const handleTwitterShare = () => {
     const siteUrl = window.location.origin;
-    const resultUrl = `${siteUrl}/?type=${result.type}${gender ? `&gender=${gender}` : ''}`;
+    const resultUrl = `${siteUrl}/?type=${result.type}&utm_source=twitter&utm_medium=social&utm_campaign=share`;
     const text = `나의 밤BTI 결과는 "${displayTitle}" ${displayEmoji}\n\n`;
 
     const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(resultUrl)}`;
@@ -448,6 +394,107 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
         </motion.div>
       </motion.div>
 
+      {/* 공유 버튼 영역 */}
+      {!isShared && (
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 1.2 }}
+          className="w-full max-w-2xl mt-6 space-y-3"
+        >
+          <button
+            onClick={handleKakaoShare}
+            className="w-full px-6 py-4 text-base font-bold bg-[#FEE500] text-[#191919] rounded-full hover:shadow-2xl transition-all duration-300"
+          >
+            💬 카카오톡으로 공유하기
+          </button>
+
+          <div className="grid grid-cols-2 gap-3 md:gap-4">
+            <button
+              onClick={handleDownloadImage}
+              disabled={isDownloading}
+              className="px-2 md:px-6 py-3 text-sm font-bold bg-gray-800 text-gray-300 rounded-full border border-gray-700 hover:border-gray-500 transition-all duration-300 disabled:opacity-50 whitespace-nowrap overflow-hidden text-ellipsis"
+            >
+              {isDownloading ? '⏳ 생성 중' : '📥 이미지 저장'}
+            </button>
+
+            <button
+              onClick={handleTwitterShare}
+              className="px-2 md:px-6 py-3 text-sm font-bold bg-gray-800 text-gray-300 rounded-full border border-gray-700 hover:border-gray-500 transition-all duration-300 whitespace-nowrap overflow-hidden text-ellipsis"
+            >
+              🐦 X 공유
+            </button>
+          </div>
+        </motion.div>
+      )}
+
+      {/* 맞춤형 추천 상품 섹션 (공유받은 결과에서는 숨김) */}
+      {!isShared && (
+        <motion.div
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 1.2 }}
+          className="w-full max-w-2xl mt-12 mb-4"
+        >
+          <div className="flex items-center gap-2 mb-6 px-1">
+            <span className="text-neon-purple animate-pulse">✨</span>
+            <h3 className="text-lg md:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 break-keep">
+              오직 [{displayTitle}]님만을 위한 특별한 추천
+            </h3>
+          </div>
+          
+          <div className="space-y-4">
+            {products.map((product, index) => (
+              <motion.a
+                key={index}
+                href={product.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => analytics.trackProductClick(product.name, product.link, result.type as PersonalityType, index + 1)}
+                initial={{ x: -20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 1.3 + index * 0.1 }}
+                className="flex items-center gap-4 p-4 md:p-5 bg-white/[0.03] backdrop-blur-md rounded-2xl border border-white/10 hover:border-neon-purple/50 hover:bg-white/[0.06] transition-all duration-300 group relative overflow-hidden animate-card-glow product-card-glow"
+              >
+                {/* 배경 광 효과 */}
+                <div className="absolute inset-0 bg-gradient-to-r from-neon-purple/0 via-neon-purple/5 to-neon-purple/0 opacity-0 group-hover:opacity-100 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                
+                <div className="w-20 h-20 md:w-24 md:h-24 bg-gray-800/50 rounded-xl flex-shrink-0 flex items-center justify-center overflow-hidden border border-white/5 shadow-xl transition-transform duration-500 group-hover:scale-105">
+                  {product.imageUrl ? (
+                    <img
+                      src={product.imageUrl}
+                      alt={product.name}
+                      loading="lazy"
+                      className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : (
+                    <span className="text-4xl md:text-5xl transform group-hover:scale-110 transition-transform duration-500 opacity-90">{product.emoji}</span>
+                  )}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-bold text-base md:text-lg text-white group-hover:text-neon-purple transition-colors line-clamp-1">
+                    {product.name}
+                  </p>
+                  <p className="text-xs md:text-sm text-gray-400 group-hover:text-gray-300 line-clamp-2 mt-1 font-light leading-relaxed">
+                    {product.description}
+                  </p>
+                </div>
+                <div className="ml-2 flex items-center justify-center w-8 h-8 rounded-full bg-white/5 border border-white/10 group-hover:bg-neon-purple group-hover:text-white transition-all">
+                  <span className="text-sm font-bold opacity-70 group-hover:opacity-100">→</span>
+                </div>
+              </motion.a>
+            ))}
+          </div>
+          <p className="text-[10px] text-gray-600 mt-4 text-center opacity-70 italic">
+            이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다
+          </p>
+        </motion.div>
+      )}
+
+      {/* 배너 광고 영역 (공유받은 결과에서는 숨김) */}
+      {!isShared && <AdBanner variant="result" />}
+
       {/* 나와의 궁합 섹션 */}
       <motion.div
         initial={{ y: 30, opacity: 0 }}
@@ -531,10 +578,10 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
                                   : 'bg-gray-800/50 border-gray-700 hover:border-gray-500 hover:bg-gray-800/80'
                               }`}
                             >
-                              <div className="text-2xl mb-1">{gender === 'female' ? r.femaleEmoji : r.emoji}</div>
+                              <div className="text-2xl mb-1">{r.emoji}</div>
                               <p className="text-xs text-gray-400 font-mono">{r.type}</p>
                               <p className="text-sm text-white font-semibold truncate">
-                                {gender === 'female' ? r.femaleTitle : r.title}
+                                {r.title}
                               </p>
                               <p className="text-[11px] text-gray-500 mt-1 truncate">{getCompatibilityDesc(result.type, r.type)}</p>
                             </button>
@@ -558,7 +605,7 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
                               <div className="flex items-center gap-4 mb-4">
                                 <img
                                   src={`/images/shares/${selectedExploreResult.type}.png`}
-                                  alt={gender === 'female' ? selectedExploreResult.femaleTitle : selectedExploreResult.title}
+                                  alt={selectedExploreResult.title}
                                   onError={(e) => { e.currentTarget.style.display = 'none'; }}
                                   className="w-20 h-20 rounded-xl object-cover shadow-lg"
                                 />
@@ -567,7 +614,7 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
                                     {selectedExploreResult.type}
                                   </span>
                                   <h4 className="text-xl font-bold text-white">
-                                    {gender === 'female' ? selectedExploreResult.femaleTitle : selectedExploreResult.title}
+                                    {selectedExploreResult.title}
                                   </h4>
                                   <p className="text-sm text-gray-400 italic">"{selectedExploreResult.subtitle}"</p>
                                 </div>
@@ -614,73 +661,6 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
         </div>
       </motion.div>
 
-      {/* 맞춤형 추천 상품 섹션 (공유받은 결과에서는 숨김) */}
-      {!isShared && (
-        <motion.div
-          initial={{ y: 30, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="w-full max-w-2xl mt-12 mb-4"
-        >
-          <div className="flex items-center gap-2 mb-6 px-1">
-            <span className="text-neon-purple animate-pulse">✨</span>
-            <h3 className="text-lg md:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 break-keep">
-              오직 [{displayTitle}]님만을 위한 특별한 추천
-            </h3>
-          </div>
-          
-          <div className="space-y-4">
-            {products.map((product, index) => (
-              <motion.a
-                key={index}
-                href={product.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => analytics.trackProductClick(product.name, product.link, result.type as PersonalityType, index + 1)}
-                initial={{ x: -20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 1.3 + index * 0.1 }}
-                className="flex items-center gap-4 p-4 md:p-5 bg-white/[0.03] backdrop-blur-md rounded-2xl border border-white/10 hover:border-neon-purple/50 hover:bg-white/[0.06] transition-all duration-300 group relative overflow-hidden"
-              >
-                {/* 배경 광 효과 */}
-                <div className="absolute inset-0 bg-gradient-to-r from-neon-purple/0 via-neon-purple/5 to-neon-purple/0 opacity-0 group-hover:opacity-100 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-                
-                <div className="w-20 h-20 md:w-24 md:h-24 bg-gray-800/50 rounded-xl flex-shrink-0 flex items-center justify-center overflow-hidden border border-white/5 shadow-xl transition-transform duration-500 group-hover:scale-105">
-                  {product.imageUrl ? (
-                    <img
-                      src={product.imageUrl}
-                      alt={product.name}
-                      loading="lazy"
-                      className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
-                      referrerPolicy="no-referrer"
-                    />
-                  ) : (
-                    <span className="text-4xl md:text-5xl transform group-hover:scale-110 transition-transform duration-500 opacity-90">{product.emoji}</span>
-                  )}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="font-bold text-base md:text-lg text-white group-hover:text-neon-purple transition-colors line-clamp-1">
-                    {product.name}
-                  </p>
-                  <p className="text-xs md:text-sm text-gray-400 group-hover:text-gray-300 line-clamp-2 mt-1 font-light leading-relaxed">
-                    {product.description}
-                  </p>
-                </div>
-                <div className="ml-2 flex items-center justify-center w-8 h-8 rounded-full bg-white/5 border border-white/10 group-hover:bg-neon-purple group-hover:text-white transition-all">
-                  <span className="text-sm font-bold opacity-70 group-hover:opacity-100">→</span>
-                </div>
-              </motion.a>
-            ))}
-          </div>
-          <p className="text-[10px] text-gray-600 mt-4 text-center opacity-70 italic">
-            이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다
-          </p>
-        </motion.div>
-      )}
-
-      {/* 배너 광고 영역 (공유받은 결과에서는 숨김) */}
-      {!isShared && <AdBanner variant="result" />}
-
       {/* 버튼 영역 */}
       <motion.div
         initial={{ y: 30, opacity: 0 }}
@@ -688,45 +668,6 @@ export default function Result({ result, gender, isShared = false, onRestart }: 
         transition={{ delay: isShared ? 1.2 : 1.6 }}
         className="w-full max-w-2xl mt-8 space-y-4"
       >
-        {!isShared && (
-          <>
-            {/* 이미지 저장 & 링크 복사 */}
-            <div className="grid grid-cols-2 gap-3 md:gap-4">
-              <button
-                onClick={handleDownloadImage}
-                disabled={isDownloading}
-                className="px-2 md:px-6 py-4 text-sm md:text-base font-bold bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full hover:shadow-2xl transition-all duration-300 disabled:opacity-50 whitespace-nowrap overflow-hidden text-ellipsis"
-              >
-                {isDownloading ? '⏳ 생성 중' : (isIOS() ? '📤 이미지 공유' : '📥 이미지 저장')}
-              </button>
-
-              <button
-                onClick={handleCopyLink}
-                className="px-2 md:px-6 py-4 text-sm md:text-base font-bold bg-gray-700 text-white rounded-full hover:shadow-2xl transition-all duration-300 whitespace-nowrap overflow-hidden text-ellipsis"
-              >
-                🔗 링크 복사
-              </button>
-            </div>
-
-            {/* 카카오톡 & X 공유 */}
-            <div className="grid grid-cols-2 gap-3 md:gap-4">
-              <button
-                onClick={handleKakaoShare}
-                className="px-2 md:px-6 py-4 text-sm md:text-base font-bold bg-[#FEE500] text-[#191919] rounded-full hover:shadow-2xl transition-all duration-300 whitespace-nowrap overflow-hidden text-ellipsis"
-              >
-                💬 카카오톡
-              </button>
-
-              <button
-                onClick={handleTwitterShare}
-                className="px-2 md:px-6 py-4 text-sm md:text-base font-bold bg-black text-white rounded-full hover:shadow-2xl transition-all duration-300 whitespace-nowrap overflow-hidden text-ellipsis"
-              >
-                🐦 X 공유
-              </button>
-            </div>
-          </>
-        )}
-
         <button
           onClick={onRestart}
           className="w-full px-8 py-4 text-lg font-bold bg-gradient-to-r from-neon-purple to-neon-magenta rounded-full hover:shadow-2xl transition-all duration-300"

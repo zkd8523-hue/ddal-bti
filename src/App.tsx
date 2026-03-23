@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import Home from './components/Home';
-import GenderSelect from './components/GenderSelect';
 import Question from './components/Question';
 import Loading from './components/Loading';
 import Result from './components/Result';
@@ -10,11 +9,12 @@ import { questions } from './data/questions';
 import { results } from './data/results';
 import { calculateResult } from './utils/calculateResult';
 import { initGA, analytics } from './utils/analytics';
-import type { Screen, Answer, PersonalityType, Gender } from './types';
+import type { Screen, Answer, PersonalityType } from './types';
 
 const clearUrlParams = () => {
   const url = new URL(window.location.href);
-  url.search = '';
+  // type 파라미터만 제거, UTM 파라미터는 보존 (GA4 소스 추적용)
+  url.searchParams.delete('type');
   window.history.replaceState({}, '', url.toString());
 };
 
@@ -22,7 +22,6 @@ const getInitialState = () => {
   // URL 쿼리 파라미터로 공유된 결과인지 확인
   const params = new URLSearchParams(window.location.search);
   const sharedType = params.get('type');
-  const sharedGender = params.get('gender');
 
   if (sharedType) {
     return {
@@ -30,7 +29,6 @@ const getInitialState = () => {
       currentQuestionIndex: 0,
       answers: [],
       resultType: sharedType as PersonalityType,
-      gender: (sharedGender as Gender) || null,
       isShared: true
     };
   }
@@ -40,7 +38,6 @@ const getInitialState = () => {
     currentQuestionIndex: 0,
     answers: [],
     resultType: null,
-    gender: null,
     isShared: false
   };
 };
@@ -65,9 +62,6 @@ function App() {
   // 최종 결과 타입
   const [resultType, setResultType] = useState<PersonalityType | null>(initialState.resultType);
 
-  // 성별 정보
-  const [gender, setGender] = useState<Gender | null>(initialState.gender || null);
-
   // 공유받은 결과인지 여부
   const [isShared, setIsShared] = useState<boolean>(initialState.isShared || false);
 
@@ -88,18 +82,10 @@ function App() {
     analytics.trackTestStarted();
     clearUrlParams();
     setIsShared(false);
-    setScreen('gender');
+    setScreen('question');
     setCurrentQuestionIndex(0);
     setAnswers([]);
     setResultType(null);
-    setGender(null);
-  };
-
-  // 성별 선택 처리
-  const handleGenderSelect = (selectedGender: Gender) => {
-    analytics.trackGenderSelected(selectedGender);
-    setGender(selectedGender);
-    setScreen('question');
   };
 
   // 이전 질문으로 돌아가기
@@ -109,9 +95,9 @@ function App() {
       setAnswers(answers.slice(0, -1));
       setCurrentQuestionIndex(currentQuestionIndex - 1);
     } else {
-      // 첫 번째 질문이면 성별 선택으로
+      // 첫 번째 질문이면 홈으로
       setAnswers([]);
-      setScreen('gender');
+      setScreen('home');
     }
   };
 
@@ -149,7 +135,7 @@ function App() {
   const handleLoadingComplete = () => {
     // 테스트 완료 이벤트 추적
     if (resultType) {
-      analytics.trackTestCompleted(resultType, gender, questions.length);
+      analytics.trackTestCompleted(resultType, questions.length);
     }
     setScreen('result');
   };
@@ -163,7 +149,6 @@ function App() {
     setCurrentQuestionIndex(0);
     setAnswers([]);
     setResultType(null);
-    setGender(null);
   };
 
   // 현재 질문 가져오기
@@ -200,10 +185,6 @@ function App() {
             <Home key="home" onStart={handleStart} />
           )}
 
-          {screen === 'gender' && (
-            <GenderSelect key="gender" onSelect={handleGenderSelect} />
-          )}
-
           {screen === 'question' && currentQuestion && (
             <Question
               key={`question-${currentQuestion.id}`}
@@ -216,11 +197,14 @@ function App() {
           )}
 
           {screen === 'loading' && (
-            <Loading key="loading" onComplete={handleLoadingComplete} />
+            <Loading
+              key="loading"
+              onComplete={handleLoadingComplete}
+            />
           )}
 
           {screen === 'result' && resultData && (
-            <Result key="result" result={resultData} gender={gender} isShared={isShared} onRestart={handleRestart} />
+            <Result key="result" result={resultData} isShared={isShared} onRestart={handleRestart} />
           )}
         </AnimatePresence>
       </LayoutWithSidebarAds>

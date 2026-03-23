@@ -1,6 +1,3 @@
-// 성별 타입 정의
-export type Gender = 'male' | 'female';
-
 // 4가지 축 타입 정의
 export type Axis1 = 'V' | 'F'; // Visual vs Fantasy
 export type Axis2 = 'S' | 'M'; // Speed vs Marathon
@@ -48,5 +45,8 @@ export interface Answer {
   selectedPoint: string;
 }
 
+// 성별 타입
+export type Gender = 'male' | 'female';
+
 // 화면 상태 타입
-export type Screen = 'home' | 'gender' | 'question' | 'loading' | 'result';
+export type Screen = 'home' | 'question' | 'loading' | 'result';

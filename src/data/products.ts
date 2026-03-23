@@ -1,4 +1,4 @@
-import type { PersonalityType, Gender } from '../types';
+import type { PersonalityType } from '../types';
 
 export interface Product {
   name: string;
@@ -27,11 +27,11 @@ export const productsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   VSAN: [
-    { name: '텐가 에그', description: '빠르고 간편하게 쓰고 딱 버리는 꿀템', emoji: '💧', link: 'https://link.coupang.com/a/d8jJp9', imageUrl: '/images/pocketgel.png' },
+    { name: '1+1 닥터데이즈 마사지젤', description: '건조함 없이 촉촉한 본능적인 마무리', emoji: '💧', link: 'https://link.coupang.com/a/d8T5gy', imageUrl: '/images/massagegel.png' },
     COMMON_GEL,
   ],
   VSRT: [
-    { name: '텐가 에그 6종 버라이어티 세트', description: '가성비와 호기심을 완벽히 자극하는 입문템', emoji: '🥚', link: 'https://link.coupang.com/a/d8jJ4B', imageUrl: '/images/egg.png' },
+    { name: '디센느 스탠드 태블릿 핸드폰 거치대', description: '양손의 완벽한 자유를 선사하는 확실한 도구', emoji: '📱', link: 'https://link.coupang.com/a/d8T5DR', imageUrl: '/images/tab_holder.png' },
     COMMON_GEL,
   ],
   VSRN: [
@@ -53,7 +53,7 @@ export const productsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   FSAT: [
-    { name: '이넬릭서 바디스프레이 남자 향수 풀세트', description: '나만의 독특한 아우라를 완성하는, 상상력을 자극하는 세련된 향기', emoji: '💨', link: 'https://link.coupang.com/a/d9u8p5', imageUrl: '/images/bodyspray.png' },
+    { name: '입문용 두근두근 안대', description: '상상력을 현실의 스킨십으로 끌어오는 마법', emoji: '🎭', link: 'https://link.coupang.com/a/d8T9bR', imageUrl: '/images/eyemask_sexy.png' },
     COMMON_GEL,
   ],
   FSAN: [
@@ -156,9 +156,8 @@ export const femaleProductsByType: Record<string, Product[]> = {
   ]
 };
 
-export function getProductsForType(type: PersonalityType, gender?: Gender): Product[] {
-  const productMap = gender === 'female' ? femaleProductsByType : productsByType;
-  const products = productMap[type] || productMap.default;
+export function getProductsForType(type: PersonalityType): Product[] {
+  const products = productsByType[type] || productsByType.default;
   // 공통 마감 아이템을 제외한 고유 상품 필터링 (핫리로드 대비 이름으로 비교)
   const specificProducts = products.filter(p => p.name !== COMMON_GEL.name);
   

@@ -1,40 +1,69 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { useEffect, useState, useRef, useCallback } from 'react';
+import { analytics } from '../utils/analytics';
 
 interface LoadingProps {
   onComplete: () => void;
 }
 
-const loadingMessages = [
-  '당신의 솔플 성향을 분석하는 중...',
-  '숨겨진 패턴을 찾고 있어요...',
-  '거의 다 됐어요! 🎉',
-];
+const LOADING_DURATION = 1500; // 1.5초
 
 export default function Loading({ onComplete }: LoadingProps) {
-  const [messageIndex, setMessageIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const progressRef = useRef(0);
+  const completedRef = useRef(false);
+  const onCompleteRef = useRef(onComplete);
+  onCompleteRef.current = onComplete;
+
+  // 프로그레스 애니메이션 (requestAnimationFrame)
+  useEffect(() => {
+    const startTime = performance.now();
+
+    const updateProgress = (now: number) => {
+      const elapsed = now - startTime;
+      const newProgress = Math.min((elapsed / LOADING_DURATION) * 100, 100);
+      progressRef.current = newProgress;
+      setProgress(newProgress);
+
+      if (elapsed < LOADING_DURATION) {
+        requestAnimationFrame(updateProgress);
+      } else if (!completedRef.current) {
+        completedRef.current = true;
+        onCompleteRef.current();
+      }
+    };
+
+    requestAnimationFrame(updateProgress);
+  }, []);
+
+  // 이탈 추적
+  const trackAbandonment = useCallback(() => {
+    if (!completedRef.current) {
+      analytics.trackLoadingAbandoned(Math.round(progressRef.current));
+    }
+  }, []);
 
   useEffect(() => {
-    // 메시지 순차 전환 (약 0.83초마다)
-    const messageInterval = setInterval(() => {
-      setMessageIndex((prev) => {
-        if (prev < loadingMessages.length - 1) {
-          return prev + 1;
-        }
-        return prev;
-      });
-    }, 833);
+    const handleVisibilityChange = () => {
+      if (document.hidden) trackAbandonment();
+    };
 
-    // 2.5초 후 완료
-    const timer = setTimeout(() => {
-      onComplete();
-    }, 2500);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('beforeunload', trackAbandonment);
 
     return () => {
-      clearInterval(messageInterval);
-      clearTimeout(timer);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('beforeunload', trackAbandonment);
     };
-  }, [onComplete]);
+  }, [trackAbandonment]);
+
+  const getMessage = () => {
+    if (progress < 40) return '당신의 솔플 성향을 분석하는 중...';
+    if (progress < 75) return '숨겨진 패턴을 찾고 있어요...';
+    return '거의 다 됐어요!';
+  };
+
+  const roundedProgress = Math.round(progress);
 
   return (
     <motion.div
@@ -43,64 +72,31 @@ export default function Loading({ onComplete }: LoadingProps) {
       exit={{ opacity: 0 }}
       className="flex flex-col items-center justify-center min-h-screen px-6"
     >
-      <motion.div
-        animate={{
-          rotate: 360,
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: 'linear',
-        }}
-        className="w-20 h-20 mb-8 border-4 border-neon-purple border-t-transparent rounded-full"
-      />
+      {/* 퍼센트 표시 */}
+      <p className="text-6xl font-bold neon-text mb-6 tabular-nums">
+        {roundedProgress}%
+      </p>
 
-      {/* 순차적으로 나타나는 메시지 */}
-      <div className="h-24 flex items-center justify-center">
-        <AnimatePresence mode="wait">
-          <motion.h2
-            key={messageIndex}
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -20, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="text-2xl md:text-3xl font-bold text-center mb-4 neon-text"
-          >
-            {loadingMessages[messageIndex]}
-          </motion.h2>
-        </AnimatePresence>
+      {/* 프로그레스 바 */}
+      <div className="w-full max-w-xs h-2 bg-gray-800 rounded-full overflow-hidden mb-8">
+        <div
+          className="h-full bg-gradient-to-r from-neon-purple to-neon-magenta transition-none"
+          style={{ width: `${progress}%` }}
+        />
       </div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
-        className="flex space-x-2"
-      >
-        {[0, 1, 2].map((i) => (
-          <motion.div
-            key={i}
-            animate={{
-              y: [0, -20, 0],
-            }}
-            transition={{
-              duration: 0.6,
-              repeat: Infinity,
-              delay: i * 0.2,
-            }}
-            className="w-3 h-3 bg-neon-magenta rounded-full"
-          />
-        ))}
-      </motion.div>
+      {/* 분석 메시지 */}
+      <p className="text-lg text-gray-300 text-center mb-8 break-keep">
+        {getMessage()}
+      </p>
 
       <motion.p
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.4 }}
-        className="mt-8 text-gray-400 text-center max-w-md"
+        animate={{ opacity: 0.8 }}
+        transition={{ delay: 0.3 }}
+        className="mt-8 text-gray-500 text-center text-sm max-w-md"
       >
-        🔒 결과는 저장되지 않으며,<br />
-        오직 당신만 볼 수 있습니다
+        🔒 결과는 저장되지 않으며, 오직 당신만 볼 수 있습니다
       </motion.p>
     </motion.div>
   );
