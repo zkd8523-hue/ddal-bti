@@ -18,7 +18,7 @@ export default function GoogleAdSidebar({ position, adSlot }: GoogleAdSidebarPro
 
     try {
       if (typeof window !== 'undefined') {
-        const adsbygoogle = (window as any).adsbygoogle;
+        const adsbygoogle = window.adsbygoogle;
         if (adsbygoogle) {
           adsbygoogle.push({});
           isAdLoaded.current = true;

@@ -15,7 +15,7 @@ export default function GoogleAdBanner({ adSlot }: GoogleAdBannerProps) {
     const timer = setTimeout(() => {
       try {
         if (typeof window !== 'undefined') {
-          const adsbygoogle = (window as any).adsbygoogle;
+          const adsbygoogle = window.adsbygoogle;
           if (adsbygoogle) {
             adsbygoogle.push({});
             isAdLoaded.current = true;

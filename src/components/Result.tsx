@@ -9,12 +9,7 @@ import { dataURLToBlob } from '../utils/deviceDetection';
 import AdBanner from './AdBanner';
 import { getPopularityLabel, getRarityTier } from '../data/typePopularity';
 
-declare global {
-  interface Window {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    Kakao: any;
-  }
-}
+
 
 const KAKAO_APP_KEY = import.meta.env.VITE_KAKAO_APP_KEY || 'bb1fd31c096bfbc922047336876b1746';
 
@@ -123,7 +118,7 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
   }, []);
 
   const handleKakaoShare = () => {
-    const kakao = (window as any).Kakao;
+    const kakao = window.Kakao;
 
     if (!kakao) {
       alert('❌ 카카오 SDK를 불러오지 못했습니다. 페이지를 새로고침 해주세요.');
@@ -194,9 +189,10 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
           },
         ],
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       console.error('카카오 공유 실패 상세 에러:', error);
-      alert(`❌ 공유하기에 실패했습니다.\n사유: ${error.message || '알 수 없는 오류'}\n브라우저의 팝업 차단 설정을 확인해 보세요.`);
+      alert(`❌ 공유하기에 실패했습니다.\n사유: ${errorMessage}\n브라우저의 팝업 차단 설정을 확인해 보세요.`);
     }
   };
 
@@ -241,10 +237,11 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
   // X 공유
   const handleTwitterShare = () => {
     const siteUrl = window.location.origin;
-    const resultUrl = `${siteUrl}/?type=${result.type}&utm_source=twitter&utm_medium=social&utm_campaign=share`;
+    // /api/share를 통해 X 크롤러가 유형별 OG 이미지를 인식하도록 함
+    const shareUrl = `${siteUrl}/api/share?type=${result.type}&utm_source=twitter&utm_medium=social&utm_campaign=share`;
     const text = `나의 밤BTI 결과는 "${displayTitle}" ${displayEmoji}\n\n`;
 
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(resultUrl)}`;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrl)}`;
     window.open(twitterUrl, '_blank');
 
     analytics.trackTwitterShare(result.type as PersonalityType);
@@ -404,9 +401,10 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
         >
           <button
             onClick={handleKakaoShare}
-            className="w-full px-6 py-4 text-base font-bold bg-[#FEE500] text-[#191919] rounded-full hover:shadow-2xl transition-all duration-300"
+            className="w-full px-6 py-3 text-base font-bold bg-[#FEE500] text-[#191919] rounded-full hover:shadow-2xl transition-all duration-300"
           >
-            💬 카카오톡으로 공유하기
+            <span>💬 카톡으로 결과 공유하기</span>
+            <span className="block text-sm font-medium text-[#191919]/50 mt-0.5">내 친구들은 어떤 유형일까요?</span>
           </button>
 
           <div className="grid grid-cols-2 gap-3 md:gap-4">

@@ -1,5 +1,8 @@
 import { motion } from 'framer-motion';
 
+const PARTICIPANT_COUNT = '2,000';
+
+
 interface HomeProps {
   onStart: () => void;
 }
@@ -15,7 +18,7 @@ export default function Home({ onStart }: HomeProps) {
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.05, duration: 0.6 }}
+        transition={{ delay: 0, duration: 0.4 }}
         className="text-3xl mb-2"
       >
         🌙
@@ -24,15 +27,15 @@ export default function Home({ onStart }: HomeProps) {
       <motion.h1
         initial={{ y: -30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.1, duration: 0.5 }}
-        className="mb-6 text-center select-none"
+        transition={{ delay: 0.05, duration: 0.4 }}
+        className="mb-4 text-center select-none"
       >
         <span className="inline-flex items-baseline gap-0.5">
           <span className="text-6xl md:text-8xl font-black bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-pink-200 drop-shadow-[0_0_25px_rgba(244,114,182,0.5)]">
             밤
           </span>
           <span className="text-5xl md:text-7xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-neon-purple via-neon-magenta to-neon-pink neon-text">
-            BTI
+            bti
           </span>
         </span>
       </motion.h1>
@@ -40,17 +43,17 @@ export default function Home({ onStart }: HomeProps) {
       <motion.p
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.3, duration: 0.4 }}
-        className="text-xl md:text-2xl text-gray-300 mb-2 text-center break-keep"
+        transition={{ delay: 0.1, duration: 0.3 }}
+        className="text-xl md:text-2xl text-gray-300 mb-3 text-center break-keep"
       >
-        나의 은밀한 취향은 16가지 중 어디?
+        다들 숨기고 있지만, 유형은 있다
       </motion.p>
 
       <motion.p
         initial={{ y: -10, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.5, duration: 0.4 }}
-        className="text-base text-gray-500 mb-10 text-center break-keep"
+        transition={{ delay: 0.2, duration: 0.3 }}
+        className="text-base text-gray-500 mb-8 text-center break-keep"
       >
         12문제 · 1분이면 끝
       </motion.p>
@@ -58,7 +61,7 @@ export default function Home({ onStart }: HomeProps) {
       <motion.button
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 0.6, duration: 0.4, type: 'spring', stiffness: 200, damping: 20 }}
+        transition={{ delay: 0.25, duration: 0.4, type: 'spring', stiffness: 200, damping: 20 }}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={onStart}
@@ -70,11 +73,12 @@ export default function Home({ onStart }: HomeProps) {
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.9, duration: 0.4 }}
-        className="mt-8 text-sm text-gray-500"
+        transition={{ delay: 0.35, duration: 0.3 }}
+        className="mt-4 text-sm text-gray-500"
       >
-        ⚠️ 성인 유머가 포함되어 있습니다
+        🔥 지금까지 {PARTICIPANT_COUNT}+명 참여
       </motion.p>
+
     </motion.div>
   );
 }

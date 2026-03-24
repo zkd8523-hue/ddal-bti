@@ -13,7 +13,10 @@ export default function Loading({ onComplete }: LoadingProps) {
   const progressRef = useRef(0);
   const completedRef = useRef(false);
   const onCompleteRef = useRef(onComplete);
-  onCompleteRef.current = onComplete;
+  
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
 
   // 프로그레스 애니메이션 (requestAnimationFrame)
   useEffect(() => {
