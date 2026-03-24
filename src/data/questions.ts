@@ -15,7 +15,21 @@ export const questions: Question[] = [
       point: 'F'
     }
   },
-  // 2. [Axis 1: V/F]
+  // 2. [Axis 4: T/N]
+  {
+    id: 11,
+    axis: 4,
+    question: '카페에서 음료 고를 때?',
+    optionA: {
+      text: '📱 리뷰부터 검색한다',
+      point: 'T'
+    },
+    optionB: {
+      text: '👆 그냥 끌리는 거',
+      point: 'N'
+    }
+  },
+  // 3. [Axis 1: V/F]
   {
     id: 2,
     axis: 1,
@@ -29,7 +43,7 @@ export const questions: Question[] = [
       point: 'F'
     }
   },
-  // 3. [Axis 2: S/M]
+  // 4. [Axis 2: S/M]
   {
     id: 5,
     axis: 2,
@@ -43,7 +57,7 @@ export const questions: Question[] = [
       point: 'M'
     }
   },
-  // 4. [Axis 3: A/R]
+  // 5. [Axis 3: A/R]
   {
     id: 7,
     axis: 3,
@@ -57,7 +71,7 @@ export const questions: Question[] = [
       point: 'R'
     }
   },
-  // 5. [Axis 2: S/M]
+  // 6. [Axis 2: S/M]
   {
     id: 4,
     axis: 2,
@@ -71,7 +85,7 @@ export const questions: Question[] = [
       point: 'M'
     }
   },
-  // 6. [Axis 4: T/N]
+  // 7. [Axis 4: T/N]
   {
     id: 10,
     axis: 4,
@@ -85,7 +99,7 @@ export const questions: Question[] = [
       point: 'N'
     }
   },
-  // 7. [Axis 3: A/R]
+  // 8. [Axis 3: A/R]
   {
     id: 9,
     axis: 3,
@@ -97,20 +111,6 @@ export const questions: Question[] = [
     optionB: {
       text: '🤔 그래도 역시 검증된 게 최고지!',
       point: 'R'
-    }
-  },
-  // 8. [Axis 4: T/N]
-  {
-    id: 11,
-    axis: 4,
-    question: '카페에서 음료 고를 때?',
-    optionA: {
-      text: '📱 리뷰부터 검색한다',
-      point: 'T'
-    },
-    optionB: {
-      text: '👆 그냥 끌리는 거',
-      point: 'N'
     }
   },
   // 9. [Axis 3: A/R]
