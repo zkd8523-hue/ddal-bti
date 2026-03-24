@@ -164,7 +164,7 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
       kakao.Share.sendDefault({
         objectType: 'feed',
         content: {
-          title: `[밤BTI] 나의 결과: ${displayTitle} ${displayEmoji}`,
+          title: `[밤bti] 나의 결과: ${displayTitle} ${displayEmoji}`,
           description: `${result.description[0].replace(/\*\*/g, '')}`,
           imageUrl: `${imageUrlHost}/images/shares/${result.type}.png?v=2`,
           link: {
@@ -211,7 +211,7 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
         backgroundColor: '#111827',
       });
 
-      const fileName = `밤BTI-${result.type}-${displayTitle}.png`;
+      const fileName = `밤bti-${result.type}-${displayTitle}.png`;
       const blob = dataURLToBlob(dataUrl);
       const file = new File([blob], fileName, { type: 'image/png' });
 
@@ -219,8 +219,8 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
       if (canShareFiles() && navigator.canShare({ files: [file] })) {
         await navigator.share({
           files: [file],
-          title: `나의 밤BTI 결과: ${displayTitle}`,
-          text: `나의 밤BTI는 "${displayTitle}" ${displayEmoji}\n테스트 해보기 👉 ${window.location.origin}`,
+          title: `나의 밤bti 결과: ${displayTitle}`,
+          text: `나의 밤bti는 "${displayTitle}" ${displayEmoji}\n테스트 해보기 👉 ${window.location.origin}`,
         });
         analytics.trackInstagramShare(result.type as PersonalityType);
       } else {
@@ -248,7 +248,7 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
     const siteUrl = window.location.origin;
     // /api/share를 통해 X 크롤러가 유형별 OG 이미지를 인식하도록 함
     const shareUrl = `${siteUrl}/api/share?type=${result.type}&utm_source=twitter&utm_medium=social&utm_campaign=share`;
-    const text = `나의 밤BTI 결과는 "${displayTitle}" ${displayEmoji}\n\n`;
+    const text = `나의 밤bti 결과는 "${displayTitle}" ${displayEmoji}\n\n`;
 
     const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrl)}`;
     window.open(twitterUrl, '_blank');
@@ -270,7 +270,7 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
         transition={{ delay: 0.1 }}
         className="text-lg text-gray-400 mb-4"
       >
-        {isShared ? '친구의 밤BTI 결과' : '나의 밤BTI는?'}
+        {isShared ? '친구의 밤bti 결과' : '나의 밤bti는?'}
       </motion.p>
 
       {/* 결과 카드 */}
@@ -405,7 +405,7 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
             className="w-full px-6 py-3 text-base font-bold bg-[#FEE500] text-[#191919] rounded-full hover:shadow-2xl transition-all duration-300"
           >
             <span>💬 카톡으로 결과 공유하기</span>
-            <span className="block text-sm font-medium text-[#191919]/50 mt-0.5">내 친구들은 어떤 유형일까요?</span>
+            <span className="block text-sm font-medium text-[#191919]/50 mt-0.5">내 친구들은 어떤 유형일까?</span>
           </button>
 
           <div className="grid grid-cols-2 gap-3 md:gap-4">

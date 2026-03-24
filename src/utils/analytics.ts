@@ -35,7 +35,7 @@ export const analytics = {
     ga4.event({
       category: 'Test',
       action: 'test_started',
-      label: '밤BTI 테스트 시작'
+      label: '밤bti 테스트 시작'
     });
   },
 
