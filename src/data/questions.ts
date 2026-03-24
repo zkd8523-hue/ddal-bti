@@ -5,59 +5,17 @@ export const questions: Question[] = [
   {
     id: 1,
     axis: 1,
-    question: '혼자만의 은밀한 의식(?)을 치르기 전, 나의 사전 세팅은?',
+    question: '꿈에서 깼을 때 기억나는 건?',
     optionA: {
-      text: '🕯️ 조명부터 소품까지 완벽 세팅',
+      text: '👀 생생한 장면',
       point: 'V'
     },
     optionB: {
-      text: '💭 상상력 하나로 어디든 떠나기',
+      text: '💭 모호한 감정과 분위기',
       point: 'F'
     }
   },
-  // 2. [Axis 2: S/M]
-  {
-    id: 4,
-    axis: 2,
-    question: '이상적인 하룻밤의 타임라인은?',
-    optionA: {
-      text: '⚡ 30분 안에 끝내는 짜릿한 스피드',
-      point: 'S'
-    },
-    optionB: {
-      text: '⏰ 몇 시간이고 천천히 즐기기',
-      point: 'M'
-    }
-  },
-  // 3. [Axis 3: A/R]
-  {
-    id: 7,
-    axis: 3,
-    question: '판타지 속 나의 포지션은?',
-    optionA: {
-      text: '🎭 매번 다른 역할을 시도해본다',
-      point: 'A'
-    },
-    optionB: {
-      text: '👑 나만의 확고한 포지션이 있다',
-      point: 'R'
-    }
-  },
-  // 4. [Axis 4: T/N]
-  {
-    id: 10,
-    axis: 4,
-    question: '침대 옆 비밀 서랍을 열었더니?',
-    optionA: {
-      text: '✨ 각종 도구와 아이템으로 가득',
-      point: 'T'
-    },
-    optionB: {
-      text: '🌿 아무것도 없는 미니멀리즘',
-      point: 'N'
-    }
-  },
-  // 5. [Axis 1: V/F]
+  // 2. [Axis 1: V/F]
   {
     id: 2,
     axis: 1,
@@ -71,7 +29,7 @@ export const questions: Question[] = [
       point: 'F'
     }
   },
-  // 6. [Axis 2: S/M]
+  // 3. [Axis 2: S/M]
   {
     id: 5,
     axis: 2,
@@ -85,63 +43,49 @@ export const questions: Question[] = [
       point: 'M'
     }
   },
-  // 7. [Axis 3: A/R]
+  // 4. [Axis 3: A/R]
   {
-    id: 8,
+    id: 7,
     axis: 3,
-    question: '은밀한 의식을 치르는 장소는?',
+    question: '판타지 속 나의 포지션은?',
     optionA: {
-      text: '🌍 화장실, 차 안, 어디든 가능',
+      text: '🎭 매번 다른 역할을 시도해본다',
       point: 'A'
     },
     optionB: {
-      text: '🛏️ 무조건 내 방, 내 침대 위에서만',
+      text: '👑 나만의 확고한 포지션이 있다',
       point: 'R'
     }
   },
-  // 8. [Axis 4: T/N]
+  // 5. [Axis 2: S/M]
   {
-    id: 11,
-    axis: 4,
-    question: "최첨단 '19금' 아이템을 발견한다면?",
-    optionA: {
-      text: '💳 일단 카트에 담고 본다',
-      point: 'T'
-    },
-    optionB: {
-      text: '🤷 그런 거 없어도 충분한데',
-      point: 'N'
-    }
-  },
-  // 9. [Axis 1: V/F]
-  {
-    id: 3,
-    axis: 1,
-    question: '스위치가 켜지는 순간은?',
-    optionA: {
-      text: '👀 확실하게 눈으로 보여야 불이 붙는다',
-      point: 'V'
-    },
-    optionB: {
-      text: '🌙 상상만으로도 충분히 뜨거워진다',
-      point: 'F'
-    }
-  },
-  // 10. [Axis 2: S/M]
-  {
-    id: 6,
+    id: 4,
     axis: 2,
-    question: '끝나고 난 후, 당신의 다음 행동은?',
+    question: '이상적인 하룻밤의 타임라인은?',
     optionA: {
-      text: '😴 완벽한 피니시 후 바로 꿀잠',
+      text: '⚡ 10분이면 충분',
       point: 'S'
     },
     optionB: {
-      text: '🔥 잠깐, 아직 밤은 긴데…?',
+      text: '⏰ 30분은 기본이지',
       point: 'M'
     }
   },
-  // 11. [Axis 3: A/R]
+  // 6. [Axis 4: T/N]
+  {
+    id: 10,
+    axis: 4,
+    question: '침대 옆 비밀 서랍을 열었더니?',
+    optionA: {
+      text: '✨ 각종 도구와 아이템으로 가득',
+      point: 'T'
+    },
+    optionB: {
+      text: '🌿 아무것도 없는 미니멀리즘',
+      point: 'N'
+    }
+  },
+  // 7. [Axis 3: A/R]
   {
     id: 9,
     axis: 3,
@@ -151,22 +95,78 @@ export const questions: Question[] = [
       point: 'A'
     },
     optionB: {
-      text: '🤔 아니야… 원래 하던 게 제일 좋아',
+      text: '🤔 그래도 역시 검증된 게 최고지!',
       point: 'R'
     }
   },
-  // 12. [Axis 4: T/N]
+  // 8. [Axis 4: T/N]
   {
-    id: 12,
+    id: 11,
     axis: 4,
-    question: '완벽한 밤을 위해 필요한 것은?',
+    question: '카페에서 음료 고를 때?',
     optionA: {
-      text: '🎁 신상 아이템 언박싱의 설렘',
+      text: '📱 리뷰부터 검색한다',
       point: 'T'
     },
     optionB: {
-      text: '✋ 이 손 하나면 충분하다',
+      text: '👆 그냥 끌리는 거',
       point: 'N'
+    }
+  },
+  // 9. [Axis 3: A/R]
+  {
+    id: 8,
+    axis: 3,
+    question: '플레이리스트 스타일은?',
+    optionA: {
+      text: '🔀 셔플이 기본',
+      point: 'A'
+    },
+    optionB: {
+      text: '🔁 같은 노래 무한반복',
+      point: 'R'
+    }
+  },
+  // 10. [Axis 1: V/F]
+  {
+    id: 3,
+    axis: 1,
+    question: '내가 더 선호하는 콘텐츠는?',
+    optionA: {
+      text: '📸 이미지나 영상',
+      point: 'V'
+    },
+    optionB: {
+      text: '✍️ 글이나 오디오',
+      point: 'F'
+    }
+  },
+  // 11. [Axis 4: T/N]
+  {
+    id: 12,
+    axis: 4,
+    question: '혼자만의 시간, 분위기 세팅은?',
+    optionA: {
+      text: '🕯️ 조명, 음악, 향까지 완벽하게',
+      point: 'T'
+    },
+    optionB: {
+      text: '💤 그냥 눕는다',
+      point: 'N'
+    }
+  },
+  // 12. [Axis 2: S/M]
+  {
+    id: 6,
+    axis: 2,
+    question: '쇼핑할 때?',
+    optionA: {
+      text: '🎯 필요한 것만 사고 바로 나온다',
+      point: 'S'
+    },
+    optionB: {
+      text: '🛍️ 구경하는 재미가 반',
+      point: 'M'
     }
   }
 ];

@@ -46,7 +46,7 @@ export default function Home({ onStart }: HomeProps) {
         transition={{ delay: 0.1, duration: 0.3 }}
         className="text-xl md:text-2xl text-gray-300 mb-3 text-center break-keep"
       >
-        다들 숨기고 있지만, 유형은 있다
+        다들 숨기고 있지만, 유형은 있어!
       </motion.p>
 
       <motion.p

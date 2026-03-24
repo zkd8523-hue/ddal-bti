@@ -32,7 +32,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const title = `[밤BTI] 나의 결과: ${data.title} ${data.emoji}`;
-  const description = `"${data.subtitle}" — 나만의 숨겨진 성향을 MBTI 스타일로 분석!`;
+  const description = `"${data.subtitle}" — 혼자만의 의식, 당신은 어떤 스타일?`;
   const imageUrl = `${SITE_URL}/images/shares/${type}.png`;
   const pageUrl = `${SITE_URL}/?type=${type}`;
 

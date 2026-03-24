@@ -400,6 +400,9 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
           transition={{ delay: 1.2 }}
           className="w-full max-w-2xl mt-6 space-y-3"
         >
+          <p className="text-center text-sm text-gray-500 mb-1">
+            👇 친구한테 보내면 대화가 이상해지는 버튼
+          </p>
           <button
             onClick={handleKakaoShare}
             className="w-full px-6 py-3 text-base font-bold bg-[#FEE500] text-[#191919] rounded-full hover:shadow-2xl transition-all duration-300"
