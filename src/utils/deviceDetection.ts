@@ -16,6 +16,22 @@ export function canUseWebShare(): boolean {
 }
 
 /**
+ * 모바일 기기 감지
+ */
+export function isMobile(): boolean {
+  return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+    (navigator.userAgent.includes('Mac') && 'ontouchend' in document);
+}
+
+/**
+ * Web Share API 파일 공유 지원 여부 확인
+ * 모바일에서만 인스타 스토리 등으로 직접 공유 가능
+ */
+export function canShareFiles(): boolean {
+  return isMobile() && typeof navigator.share === 'function' && typeof navigator.canShare === 'function';
+}
+
+/**
  * data URL을 Blob으로 변환
  * Web Share API는 Blob/File 객체만 허용
  */

@@ -5,7 +5,7 @@ import type { Result as ResultType, PersonalityType } from '../types';
 import { results as allResults } from '../data/results';
 import { getProductsForType } from '../data/products';
 import { analytics } from '../utils/analytics';
-import { dataURLToBlob } from '../utils/deviceDetection';
+import { dataURLToBlob, canShareFiles } from '../utils/deviceDetection';
 import AdBanner from './AdBanner';
 import { getPopularityLabel, getRarityTier } from '../data/typePopularity';
 
@@ -196,39 +196,48 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
     }
   };
 
-  // 이미지 다운로드
-  const handleDownloadImage = async () => {
+  // 인스타그램 스토리 공유 (Web Share API) / 폴백: 이미지 다운로드
+  const handleInstagramShare = async () => {
     if (!resultCardRef.current) return;
     setIsDownloading(true);
 
     try {
-      // 인스타그램 스토리용 ref가 있으면 그것을, 없으면 기본 ref를 사용
       const targetRef = storyCardRef.current || resultCardRef.current;
       if (!targetRef) return;
 
-      // 이미지를 data URL로 생성 (인스타그램 스토리 비율 9:16 고려)
       const dataUrl = await toPng(targetRef, {
         quality: 0.95,
-        pixelRatio: 3, // 고해상도를 위해 3으로 상향
+        pixelRatio: 3,
         backgroundColor: '#111827',
       });
 
       const fileName = `밤BTI-${result.type}-${displayTitle}.png`;
-
-      // 모든 플랫폼: blob URL로 변환 후 다운로드
       const blob = dataURLToBlob(dataUrl);
-      const blobUrl = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.download = fileName;
-      link.href = blobUrl;
-      link.click();
-      URL.revokeObjectURL(blobUrl);
+      const file = new File([blob], fileName, { type: 'image/png' });
 
-      analytics.trackImageDownload(result.type as PersonalityType);
-
-    } catch (error) {
-      console.error('이미지 생성 실패:', error);
-      alert('이미지 저장에 실패했습니다. 다시 시도해주세요.');
+      // 모바일: Web Share API로 인스타 스토리 등에 바로 공유
+      if (canShareFiles() && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: `나의 밤BTI 결과: ${displayTitle}`,
+          text: `나의 밤BTI는 "${displayTitle}" ${displayEmoji}\n테스트 해보기 👉 ${window.location.origin}`,
+        });
+        analytics.trackInstagramShare(result.type as PersonalityType);
+      } else {
+        // 데스크톱 등 미지원: 이미지 다운로드 폴백
+        const blobUrl = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.download = fileName;
+        link.href = blobUrl;
+        link.click();
+        URL.revokeObjectURL(blobUrl);
+        analytics.trackImageDownload(result.type as PersonalityType);
+      }
+    } catch (error: unknown) {
+      // 사용자가 공유 취소한 경우는 무시
+      if (error instanceof Error && error.name === 'AbortError') return;
+      console.error('공유/이미지 생성 실패:', error);
+      alert('공유에 실패했습니다. 다시 시도해주세요.');
     } finally {
       setIsDownloading(false);
     }
@@ -252,7 +261,7 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="flex flex-col items-center min-h-screen px-6 py-12"
+      className="flex flex-col items-center min-h-screen px-6 py-6 md:py-12"
     >
       {/* 페이지 타이틀 */}
       <motion.p
@@ -270,118 +279,110 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.2 }}
-        className="w-full max-w-2xl bg-gray-800 rounded-2xl p-8 neon-border"
+        className="w-full max-w-2xl bg-gradient-to-b from-gray-800 to-gray-900 rounded-3xl p-6 md:p-10 neon-border relative overflow-hidden"
       >
-        {/* 헤더: 배지+타이틀+설명 (모바일 세로, PC 가로) */}
-        <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-6 mb-8">
-          {/* 모바일에서는 이미지 먼저 (순서 변경용 md:order-last 등 사용 가능하지만 직관적으로 배치) */}
-          <div className="block md:hidden mb-2">
-            <motion.img
+        {/* 배경 글로우 */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-neon-purple/10 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-neon-magenta/10 rounded-full blur-[80px] pointer-events-none" />
+
+        {/* 상단: 이미지 + 타이틀 영역 */}
+        <div className="relative z-10 flex flex-col items-center text-center mb-8">
+          {/* 캐릭터 이미지 */}
+          <motion.div
+            initial={{ scale: 0, rotate: -10 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ delay: 0.4, type: 'spring', stiffness: 200 }}
+            className="relative mb-6"
+          >
+            <div className="absolute inset-0 bg-gradient-to-tr from-neon-purple to-neon-magenta rounded-3xl blur-xl opacity-30 scale-105" />
+            <img
               src={`/images/shares/${result.type}.png`}
               alt={displayTitle}
               onError={(e) => { e.currentTarget.style.display = 'none'; }}
-              initial={{ scale: 0, rotate: -20 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ delay: 0.5, type: 'spring', stiffness: 200 }}
-              className="w-48 h-48 select-none opacity-95 shrink-0 rounded-2xl object-cover shadow-2xl"
+              className="relative w-32 h-32 md:w-48 md:h-48 select-none rounded-3xl object-cover shadow-2xl border-2 border-white/10"
             />
-          </div>
+          </motion.div>
 
-          <div className="flex-1 min-w-0 w-full flex flex-col items-center md:items-start text-center md:text-left">
-            {/* 타입 배지 + 인구 퍼센티지 */}
-            <motion.div
-              initial={{ y: -20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="flex items-center gap-3 mb-3"
-            >
-              <span className="px-6 py-2 bg-gradient-to-r from-neon-purple to-neon-magenta rounded-full text-xl font-bold">
-                {result.type}
-              </span>
-              <span className="text-sm text-gray-400">
-                전체 인구의 <span className="text-lg font-bold text-neon-purple">{getPopularityLabel(result.type as PersonalityType)}</span>
-              </span>
-              {getRarityTier(result.type as PersonalityType) === 'legendary' && (
-                <span className="text-xs text-neon-magenta font-semibold">희귀 유형</span>
-              )}
-            </motion.div>
+          {/* 별명 */}
+          <motion.h1
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="text-3xl md:text-4xl font-black neon-text break-keep mb-3"
+          >
+            {displayTitle}
+          </motion.h1>
 
-            {/* 타이틀 */}
-            <motion.h1
-              initial={{ y: -20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="text-4xl md:text-4xl font-bold neon-text break-keep mb-4"
-            >
-              {displayTitle}
-            </motion.h1>
-
-            {/* 부제 */}
-            {result.subtitle && (
-              <motion.p
-                initial={{ y: -10, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.55 }}
-                className="text-base md:text-sm text-gray-400 italic mb-6"
-              >
-                "{result.subtitle}"
-              </motion.p>
+          {/* 인구 퍼센티지 */}
+          <motion.div
+            initial={{ y: -10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.55 }}
+            className="flex items-center gap-2 mb-3"
+          >
+            <span className="px-4 py-1.5 bg-neon-purple/15 border border-neon-purple/30 rounded-full text-sm text-gray-300">
+              전체 인구의 <span className="text-sm font-bold text-neon-purple">{getPopularityLabel(result.type as PersonalityType)}</span>
+            </span>
+            {getRarityTier(result.type as PersonalityType) === 'legendary' && (
+              <span className="px-3 py-1 bg-neon-magenta/15 border border-neon-magenta/30 rounded-full text-xs text-neon-magenta font-semibold">희귀 유형</span>
             )}
+          </motion.div>
 
-            {/* 특징 리스트 */}
-            <motion.div
-              initial={{ y: 10, opacity: 0 }}
+          {/* 부제 */}
+          {result.subtitle && (
+            <motion.p
+              initial={{ y: -10, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.6 }}
-              className="space-y-3 w-full"
+              className="text-base md:text-sm text-gray-400 italic"
             >
-              {result.description.map((desc, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ x: -20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.7 + index * 0.1 }}
-                  className="flex items-start space-x-2 text-left md:text-left"
-                >
-                  <span className="text-neon-purple text-lg mt-0.5 shrink-0">✦</span>
-                  <p className="text-gray-300 text-base md:text-sm break-keep leading-relaxed">{renderBoldText(desc)}</p>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* PC용 대표 캐릭터 이미지 (오른쪽 배치 고정) */}
-          <div className="hidden md:block">
-            <motion.img
-              src={`/images/shares/${result.type}.png`}
-              alt={displayTitle}
-              onError={(e) => { e.currentTarget.style.display = 'none'; }}
-              initial={{ scale: 0, rotate: -20 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ delay: 0.5, type: 'spring', stiffness: 200 }}
-              className="md:w-52 md:h-52 select-none opacity-95 shrink-0 rounded-2xl object-cover shadow-2xl"
-            />
-          </div>
+              "{result.subtitle}"
+            </motion.p>
+          )}
         </div>
+
+        {/* 구분선 */}
+        <div className="relative z-10 w-16 h-px bg-gradient-to-r from-transparent via-neon-purple/50 to-transparent mx-auto mb-6" />
+
+        {/* 특징 리스트 */}
+        <motion.div
+          initial={{ y: 10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.7 }}
+          className="relative z-10 space-y-2"
+        >
+          {result.description.map((desc, index) => (
+            <motion.div
+              key={index}
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.8 + index * 0.1 }}
+              className="flex items-start space-x-3 bg-white/[0.03] rounded-xl px-4 py-3 border border-white/5"
+            >
+              <span className="text-neon-purple text-base mt-0.5 shrink-0">✦</span>
+              <p className="text-gray-300 text-sm md:text-sm break-keep leading-relaxed">{renderBoldText(desc)}</p>
+            </motion.div>
+          ))}
+        </motion.div>
 
         {/* 축별 설명 */}
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 1 }}
-          className="border-t border-gray-700 pt-6 space-y-2"
+          className="relative z-10 mt-8 pt-6 border-t border-white/5"
         >
-          <p className="text-sm text-gray-400">📊 당신의 성향 분석</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm break-keep">
+          <p className="text-xs text-gray-500 mb-3 uppercase tracking-wider">성향 분석</p>
+          <div className="grid grid-cols-2 gap-2 text-sm break-keep">
             {[result.traits.axis1, result.traits.axis2, result.traits.axis3, result.traits.axis4].map((trait, i) => {
               const opposite = axisOpposites[trait];
               return (
-                <div key={i} className="flex items-center gap-2">
-                  <span className="text-white font-semibold">{trait}</span>
+                <div key={i} className="flex items-center gap-1.5 bg-white/[0.03] rounded-lg px-3 py-2">
+                  <span className="text-white font-semibold text-xs">{trait.split(' (')[0]}</span>
                   {opposite && (
                     <>
-                      <span className="text-gray-600">/</span>
-                      <span className="text-gray-600 opacity-90">{opposite}</span>
+                      <span className="text-gray-700">/</span>
+                      <span className="text-gray-600 text-xs">{opposite.split(' (')[0]}</span>
                     </>
                   )}
                 </div>
@@ -409,11 +410,11 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
 
           <div className="grid grid-cols-2 gap-3 md:gap-4">
             <button
-              onClick={handleDownloadImage}
+              onClick={handleInstagramShare}
               disabled={isDownloading}
-              className="px-2 md:px-6 py-3 text-sm font-bold bg-gray-800 text-gray-300 rounded-full border border-gray-700 hover:border-gray-500 transition-all duration-300 disabled:opacity-50 whitespace-nowrap overflow-hidden text-ellipsis"
+              className="px-2 md:px-6 py-3 text-sm font-bold bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#F77737] text-white rounded-full hover:shadow-lg hover:shadow-pink-500/25 transition-all duration-300 disabled:opacity-50 whitespace-nowrap overflow-hidden text-ellipsis"
             >
-              {isDownloading ? '⏳ 생성 중' : '📥 이미지 저장'}
+              {isDownloading ? '⏳ 생성 중' : '📸 인스타 스토리'}
             </button>
 
             <button
@@ -432,7 +433,7 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 1.2 }}
-          className="w-full max-w-2xl mt-12 mb-4"
+          className="w-full max-w-2xl mt-8 mb-4"
         >
           <div className="flex items-center gap-2 mb-6 px-1">
             <span className="text-neon-purple animate-pulse">✨</span>
@@ -477,6 +478,11 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
                   <p className="text-xs md:text-sm text-gray-400 group-hover:text-gray-300 line-clamp-2 mt-1 font-light leading-relaxed">
                     {product.description}
                   </p>
+                  {product.price && (
+                    <p className="text-xs md:text-sm text-neon-purple font-semibold mt-1.5">
+                      {product.price}
+                    </p>
+                  )}
                 </div>
                 <div className="ml-2 flex items-center justify-center w-8 h-8 rounded-full bg-white/5 border border-white/10 group-hover:bg-neon-purple group-hover:text-white transition-all">
                   <span className="text-sm font-bold opacity-70 group-hover:opacity-100">→</span>
@@ -685,63 +691,50 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
           <div className="absolute bottom-[-5%] right-[-10%] w-[800px] h-[800px] bg-neon-magenta/30 rounded-full blur-[150px] animate-pulse" />
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('/carbon-fibre.png')] opacity-10" />
 
-          {/* 메인 콘텐츠 컨테이너 (중앙 집중형) */}
-          <div className="z-10 flex flex-col items-center w-full max-w-4xl">
-            {/* 1. 헤더: 나의 밤BTI 결과 */}
-            <p className="text-4xl text-gray-400 font-medium tracking-widest mb-4 opacity-80 uppercase">
-              My Bam-BTI Result
-            </p>
-            
-            {/* 2. 영문 타입 (FMAT 등) */}
-            <div className="text-[120px] font-black tracking-tighter leading-none mb-12 italic bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-gray-500 drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]">
-              {result.type}
+          {/* 메인 콘텐츠 */}
+          <div className="z-10 flex flex-col items-center w-full" style={{ maxWidth: '940px' }}>
+            {/* 로고 */}
+            <div className="mb-6 flex items-baseline gap-1">
+              <span className="text-[56px] font-black bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-pink-200 drop-shadow-[0_0_25px_rgba(244,114,182,0.5)]">밤</span>
+              <span className="text-[48px] font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-neon-purple via-neon-magenta to-neon-pink neon-text">bti</span>
             </div>
 
-            {/* 2.5. 인구 퍼센티지 */}
-            <p className="text-[36px] text-neon-purple font-bold tracking-wider mb-8">
+            {/* 인구 퍼센티지 */}
+            <p className="text-[36px] text-neon-purple font-bold mb-8">
               전체 인구의 {getPopularityLabel(result.type as PersonalityType)}
             </p>
 
-            {/* 3. 사진 (메인 캐릭터) */}
-            <div className="relative mb-14">
+            {/* 캐릭터 이미지 */}
+            <div className="relative mb-10">
               <div className="absolute inset-0 bg-gradient-to-tr from-neon-purple to-neon-magenta rounded-[40px] blur-3xl opacity-40 scale-110" />
-              <div className="relative w-[650px] h-[650px] rounded-[40px] overflow-hidden border-[6px] border-white/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.7)] group">
+              <div className="relative w-[620px] h-[620px] rounded-[40px] overflow-hidden border-[5px] border-white/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.7)]">
                 <img
                   src={`/images/shares/${result.type}.png`}
                   alt={displayTitle}
                   className="w-full h-full object-cover scale-105"
                 />
-                {/* 비네팅 효과 */}
-                <div className="absolute inset-0 shadow-[inset_0_0_120px_rgba(0,0,0,0.6)]" />
+                <div className="absolute inset-0 shadow-[inset_0_0_100px_rgba(0,0,0,0.6)]" />
               </div>
             </div>
 
-            {/* 4. 별명 (폭주기관차 토끼 등) */}
-            <div className="text-center mb-10 w-full px-4">
-              <h1 className="text-[100px] font-black text-white neon-text mb-6 tracking-tight drop-shadow-2xl whitespace-nowrap leading-tight">
-                {displayTitle}
-              </h1>
-              <p className="text-5xl text-neon-pink font-bold italic tracking-wide opacity-90 break-keep">
-                "{result.subtitle}"
-              </p>
-            </div>
+            {/* 별명 */}
+            <h1 className="text-[96px] font-black text-white neon-text mb-4 tracking-tight drop-shadow-2xl whitespace-nowrap leading-tight text-center">
+              {displayTitle}
+            </h1>
 
-            {/* 5. 부연설명 (핵심 2-3개만) */}
-            <div className="w-full space-y-8 px-12 mt-4">
-              {result.description.slice(0, 3).map((desc, index) => (
-                <div key={index} className="flex items-center justify-center gap-6 bg-white/5 py-6 px-10 rounded-3xl border border-white/10 backdrop-blur-sm shadow-xl">
-                  <span className="text-neon-purple text-5xl">✦</span>
-                  <p className="text-[34px] text-gray-100 font-semibold leading-relaxed break-keep text-center">
-                    {desc.replace(/\*\*/g, '')}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
+            {/* 부제 */}
+            <p className="text-[40px] text-neon-pink font-bold italic tracking-wide opacity-90 break-keep text-center mb-10">
+              "{result.subtitle}"
+            </p>
 
-          {/* 깔끔한 하단 로고 느낌의 텍스트만 (삭제된 푸터 대신) */}
-          <div className="absolute bottom-20 z-10 opacity-30">
-            <p className="text-3xl font-light tracking-[1em] text-white">BAM-BTI.VERCEL.APP</p>
+            {/* 특성 1줄 */}
+            <div className="w-full px-6">
+              <div className="bg-white/[0.06] py-5 px-8 rounded-2xl border border-white/10">
+                <p className="text-[28px] text-gray-200 font-medium text-center whitespace-nowrap overflow-hidden text-ellipsis">
+                  <span className="text-neon-purple">✦</span> {result.description[0].replace(/\*\*/g, '')}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

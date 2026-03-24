@@ -133,6 +133,18 @@ export const analytics = {
     } as any);
   },
 
+  // 인스타그램 스토리 공유
+  trackInstagramShare: (resultType: PersonalityType) => {
+    console.log('📊 GA Event: instagram_share', resultType);
+    ga4.event({
+      category: 'Share',
+      action: 'instagram_share',
+      label: resultType,
+      result_type: resultType,
+      share_platform: 'instagram'
+    } as any);
+  },
+
   // 이미지 다운로드
   trackImageDownload: (resultType: PersonalityType) => {
     console.log('📊 GA Event: image_download', resultType);
