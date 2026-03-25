@@ -1,5 +1,36 @@
-import { useState, useEffect, useCallback } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+/* 개별 자릿수 플립 애니메이션 */
+function FlipDigit({ char, place }: { char: string; place: number }) {
+  return (
+    <span className="inline-block relative overflow-hidden" style={{ width: char === ',' ? '0.35em' : '0.6em' }}>
+      <AnimatePresence mode="popLayout" initial={false}>
+        <motion.span
+          key={`${place}-${char}`}
+          initial={{ y: '-100%', opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: '100%', opacity: 0 }}
+          transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+          className="inline-block w-full text-center"
+        >
+          {char}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  );
+}
+
+function FlipCounter({ value }: { value: number }) {
+  const chars = value.toLocaleString('ko-KR').split('');
+  return (
+    <span className="inline-flex" aria-label={value.toLocaleString('ko-KR')}>
+      {chars.map((char, i) => (
+        <FlipDigit key={chars.length - i} char={char} place={chars.length - i} />
+      ))}
+    </span>
+  );
+}
 
 interface HomeProps {
   onStart: () => void;
@@ -7,11 +38,6 @@ interface HomeProps {
 
 export default function Home({ onStart }: HomeProps) {
   const [count, setCount] = useState(2847);
-
-  const formatNumber = useCallback(
-    (n: number) => n.toLocaleString('ko-KR'),
-    [],
-  );
 
   useEffect(() => {
     let first = true;
@@ -97,7 +123,7 @@ export default function Home({ onStart }: HomeProps) {
         transition={{ delay: 0.35, duration: 0.3 }}
         className="mt-4 text-sm text-gray-500"
       >
-        🔥 지금까지 {formatNumber(count)}명 참여
+        🔥 지금까지 <FlipCounter value={count} />명이 공유했어요
       </motion.p>
 
     </motion.div>
