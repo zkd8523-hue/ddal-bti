@@ -34,7 +34,17 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
   const title = `[밤BTI] 나의 결과: ${data.title} ${data.emoji}`;
   const description = `"${data.subtitle}" — 혼자만의 의식, 당신은 어떤 스타일?`;
   const imageUrl = `${SITE_URL}/images/shares/${type}.png`;
-  const pageUrl = `${SITE_URL}/?type=${type}`;
+
+  // ref, UTM 파라미터 패스스루 (바이럴 계수 추적용)
+  const redirectParams = new URLSearchParams();
+  redirectParams.set('type', type);
+  const ref = typeof req.query.ref === 'string' ? req.query.ref : '';
+  if (ref) redirectParams.set('ref', ref);
+  for (const key of ['utm_source', 'utm_medium', 'utm_campaign']) {
+    const val = typeof req.query[key] === 'string' ? req.query[key] : '';
+    if (val) redirectParams.set(key, val as string);
+  }
+  const pageUrl = `${SITE_URL}/?${redirectParams.toString()}`;
 
   const html = `<!DOCTYPE html>
 <html lang="ko">

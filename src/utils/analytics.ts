@@ -203,5 +203,62 @@ export const analytics = {
       value: progressPercent,
       progress_percent: progressPercent
     } as any);
-  }
+  },
+
+  // --- 바이럴 계수(K-factor) 추적 ---
+
+  // 레퍼럴 링크로 최초 도착
+  trackReferralArrival: (referrerId: string, visitorId: string) => {
+    console.log('📊 GA Event: referral_arrival', { referrerId, visitorId });
+    ga4.event({
+      category: 'Referral',
+      action: 'referral_arrival',
+      label: referrerId,
+      referrer_id: referrerId,
+      visitor_id: visitorId,
+    } as any);
+  },
+
+  // 레퍼럴 유저 테스트 시작
+  trackReferralTestStart: (referrerId: string, visitorId: string) => {
+    console.log('📊 GA Event: referral_test_start', { referrerId, visitorId });
+    ga4.event({
+      category: 'Referral',
+      action: 'referral_test_start',
+      label: referrerId,
+      referrer_id: referrerId,
+      visitor_id: visitorId,
+    } as any);
+  },
+
+  // 레퍼럴 유저 테스트 완료 (전환)
+  trackReferralConversion: (referrerId: string, visitorId: string, resultType: PersonalityType) => {
+    console.log('📊 GA Event: referral_conversion', { referrerId, visitorId, resultType });
+    ga4.event({
+      category: 'Referral',
+      action: 'referral_conversion',
+      label: referrerId,
+      referrer_id: referrerId,
+      visitor_id: visitorId,
+      result_type: resultType,
+    } as any);
+  },
+
+  // 공유 시 sharer ID 태깅
+  trackViralShare: (visitorId: string, platform: string, resultType: PersonalityType) => {
+    console.log('📊 GA Event: viral_share', { visitorId, platform, resultType });
+    ga4.event({
+      category: 'Referral',
+      action: 'viral_share',
+      label: platform,
+      visitor_id: visitorId,
+      share_platform: platform,
+      result_type: resultType,
+    } as any);
+  },
+
+  // GA4 유저 프로퍼티 설정
+  setUserProperties: (props: Record<string, string>) => {
+    ga4.set(props);
+  },
 };

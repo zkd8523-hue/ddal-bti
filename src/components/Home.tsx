@@ -1,13 +1,34 @@
+import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
-
-const PARTICIPANT_COUNT = '2,000';
-
 
 interface HomeProps {
   onStart: () => void;
 }
 
 export default function Home({ onStart }: HomeProps) {
+  const [count, setCount] = useState(2847);
+
+  const formatNumber = useCallback(
+    (n: number) => n.toLocaleString('ko-KR'),
+    [],
+  );
+
+  useEffect(() => {
+    let first = true;
+    const tick = () => {
+      const delay = first
+        ? 1000 + Math.random() * 500    // 첫 틱: 1~1.5초
+        : 3000 + Math.random() * 5000;  // 이후: 3~8초
+      first = false;
+      const timer = setTimeout(() => {
+        setCount((c) => c + (Math.random() < 0.7 ? 1 : 2));
+        tick();
+      }, delay);
+      return timer;
+    };
+    const timer = tick();
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -76,7 +97,7 @@ export default function Home({ onStart }: HomeProps) {
         transition={{ delay: 0.35, duration: 0.3 }}
         className="mt-4 text-sm text-gray-500"
       >
-        🔥 지금까지 {PARTICIPANT_COUNT}+명 참여
+        🔥 지금까지 {formatNumber(count)}명 참여
       </motion.p>
 
     </motion.div>

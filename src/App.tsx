@@ -9,6 +9,7 @@ import { questions } from './data/questions';
 import { results } from './data/results';
 import { calculateResult } from './utils/calculateResult';
 import { initGA, analytics } from './utils/analytics';
+import { getVisitorId, captureReferrer, getReferrerId, isReferralTracked, markReferralTracked } from './utils/referral';
 import type { Screen, Answer, PersonalityType } from './types';
 
 const clearUrlParams = () => {
@@ -45,9 +46,19 @@ const getInitialState = () => {
 function App() {
   const initialState = getInitialState();
 
-  // GA4 초기화
+  // GA4 초기화 + 레퍼럴 추적
   useEffect(() => {
     initGA();
+
+    const visitorId = getVisitorId();
+    const referrerId = captureReferrer();
+
+    analytics.setUserProperties({ visitor_id: visitorId });
+
+    if (referrerId && !isReferralTracked()) {
+      analytics.trackReferralArrival(referrerId, visitorId);
+      markReferralTracked();
+    }
   }, []);
 
   // 화면 상태 관리
@@ -80,6 +91,12 @@ function App() {
   // 테스트 시작
   const handleStart = () => {
     analytics.trackTestStarted();
+
+    const referrerId = getReferrerId();
+    if (referrerId) {
+      analytics.trackReferralTestStart(referrerId, getVisitorId());
+    }
+
     clearUrlParams();
     setIsShared(false);
     setScreen('question');
@@ -136,6 +153,11 @@ function App() {
     // 테스트 완료 이벤트 추적
     if (resultType) {
       analytics.trackTestCompleted(resultType, questions.length);
+
+      const referrerId = getReferrerId();
+      if (referrerId) {
+        analytics.trackReferralConversion(referrerId, getVisitorId(), resultType);
+      }
     }
     setScreen('result');
   };

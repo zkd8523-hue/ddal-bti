@@ -5,6 +5,7 @@ import type { Result as ResultType, PersonalityType } from '../types';
 import { results as allResults } from '../data/results';
 import { getProductsForType } from '../data/products';
 import { analytics } from '../utils/analytics';
+import { getVisitorId } from '../utils/referral';
 import { dataURLToBlob, canShareFiles } from '../utils/deviceDetection';
 import AdBanner from './AdBanner';
 import { getPopularityLabel, getRarityTier } from '../data/typePopularity';
@@ -145,14 +146,16 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
     try {
       // GA4 이벤트 추적
       analytics.trackKakaoShare(result.type as PersonalityType);
+      const visitorId = getVisitorId();
+      analytics.trackViralShare(visitorId, 'kakao', result.type as PersonalityType);
 
       const siteUrl = window.location.origin;
       // 로컬 테스트 중에도 이미지는 실제 배포된 서버의 것을 사용해야 카카오톡에서 보입니다.
-      const imageUrlHost = siteUrl.includes('localhost') || siteUrl.includes('127.0.0.1') 
-        ? 'https://bam-bti.vercel.app' 
+      const imageUrlHost = siteUrl.includes('localhost') || siteUrl.includes('127.0.0.1')
+        ? 'https://bam-bti.vercel.app'
         : siteUrl;
-      
-      const resultUrl = `${siteUrl}/?type=${result.type}&utm_source=kakao&utm_medium=social&utm_campaign=share`;
+
+      const resultUrl = `${siteUrl}/?type=${result.type}&ref=${visitorId}&utm_source=kakao&utm_medium=social&utm_campaign=share`;
 
       console.log('카카오 공유 시도:', {
         siteUrl, imageUrlHost, resultUrl,
@@ -183,8 +186,8 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
           {
             title: '나도 테스트하기',
             link: {
-              mobileWebUrl: `${siteUrl}/?utm_source=kakao&utm_medium=social&utm_campaign=share_test`,
-              webUrl: `${siteUrl}/?utm_source=kakao&utm_medium=social&utm_campaign=share_test`,
+              mobileWebUrl: `${siteUrl}/?ref=${visitorId}&utm_source=kakao&utm_medium=social&utm_campaign=share_test`,
+              webUrl: `${siteUrl}/?ref=${visitorId}&utm_source=kakao&utm_medium=social&utm_campaign=share_test`,
             },
           },
         ],
@@ -215,14 +218,17 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
       const blob = dataURLToBlob(dataUrl);
       const file = new File([blob], fileName, { type: 'image/png' });
 
+      const visitorId = getVisitorId();
+
       // 모바일: Web Share API로 인스타 스토리 등에 바로 공유
       if (canShareFiles() && navigator.canShare({ files: [file] })) {
         await navigator.share({
           files: [file],
           title: `나의 밤bti 결과: ${displayTitle}`,
-          text: `나의 밤bti는 "${displayTitle}" ${displayEmoji}\n테스트 해보기 👉 ${window.location.origin}`,
+          text: `나의 밤bti는 "${displayTitle}" ${displayEmoji}\n테스트 해보기 👉 ${window.location.origin}/?ref=${visitorId}&utm_source=instagram&utm_medium=social&utm_campaign=share`,
         });
         analytics.trackInstagramShare(result.type as PersonalityType);
+        analytics.trackViralShare(visitorId, 'instagram', result.type as PersonalityType);
       } else {
         // 데스크톱 등 미지원: 이미지 다운로드 폴백
         const blobUrl = URL.createObjectURL(blob);
@@ -232,6 +238,7 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
         link.click();
         URL.revokeObjectURL(blobUrl);
         analytics.trackImageDownload(result.type as PersonalityType);
+        analytics.trackViralShare(visitorId, 'image_download', result.type as PersonalityType);
       }
     } catch (error: unknown) {
       // 사용자가 공유 취소한 경우는 무시
@@ -246,14 +253,16 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
   // X 공유
   const handleTwitterShare = () => {
     const siteUrl = window.location.origin;
+    const visitorId = getVisitorId();
     // /api/share를 통해 X 크롤러가 유형별 OG 이미지를 인식하도록 함
-    const shareUrl = `${siteUrl}/api/share?type=${result.type}&utm_source=twitter&utm_medium=social&utm_campaign=share`;
+    const shareUrl = `${siteUrl}/api/share?type=${result.type}&ref=${visitorId}&utm_source=twitter&utm_medium=social&utm_campaign=share`;
     const text = `나의 밤bti 결과는 "${displayTitle}" ${displayEmoji}\n\n`;
 
     const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrl)}`;
     window.open(twitterUrl, '_blank');
 
     analytics.trackTwitterShare(result.type as PersonalityType);
+    analytics.trackViralShare(visitorId, 'twitter', result.type as PersonalityType);
   };
 
   return (
