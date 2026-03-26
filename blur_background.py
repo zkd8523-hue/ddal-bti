@@ -4,7 +4,7 @@
 원본 이미지에서 주요 객체는 선명하게 유지하고 배경만 흐리게 처리합니다.
 """
 
-from PIL import Image, ImageFilter
+from PIL import Image, ImageFilter, ImageCms
 import os
 import sys
 
@@ -40,8 +40,13 @@ def blur_background_with_mask(input_path, output_path, blur_radius=20):
         # 마스크를 사용하여 합성 (전경은 선명하게, 배경은 블러)
         result = Image.composite(original_rgb, blurred, mask)
 
-        # 저장
-        result.save(output_path, 'PNG')
+        # sRGB 프로파일 생성
+        srgb_profile = ImageCms.createProfile("sRGB")
+
+        # 저장 (sRGB 프로파일 포함)
+        result.save(output_path, 'PNG',
+                   icc_profile=ImageCms.ImageCmsProfile(srgb_profile).tobytes(),
+                   optimize=True)
         print(f"✓ 배경 블러 처리 완료: {output_path}")
         print(f"  블러 강도: {blur_radius}")
 
@@ -106,8 +111,17 @@ def blur_background_simple(input_path, output_path, blur_radius=20):
         # 블러된 배경과 선명한 중앙을 합성
         result = Image.composite(original, blurred, mask)
 
-        # 저장
-        result.save(output_path, 'PNG')
+        # RGB 모드로 변환 (RGBA인 경우)
+        if result.mode == 'RGBA':
+            result = result.convert('RGB')
+
+        # sRGB 프로파일 생성
+        srgb_profile = ImageCms.createProfile("sRGB")
+
+        # 저장 (sRGB 프로파일 포함)
+        result.save(output_path, 'PNG',
+                   icc_profile=ImageCms.ImageCmsProfile(srgb_profile).tobytes(),
+                   optimize=True)
         print(f"✓ 중앙 보존 블러 처리 완료: {output_path}")
         print(f"  블러 강도: {blur_radius}")
 
