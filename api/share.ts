@@ -32,7 +32,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const title = `[밤BTI] 나의 결과: ${data.title} ${data.emoji}`;
-  const description = `"${data.subtitle}" — 혼자만의 의식, 당신은 어떤 스타일?`;
+  const description = `"${data.subtitle}" — 숨기고 있을 뿐, 유형은 있어!`;
   const imageUrl = `${SITE_URL}/images/shares/${type}.png`;
 
   // ref, UTM 파라미터 패스스루 (바이럴 계수 추적용)
