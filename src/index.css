@@ -37,7 +37,7 @@
 
 :root {
   background-color: #111827;
-  color-scheme: dark light;
+  color-scheme: dark;
 }
 
 /* 추천 상품 카드 shimmer 효과 */
@@ -72,7 +72,7 @@ body {
   background-color: #111827;
   color: #fff;
   margin: 0;
-  color-scheme: dark light !important;
+  color-scheme: dark !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -106,38 +106,4 @@ body {
 
 .font-suit {
   font-family: 'Jua', -apple-system, BlinkMacSystemFont, system-ui, sans-serif !important;
-}
-
-/* X 브라우저 색상 보정 - LCH 그라데이션 변수 */
-@supports (color: lch(70% 81 330)) {
-  :root {
-    --grad-text-br: linear-gradient(to bottom right in lch, lch(70% 81 330), lch(73% 66 350), lch(86% 30 358));
-    --grad-text-r: linear-gradient(to right in lch, lch(70% 81 330), lch(73% 66 350), lch(86% 30 358));
-    --grad-btn: linear-gradient(to right in lch, lch(70% 81 330), lch(73% 66 350));
-    --grad-glow: linear-gradient(to top right in lch, lch(70% 81 330), lch(73% 66 350));
-    --grad-divider: linear-gradient(to right, transparent, lch(70% 81 330 / 0.5), transparent);
-    --grad-hover: linear-gradient(to right, lch(70% 81 330 / 0), lch(70% 81 330 / 0.05), lch(70% 81 330 / 0));
-  }
-}
-
-/* WebView 알고리즘적 다크닝 차단 신호 */
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark light;
-    background-color: #111827;
-  }
-  body {
-    background-color: #111827;
-    color: #fff;
-  }
-}
-
-/* X in-app 브라우저 색상 보정 - 채도/밝기 저하 보상 */
-html.x-browser {
-  --grad-text-br: linear-gradient(to bottom right, rgb(255, 150, 215), rgb(255, 195, 210), rgb(255, 225, 235));
-  --grad-text-r: linear-gradient(to right, rgb(255, 150, 215), rgb(255, 195, 210), rgb(255, 225, 235));
-  --grad-btn: linear-gradient(to right, rgb(255, 150, 215), rgb(255, 195, 210));
-  --grad-glow: linear-gradient(to top right, rgb(255, 150, 215), rgb(255, 195, 210));
-  --grad-divider: linear-gradient(to right, transparent, rgba(255, 150, 215, 0.6), transparent);
-  --grad-hover: linear-gradient(to right, rgba(255, 150, 215, 0), rgba(255, 150, 215, 0.07), rgba(255, 150, 215, 0));
 }

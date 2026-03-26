@@ -44,7 +44,7 @@ export default function Question({
             animate={{ width: `${progress}%` }}
             transition={{ duration: 0.5 }}
             className="h-full"
-            style={{ background: 'var(--grad-btn, linear-gradient(to right, rgb(244, 114, 182), rgb(253, 164, 175)))' }}
+            style={{ background: 'linear-gradient(to right, rgb(244, 114, 182), rgb(253, 164, 175))' }}
           />
         </div>
       </div>
