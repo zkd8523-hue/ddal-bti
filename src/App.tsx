@@ -201,7 +201,7 @@ function App() {
     : null;
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen">
       <LayoutWithSidebarAds showAds={false}>
         <AnimatePresence mode="wait">
           {screen === 'home' && (
