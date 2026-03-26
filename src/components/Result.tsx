@@ -392,12 +392,12 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 1.2 }}
-            className="relative z-10 flex flex-nowrap gap-2 justify-center mt-6 overflow-x-auto scrollbar-hide px-4"
+            className="relative z-10 flex flex-nowrap gap-1.5 justify-center mt-6 px-2"
           >
             {result.keywords.map((keyword, index) => (
               <span
                 key={index}
-                className="px-3 py-1 text-xs font-semibold bg-neon-purple/10 text-neon-purple border border-neon-purple/30 rounded-full whitespace-nowrap flex-shrink-0"
+                className="px-2 py-0.5 text-[10px] font-semibold bg-neon-purple/10 text-neon-purple border border-neon-purple/30 rounded-full whitespace-nowrap flex-shrink-0"
               >
                 #{keyword}
               </span>
