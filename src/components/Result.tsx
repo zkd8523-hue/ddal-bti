@@ -531,8 +531,18 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
                     {product.description}
                   </p>
                   {product.price && (
-                    <p className="text-xs md:text-sm text-neon-purple font-semibold mt-1.5">
-                      {product.price}
+                    <p className="text-xs md:text-sm mt-1.5">
+                      {product.originalPrice ? (
+                        <>
+                          <span className="text-gray-500 line-through text-xs">{product.originalPrice}</span>
+                          <span className="text-neon-purple font-semibold ml-1.5">{product.price}</span>
+                          {product.discountPercent && (
+                            <span className="text-neon-magenta text-xs ml-1">{product.discountPercent}</span>
+                          )}
+                        </>
+                      ) : (
+                        <span className="text-neon-purple font-semibold">{product.price}</span>
+                      )}
                     </p>
                   )}
                 </div>

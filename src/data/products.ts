@@ -7,6 +7,8 @@ export interface Product {
   link: string;
   imageUrl?: string;
   price?: string;
+  originalPrice?: string;
+  discountPercent?: string;
 }
 
 // 공통 마감 아이템: 러브젤 (수익률 높음)
@@ -16,7 +18,7 @@ const COMMON_GEL: Product = {
   emoji: '💜',
   link: 'https://link.coupang.com/a/d8jAEd',
   imageUrl: '/images/gel.png',
-  price: '9,900원',
+  price: '6,900원',
 };
 
 // 기존 남성/공통 상품 맵
@@ -29,18 +31,18 @@ export const productsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   VSAN: [
-    { name: '1+1 닥터데이즈 마사지젤', description: '건조함 없이 촉촉한 본능적인 마무리', emoji: '💧', link: 'https://link.coupang.com/a/d8T5gy', imageUrl: '/images/massagegel.png', price: '12,900원' },
+    { name: '1+1 닥터데이즈 마사지젤', description: '건조함 없이 촉촉한 본능적인 마무리', emoji: '💧', link: 'https://link.coupang.com/a/d8T5gy', imageUrl: '/images/massagegel.png', price: '19,000원', originalPrice: '30,000원', discountPercent: '36%' },
     COMMON_GEL,
   ],
   VSRT: [
-    { name: '디센느 스탠드 태블릿 핸드폰 거치대', description: '양손의 완벽한 자유를 선사하는 확실한 도구', emoji: '📱', link: 'https://link.coupang.com/a/d8T5DR', imageUrl: '/images/tab_holder.png', price: '29,900원' },
+    { name: '디센느 스탠드 태블릿 핸드폰 거치대', description: '양손의 완벽한 자유를 선사하는 확실한 도구', emoji: '📱', link: 'https://link.coupang.com/a/d8T5DR', imageUrl: '/images/tab_holder.png', price: '28,400원', originalPrice: '49,800원', discountPercent: '42%' },
     COMMON_GEL,
   ],
   VSRN: [
     COMMON_GEL,
   ],
   VMAT: [
-    { name: '스마트폰 전용 VR 글래스 (다이브)', description: '2만 원으로 신세계를 경험해 보는 마법', emoji: '🥽', link: 'https://link.coupang.com/a/d8jLqJ', imageUrl: '/images/vr.png', price: '19,900원' },
+    { name: '스마트폰 전용 VR 글래스 (다이브)', description: '2만 원으로 신세계를 경험해 보는 마법', emoji: '🥽', link: 'https://link.coupang.com/a/d8jLqJ', imageUrl: '/images/vr.png', price: '24,900원', originalPrice: '37,400원', discountPercent: '33%' },
     COMMON_GEL,
   ],
   VMAN: [
@@ -51,23 +53,23 @@ export const productsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   VMRN: [
-    { name: '러쉬 Best 섹스밤 입욕제', description: '오직 나만을 위한 럭셔리한 휴식 시간', emoji: '🛁', link: 'https://link.coupang.com/a/d8jHYu', imageUrl: '/images/bathbomb.png', price: '14,000원' },
+    { name: '러쉬 Best 섹스밤 입욕제', description: '오직 나만을 위한 럭셔리한 휴식 시간', emoji: '🛁', link: 'https://link.coupang.com/a/d8jHYu', imageUrl: '/images/bathbomb.png', price: '17,500원' },
     COMMON_GEL,
   ],
   FSAT: [
-    { name: '입문용 두근두근 안대', description: '상상력을 현실의 스킨십으로 끌어오는 마법', emoji: '🎭', link: 'https://link.coupang.com/a/d8T9bR', imageUrl: '/images/eyemask_sexy.png', price: '8,900원' },
+    { name: '입문용 두근두근 안대', description: '상상력을 현실의 스킨십으로 끌어오는 마법', emoji: '🎭', link: 'https://link.coupang.com/a/d8T9bR', imageUrl: '/images/eyemask_sexy.png', price: '5,500원', originalPrice: '11,000원', discountPercent: '50%' },
     COMMON_GEL,
   ],
   FSAN: [
-    { name: '아로마 롤온 / 라벤더 오일', description: '뇌내 상상력의 촉각을 돕는 향기 테라피', emoji: '🌸', link: 'https://link.coupang.com/a/d8jMe5', imageUrl: '/images/aroma.png', price: '15,500원' },
+    { name: '아로마 롤온 / 라벤더 오일', description: '뇌내 상상력의 촉각을 돕는 향기 테라피', emoji: '🌸', link: 'https://link.coupang.com/a/d8jMe5', imageUrl: '/images/aroma.png', price: '27,800원', originalPrice: '40,000원', discountPercent: '30%' },
     COMMON_GEL,
   ],
   FSRT: [
-    { name: '맥세이프 스마트폰 바닥형 그립톡', description: '폰을 세워두고 두 손자유 상상 플레이를 위해', emoji: '📱', link: 'https://link.coupang.com/a/d8jM0f', imageUrl: '/images/griptok.png', price: '10,900원' },
+    { name: '맥세이프 스마트폰 바닥형 그립톡', description: '폰을 세워두고 두 손자유 상상 플레이를 위해', emoji: '📱', link: 'https://link.coupang.com/a/d8jM0f', imageUrl: '/images/griptok.png', price: '10,860원', originalPrice: '37,330원', discountPercent: '70%' },
     COMMON_GEL,
   ],
   FSRN: [
-    { name: '나그참파 인센스 스틱 & 홀더', description: '나만의 거룩하고 퓨어한 절간 냄새 세팅', emoji: '🥢', link: 'https://link.coupang.com/a/d8jNx0', imageUrl: '/images/incense.png', price: '9,900원' },
+    { name: '나그참파 인센스 스틱 & 홀더', description: '나만의 거룩하고 퓨어한 절간 냄새 세팅', emoji: '🥢', link: 'https://link.coupang.com/a/eb24G8', imageUrl: '/images/incense.png', price: '5,400원', originalPrice: '14,700원', discountPercent: '63%' },
     COMMON_GEL,
   ],
   FMAT: [
@@ -83,7 +85,7 @@ export const productsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   FMRN: [
-    { name: '나그참파 인센스 스틱 & 홀더', description: '나만의 거룩하고 퓨어한 절간 냄새 세팅', emoji: '🥢', link: 'https://link.coupang.com/a/d8jNx0', imageUrl: '/images/incense.png', price: '9,900원' },
+    { name: '나그참파 인센스 스틱 & 홀더', description: '나만의 거룩하고 퓨어한 절간 냄새 세팅', emoji: '🥢', link: 'https://link.coupang.com/a/eb24G8', imageUrl: '/images/incense.png', price: '5,400원', originalPrice: '14,700원', discountPercent: '63%' },
     COMMON_GEL,
   ]
 };
@@ -98,11 +100,11 @@ export const femaleProductsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   VSAN: [
-    { name: '1+1 닥터데이즈 마사지젤', description: '건조함 없이 촉촉한 본능적인 마무리', emoji: '💧', link: 'https://link.coupang.com/a/d8T5gy', imageUrl: '/images/massagegel.png', price: '12,900원' },
+    { name: '1+1 닥터데이즈 마사지젤', description: '건조함 없이 촉촉한 본능적인 마무리', emoji: '💧', link: 'https://link.coupang.com/a/d8T5gy', imageUrl: '/images/massagegel.png', price: '19,000원', originalPrice: '30,000원', discountPercent: '36%' },
     COMMON_GEL,
   ],
   VSRT: [
-    { name: '디센느 스탠드 태블릿 핸드폰 거치대', description: '양손의 완벽한 자유를 선사하는 확실한 도구', emoji: '📱', link: 'https://link.coupang.com/a/d8T5DR', imageUrl: '/images/tab_holder.png', price: '29,900원' },
+    { name: '디센느 스탠드 태블릿 핸드폰 거치대', description: '양손의 완벽한 자유를 선사하는 확실한 도구', emoji: '📱', link: 'https://link.coupang.com/a/d8T5DR', imageUrl: '/images/tab_holder.png', price: '28,400원', originalPrice: '49,800원', discountPercent: '42%' },
     COMMON_GEL,
   ],
   VSRN: [
@@ -117,7 +119,7 @@ export const femaleProductsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   VMRT: [
-    { name: '러쉬 Best 섹스밤 입욕제', description: '오직 나만을 위한 럭셔리한 휴식 시간', emoji: '🛁', link: 'https://link.coupang.com/a/d8jHYu', imageUrl: '/images/bathbomb.png', price: '14,000원' },
+    { name: '러쉬 Best 섹스밤 입욕제', description: '오직 나만을 위한 럭셔리한 휴식 시간', emoji: '🛁', link: 'https://link.coupang.com/a/d8jHYu', imageUrl: '/images/bathbomb.png', price: '17,500원' },
     COMMON_GEL,
   ],
   VMRN: [
@@ -125,7 +127,7 @@ export const femaleProductsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   FSAT: [
-    { name: '입문용 두근두근 안대', description: '상상력을 현실의 스킨십으로 끌어오는 마법', emoji: '🎭', link: 'https://link.coupang.com/a/d8T9bR', imageUrl: '/images/eyemask_sexy.png', price: '8,900원' },
+    { name: '입문용 두근두근 안대', description: '상상력을 현실의 스킨십으로 끌어오는 마법', emoji: '🎭', link: 'https://link.coupang.com/a/d8T9bR', imageUrl: '/images/eyemask_sexy.png', price: '5,500원', originalPrice: '11,000원', discountPercent: '50%' },
     COMMON_GEL,
   ],
   FSAN: [
@@ -137,11 +139,11 @@ export const femaleProductsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   FSRN: [
-    { name: '해피스팀 아로마 온열 안대', description: '따뜻한 온기와 아로마 향으로 극대화되는 뇌내 비행', emoji: '♨️', link: 'https://link.coupang.com/a/d8UarR', imageUrl: '/images/steam_eye.png', price: '7,900원' },
+    { name: '해피스팀 아로마 온열 안대', description: '따뜻한 온기와 아로마 향으로 극대화되는 뇌내 비행', emoji: '♨️', link: 'https://link.coupang.com/a/d8UarR', imageUrl: '/images/steam_eye.png', price: '16,480원', originalPrice: '53,000원', discountPercent: '68%' },
     COMMON_GEL,
   ],
   FMAT: [
-    { name: '러쉬 Best 섹스밤 입욕제', description: '서사의 주인공에게 걸맞은 사치스러운 거품 목욕', emoji: '🛁', link: 'https://link.coupang.com/a/d8jHYu', imageUrl: '/images/bathbomb.png', price: '14,000원' },
+    { name: '러쉬 Best 섹스밤 입욕제', description: '서사의 주인공에게 걸맞은 사치스러운 거품 목욕', emoji: '🛁', link: 'https://link.coupang.com/a/d8jHYu', imageUrl: '/images/bathbomb.png', price: '17,500원' },
     COMMON_GEL,
   ],
   FMAN: [
@@ -153,7 +155,7 @@ export const femaleProductsByType: Record<string, Product[]> = {
     COMMON_GEL,
   ],
   FMRN: [
-    { name: '나그참파 인센스 스틱 & 홀더', description: '나만의 깊은 감정선으로 차분하게 빠져드는 이너피스', emoji: '🥢', link: 'https://link.coupang.com/a/d8jNx0', imageUrl: '/images/incense.png', price: '9,900원' },
+    { name: '나그참파 인센스 스틱 & 홀더', description: '나만의 깊은 감정선으로 차분하게 빠져드는 이너피스', emoji: '🥢', link: 'https://link.coupang.com/a/eb24G8', imageUrl: '/images/incense.png', price: '5,400원', originalPrice: '14,700원', discountPercent: '63%' },
     COMMON_GEL,
   ]
 };
