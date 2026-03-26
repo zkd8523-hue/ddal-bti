@@ -35,7 +35,6 @@ export default function Question({
           aria-label={`${totalQuestions}개 중 ${currentIndex + 1}번째 문제`}
         >
           <motion.div
-            initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
             transition={{ duration: 0.5 }}
             className="h-full bg-gradient-to-r from-neon-purple to-neon-magenta"
