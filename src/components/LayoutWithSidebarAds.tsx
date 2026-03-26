@@ -22,7 +22,7 @@ export default function LayoutWithSidebarAds({
       )}
 
       {/* 중앙 콘텐츠 영역 */}
-      <div className="mx-auto lg:px-40 xl:px-60">
+      <div className={`mx-auto ${showAds ? 'lg:px-40 xl:px-60' : ''}`}>
         {children}
       </div>
 
