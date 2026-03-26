@@ -166,7 +166,12 @@ export default function Home({ onStart }: HomeProps) {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={onStart}
-        className="px-14 py-5 text-xl font-bold bg-gradient-to-r from-pink-400 to-rose-300 text-white rounded-full neon-border hover:shadow-2xl transition-all duration-300 animate-pulse-glow"
+        className="px-14 py-5 text-xl font-bold text-white rounded-full neon-border hover:shadow-2xl transition-all duration-300 animate-pulse-glow"
+        style={{
+          background: 'linear-gradient(to right, rgb(244, 114, 182), rgb(253, 164, 175))',
+          WebkitBackfaceVisibility: 'hidden',
+          backfaceVisibility: 'hidden'
+        }}
       >
         🚀 60초 테스트 시작
       </motion.button>
