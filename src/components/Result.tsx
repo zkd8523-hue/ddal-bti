@@ -320,7 +320,7 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
               src={`/images/shares/${result.type}.png`}
               alt={displayTitle}
               onError={(e) => { e.currentTarget.style.display = 'none'; }}
-              className="relative w-32 h-32 md:w-48 md:h-48 select-none rounded-3xl object-cover shadow-2xl border-2 border-white/10"
+              className="relative w-44 h-44 md:w-64 md:h-64 select-none rounded-3xl object-cover shadow-2xl border-2 border-white/10"
             />
           </motion.div>
 
