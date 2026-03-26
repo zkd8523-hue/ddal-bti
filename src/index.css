@@ -2,12 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 
-/* 색상 프로파일 강제 설정 */
-* {
-  color-profile: sRGB;
-  rendering-intent: auto;
-}
-
 @theme {
   --font-family-pretendard: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --color-neon-purple: #F472B6;
