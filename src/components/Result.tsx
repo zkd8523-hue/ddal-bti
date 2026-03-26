@@ -315,7 +315,10 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
             transition={{ delay: 0.4, type: 'spring', stiffness: 200 }}
             className="relative mb-6"
           >
-            <div className="absolute inset-0 bg-gradient-to-tr from-neon-purple to-neon-magenta rounded-3xl blur-xl opacity-30 scale-105" />
+            <div
+              className="absolute inset-0 rounded-3xl blur-xl opacity-30 scale-105"
+              style={{ background: 'linear-gradient(to top right, rgb(244, 114, 182), rgb(253, 164, 175))' }}
+            />
             <img
               src={`/images/shares/${result.type}.png`}
               alt={displayTitle}
@@ -363,7 +366,10 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
         </div>
 
         {/* 구분선 */}
-        <div className="relative z-10 w-16 h-px bg-gradient-to-r from-transparent via-neon-purple/50 to-transparent mx-auto mb-6" />
+        <div
+          className="relative z-10 w-16 h-px mx-auto mb-6"
+          style={{ background: 'linear-gradient(to right, transparent, rgba(244, 114, 182, 0.5), transparent)' }}
+        />
 
         {/* 특징 리스트 */}
         <motion.div
@@ -499,7 +505,10 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
                 className="flex items-center gap-4 p-4 md:p-5 bg-white/[0.03] backdrop-blur-md rounded-2xl border border-white/10 hover:border-neon-purple/50 hover:bg-white/[0.06] transition-all duration-300 group relative overflow-hidden animate-card-glow product-card-glow"
               >
                 {/* 배경 광 효과 */}
-                <div className="absolute inset-0 bg-gradient-to-r from-neon-purple/0 via-neon-purple/5 to-neon-purple/0 opacity-0 group-hover:opacity-100 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"
+                  style={{ background: 'linear-gradient(to right, rgba(244, 114, 182, 0), rgba(244, 114, 182, 0.05), rgba(244, 114, 182, 0))' }}
+                />
                 
                 <div className="w-20 h-20 md:w-24 md:h-24 bg-gray-800/50 rounded-xl flex-shrink-0 flex items-center justify-center overflow-hidden border border-white/5 shadow-xl transition-transform duration-500 group-hover:scale-105">
                   {product.imageUrl ? (
@@ -657,7 +666,10 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
                                   className="w-20 h-20 rounded-xl object-cover shadow-lg"
                                 />
                                 <div>
-                                  <span className="inline-block px-3 py-1 bg-gradient-to-r from-neon-purple to-neon-magenta rounded-full text-sm font-bold mb-1">
+                                  <span
+                                    className="inline-block px-3 py-1 rounded-full text-sm font-bold mb-1"
+                                    style={{ background: 'linear-gradient(to right, rgb(244, 114, 182), rgb(253, 164, 175))' }}
+                                  >
                                     {selectedExploreResult.type}
                                   </span>
                                   <h4 className="text-xl font-bold text-white">
@@ -717,7 +729,10 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
       >
         <button
           onClick={onRestart}
-          className="w-full px-8 py-4 text-lg font-bold bg-gradient-to-r from-neon-purple to-neon-magenta rounded-full hover:shadow-2xl transition-all duration-300"
+          className="w-full px-8 py-4 text-lg font-bold rounded-full hover:shadow-2xl transition-all duration-300"
+          style={{
+            background: 'linear-gradient(to right, rgb(244, 114, 182), rgb(253, 164, 175))'
+          }}
         >
           {isShared ? '🔥 나도 테스트하기' : '🔄 다시 테스트하기'}
         </button>
@@ -739,7 +754,15 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
             {/* 로고 */}
             <div className="mb-6 flex items-baseline gap-1">
               <span className="text-[56px] font-black bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-pink-200 drop-shadow-[0_0_25px_rgba(244,114,182,0.5)]">밤</span>
-              <span className="text-[48px] font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-neon-purple via-neon-magenta to-neon-pink neon-text">bti</span>
+              <span
+                className="text-[48px] font-extrabold tracking-tight neon-text"
+                style={{
+                  background: 'linear-gradient(to right, rgb(244, 114, 182), rgb(253, 164, 175), rgb(254, 205, 211))',
+                  WebkitBackgroundClip: 'text',
+                  backgroundClip: 'text',
+                  color: 'transparent'
+                }}
+              >bti</span>
             </div>
 
             {/* 인구 퍼센티지 */}
@@ -749,7 +772,10 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
 
             {/* 캐릭터 이미지 */}
             <div className="relative mb-10">
-              <div className="absolute inset-0 bg-gradient-to-tr from-neon-purple to-neon-magenta rounded-[40px] blur-3xl opacity-40 scale-110" />
+              <div
+                className="absolute inset-0 rounded-[40px] blur-3xl opacity-40 scale-110"
+                style={{ background: 'linear-gradient(to top right, rgb(244, 114, 182), rgb(253, 164, 175))' }}
+              />
               <div className="relative w-[620px] h-[620px] rounded-[40px] overflow-hidden border-[5px] border-white/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.7)]">
                 <img
                   src={`/images/shares/${result.type}.png`}

@@ -202,7 +202,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-900">
-      <LayoutWithSidebarAds showAds={screen !== 'loading'}>
+      <LayoutWithSidebarAds showAds={false}>
         <AnimatePresence mode="wait">
           {screen === 'home' && (
             <Home key="home" onStart={handleStart} />

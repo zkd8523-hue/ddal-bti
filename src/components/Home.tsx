@@ -109,7 +109,15 @@ export default function Home({ onStart }: HomeProps) {
           <span className="text-6xl md:text-8xl font-black font-suit bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-pink-200 drop-shadow-[0_0_25px_rgba(244,114,182,0.5)]">
             밤
           </span>
-          <span className="text-5xl md:text-7xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-neon-purple via-neon-magenta to-neon-pink neon-text">
+          <span
+            className="text-5xl md:text-7xl font-extrabold tracking-tight neon-text"
+            style={{
+              background: 'linear-gradient(to bottom right, rgb(244, 114, 182), rgb(253, 164, 175), rgb(254, 205, 211))',
+              WebkitBackgroundClip: 'text',
+              backgroundClip: 'text',
+              color: 'transparent'
+            }}
+          >
             bti
           </span>
         </span>

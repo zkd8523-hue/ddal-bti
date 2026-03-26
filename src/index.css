@@ -72,6 +72,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* X 브라우저 색상 보간 방식 강제 */
+* {
+  -webkit-color-interpolation: sRGB;
+  color-interpolation: sRGB;
+}
+
 #root {
   min-height: 100vh;
   display: flex;

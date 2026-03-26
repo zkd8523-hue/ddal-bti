@@ -43,7 +43,8 @@ export default function Question({
             initial={{ width: `${previousProgress}%` }}
             animate={{ width: `${progress}%` }}
             transition={{ duration: 0.5 }}
-            className="h-full bg-gradient-to-r from-neon-purple to-neon-magenta"
+            className="h-full"
+            style={{ background: 'linear-gradient(to right, rgb(244, 114, 182), rgb(253, 164, 175))' }}
           />
         </div>
       </div>
