@@ -112,10 +112,10 @@ export default function Home({ onStart }: HomeProps) {
         initial={{ y: -30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.05, duration: 0.4 }}
-        className="mb-4 text-center select-none"
+        className="mb-1 text-center select-none"
       >
         <span className="inline-flex items-baseline gap-0.5">
-          <span className="text-6xl md:text-8xl font-black bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-pink-200 drop-shadow-[0_0_25px_rgba(244,114,182,0.5)]">
+          <span className="text-6xl md:text-8xl font-black font-suit bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-pink-200 drop-shadow-[0_0_25px_rgba(244,114,182,0.5)]">
             밤
           </span>
           <span className="text-5xl md:text-7xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-neon-purple via-neon-magenta to-neon-pink neon-text">
@@ -129,9 +129,9 @@ export default function Home({ onStart }: HomeProps) {
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.1, duration: 0.3 }}
-        className="text-xl md:text-2xl text-gray-300 mb-3 text-center break-keep"
+        className="text-xl md:text-2xl text-gray-300 mb-3 text-center break-keep font-pretendard"
       >
-        16가지 밤 캐릭터, 나는 어떤 유형일까?
+        <span className="text-base md:text-xl opacity-70">'</span>16가지 밤 캐릭터중 난 어떤 유형일까?<span className="text-base md:text-xl opacity-70">'</span>
       </motion.p>
 
       {/* A-2: 미니 결과 카드 슬라이드 (share 이미지 활용) */}
@@ -186,29 +186,8 @@ export default function Home({ onStart }: HomeProps) {
         transition={{ delay: 0.3, duration: 0.3 }}
         className="mt-3 text-sm text-gray-400"
       >
-        🔥 지금까지 <FlipCounter value={count} />명이 해봤어요
+        🔥 지난 7일동안 <FlipCounter value={count} />명이 해봤어요
       </motion.p>
-
-      {/* C: 반응 말풍선 */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.35, duration: 0.3 }}
-        className="mt-3 h-6 relative overflow-hidden"
-      >
-        <AnimatePresence mode="wait">
-          <motion.p
-            key={reactionIndex}
-            initial={{ y: 12, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -12, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="text-sm text-gray-400 text-center absolute inset-0"
-          >
-            💬 "{reactions[reactionIndex]}"
-          </motion.p>
-        </AnimatePresence>
-      </motion.div>
 
     </motion.div>
   );

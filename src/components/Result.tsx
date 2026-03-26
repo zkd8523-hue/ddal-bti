@@ -322,12 +322,24 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
             {displayTitle}
           </motion.h1>
 
+          {/* 부제 */}
+          {result.subtitle && (
+            <motion.p
+              initial={{ y: -10, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.55 }}
+              className="text-base md:text-sm text-gray-400 italic mb-3"
+            >
+              "{result.subtitle}"
+            </motion.p>
+          )}
+
           {/* 인구 퍼센티지 */}
           <motion.div
             initial={{ y: -10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.55 }}
-            className="flex items-center gap-2 mb-3"
+            transition={{ delay: 0.6 }}
+            className="flex items-center gap-2"
           >
             <span className="px-4 py-1.5 bg-neon-purple/15 border border-neon-purple/30 rounded-full text-sm text-gray-300">
               전체 인구의 <span className="text-sm font-bold text-neon-purple">{getPopularityLabel(result.type as PersonalityType)}</span>
@@ -336,18 +348,6 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
               <span className="px-3 py-1 bg-neon-magenta/15 border border-neon-magenta/30 rounded-full text-xs text-neon-magenta font-semibold">희귀 유형</span>
             )}
           </motion.div>
-
-          {/* 부제 */}
-          {result.subtitle && (
-            <motion.p
-              initial={{ y: -10, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.6 }}
-              className="text-base md:text-sm text-gray-400 italic"
-            >
-              "{result.subtitle}"
-            </motion.p>
-          )}
         </div>
 
         {/* 구분선 */}
@@ -373,6 +373,25 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
             </motion.div>
           ))}
         </motion.div>
+
+        {/* 키워드 해시태그 */}
+        {result.keywords && result.keywords.length > 0 && (
+          <motion.div
+            initial={{ y: 10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 1.2 }}
+            className="relative z-10 flex flex-wrap gap-2 justify-center mt-6"
+          >
+            {result.keywords.map((keyword, index) => (
+              <span
+                key={index}
+                className="px-3 py-1 text-xs font-semibold bg-neon-purple/10 text-neon-purple border border-neon-purple/30 rounded-full"
+              >
+                #{keyword}
+              </span>
+            ))}
+          </motion.div>
+        )}
 
         {/* 축별 설명 */}
         <motion.div
@@ -509,7 +528,7 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
       )}
 
       {/* 배너 광고 영역 (공유받은 결과에서는 숨김) */}
-      {!isShared && <AdBanner variant="result" />}
+      {!isShared && <AdBanner variant="result" resultType={result.type as PersonalityType} />}
 
       {/* 나와의 궁합 섹션 */}
       <motion.div
@@ -518,7 +537,7 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
         transition={{ delay: 1.1 }}
         className="w-full max-w-2xl mt-8"
       >
-        <p className="text-sm text-gray-400 mb-2 px-1">다른 유형은 어떨까?</p>
+        <p className="text-sm text-gray-400 mb-2 px-1">친구의 유형은 어떨까?</p>
         <div className="flex items-center gap-2 mb-4 px-1">
           <span className="text-neon-purple">🔍</span>
           <h3 className="text-lg md:text-xl font-bold text-white">

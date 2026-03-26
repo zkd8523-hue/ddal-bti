@@ -1,10 +1,21 @@
 import { motion } from 'framer-motion';
+import { analytics } from '../utils/analytics';
+import type { PersonalityType } from '../types';
 
 interface AdBannerProps {
   variant?: 'result' | 'loading';
+  resultType?: PersonalityType;
 }
 
-export default function AdBanner({ variant = 'result' }: AdBannerProps) {
+export default function AdBanner({ variant = 'result', resultType }: AdBannerProps) {
+  const handleClick = () => {
+    analytics.trackProductClick(
+      '순수한면 제로 순면 생리대 세트',
+      'https://link.coupang.com/a/eaPC2u',
+      resultType || 'UNKNOWN' as PersonalityType,
+      -1 // 배너는 position -1로 표시 (제품 리스트와 구분)
+    );
+  };
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -22,6 +33,7 @@ export default function AdBanner({ variant = 'result' }: AdBannerProps) {
         href="https://link.coupang.com/a/eaPC2u"
         target="_blank"
         rel="noopener noreferrer"
+        onClick={handleClick}
         className="flex items-center gap-4 p-4 md:p-5 bg-white/[0.03] backdrop-blur-md rounded-2xl border border-white/10 hover:border-neon-purple/50 hover:bg-white/[0.06] transition-all duration-300 group relative overflow-hidden"
       >
         {/* 배경 광 효과 */}

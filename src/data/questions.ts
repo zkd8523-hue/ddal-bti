@@ -19,13 +19,13 @@ export const questions: Question[] = [
   {
     id: 11,
     axis: 4,
-    question: '카페에서 음료 고를 때?',
+    question: '처음 가본 카페, 메뉴판 앞에서?',
     optionA: {
-      text: '📱 리뷰부터 검색한다',
+      text: '📱 인스타 검색부터 뚝딱',
       point: 'T'
     },
     optionB: {
-      text: '👆 그냥 끌리는 거',
+      text: '👆 직감으로 바로 주문',
       point: 'N'
     }
   },
@@ -61,13 +61,13 @@ export const questions: Question[] = [
   {
     id: 7,
     axis: 3,
-    question: '판타지 속 나의 포지션은?',
+    question: '머릿속 판타지를 그릴 때?',
     optionA: {
-      text: '🎭 매번 다른 역할을 시도해본다',
+      text: '🎭 상황마다 다른 역할극',
       point: 'A'
     },
     optionB: {
-      text: '👑 나만의 확고한 포지션이 있다',
+      text: '👑 나만의 고정 캐릭터가 있어',
       point: 'R'
     }
   },
@@ -103,13 +103,13 @@ export const questions: Question[] = [
   {
     id: 9,
     axis: 3,
-    question: '오늘따라 평소와 다른 걸 해볼까 싶을 때?',
+    question: '파트너가 "오늘은 뭔가 다르게 해볼까?" 할 때?',
     optionA: {
-      text: '🎉 새로운 시도는 언제나 환영이지!',
+      text: '🎉 새로운 시도는 언제나 환영!',
       point: 'A'
     },
     optionB: {
-      text: '🤔 그래도 역시 검증된 게 최고지!',
+      text: '🤔 그래도 역시 검증된 게 최고!',
       point: 'R'
     }
   },
@@ -159,13 +159,13 @@ export const questions: Question[] = [
   {
     id: 6,
     axis: 2,
-    question: '쇼핑할 때?',
+    question: '주말 쇼핑몰에 들어섰을 때?',
     optionA: {
-      text: '🎯 필요한 것만 사고 바로 나온다',
+      text: '🏃‍♀️ 목표물만 낚아채고 15분 컷',
       point: 'S'
     },
     optionB: {
-      text: '🛍️ 구경하는 재미가 반',
+      text: '👀 매장마다 구경하다 3시간 순삭',
       point: 'M'
     }
   }
