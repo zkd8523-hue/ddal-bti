@@ -97,6 +97,18 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
     ? allResults.find((r) => r.type === selectedExploreType) || null
     : null;
 
+  // 결과 화면 진입 시 추가 이벤트 추적
+  useEffect(() => {
+    if (result.type && products.length > 0) {
+      analytics.trackResultViewed(result.type as PersonalityType);
+      
+      // 상품 노출 추적 (한 번만 실행되도록 products 의존성 관리)
+      products.forEach((product, index) => {
+        analytics.trackProductImpression(product.name, result.type as PersonalityType, index + 1);
+      });
+    }
+  }, [result.type, products.length]);
+
   useEffect(() => {
     // SDK 로딩 대기 및 초기화
     const initKakao = () => {

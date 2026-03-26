@@ -47,6 +47,14 @@ export default function Home({ onStart }: HomeProps) {
     return shuffled.slice(0, 4);
   }, []);
 
+  // 이미지 preload - 초기 로딩 속도 개선
+  useEffect(() => {
+    previewResults.forEach((result) => {
+      const img = new Image();
+      img.src = `/images/shares/${result.type}.png`;
+    });
+  }, [previewResults]);
+
   // 참여자 카운터
   useEffect(() => {
     let first = true;
@@ -137,6 +145,7 @@ export default function Home({ onStart }: HomeProps) {
               <img
                 src={`/images/shares/${currentCard.type}.png`}
                 alt={currentCard.title}
+                loading="eager"
                 className="w-20 h-20 rounded-xl object-cover flex-shrink-0"
               />
               <div className="min-w-0">

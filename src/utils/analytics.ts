@@ -120,16 +120,32 @@ export const analytics = {
 
   // 추천 상품 클릭
   trackProductClick: (productName: string, productLink: string, resultType: PersonalityType, position: number) => {
-    console.log('📊 GA Event: product_click', { productName, position });
+    console.log('📊 GA Event: select_item', { productName, position });
     ga4.event({
-      category: 'Affiliate',
-      action: 'product_click',
+      category: 'Ecommerce',
+      action: 'select_item',
       label: productName,
       value: position,
-      product_name: productName,
-      product_link: productLink,
+      item_name: productName,
+      item_id: productName,
+      item_url: productLink,
+      item_list_name: 'Recommended Products',
       result_type: resultType,
-      position: position
+      index: position
+    } as any);
+  },
+
+  // 추천 상품 노출 (CTR 계산용)
+  trackProductImpression: (productName: string, resultType: PersonalityType, position: number) => {
+    ga4.event({
+      category: 'Ecommerce',
+      action: 'view_item_list',
+      label: productName,
+      item_name: productName,
+      item_id: productName,
+      item_list_name: 'Recommended Products',
+      result_type: resultType,
+      index: position
     } as any);
   },
 
