@@ -80,7 +80,7 @@ export default function Home({ onStart }: HomeProps) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="flex flex-col items-center justify-center min-h-screen px-6"
+      className="flex flex-col items-center justify-start md:justify-center min-h-screen px-6 pt-20 md:pt-0"
     >
       <motion.p
         initial={{ opacity: 0 }}
