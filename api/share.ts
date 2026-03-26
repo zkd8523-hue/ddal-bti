@@ -19,21 +19,23 @@ const typeData: Record<string, { title: string; emoji: string; subtitle: string 
   FMRN: { title: '슬로우 모션 거북이', emoji: '🐢', subtitle: '상상만으로 충분한 밤의 미니멀리스트' },
 };
 
-const SITE_URL = 'https://bam-bti.vercel.app';
-
 export default function handler(req: VercelRequest, res: VercelResponse) {
+  const host = req.headers.host || 'bam-bti.vercel.app';
+  const protocol = host.includes('localhost') ? 'http' : 'https';
+  const siteUrl = `${protocol}://${host}`;
+
   const type = (typeof req.query.type === 'string' ? req.query.type : '').toUpperCase();
   const data = typeData[type];
 
   if (!data) {
     // 유효하지 않은 타입이면 메인 페이지로 리다이렉트
-    res.redirect(302, SITE_URL);
+    res.redirect(302, siteUrl);
     return;
   }
 
   const title = `[밤BTI] 나의 결과: ${data.title} ${data.emoji}`;
   const description = `"${data.subtitle}" — 숨기고 있을 뿐, 유형은 있어!`;
-  const imageUrl = `${SITE_URL}/images/shares/${type}.png`;
+  const imageUrl = `${siteUrl}/images/shares/${type}.png`;
 
   // ref, UTM 파라미터 패스스루 (바이럴 계수 추적용)
   const redirectParams = new URLSearchParams();
@@ -44,7 +46,10 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     const val = typeof req.query[key] === 'string' ? req.query[key] : '';
     if (val) redirectParams.set(key, val as string);
   }
-  const pageUrl = `${SITE_URL}/?${redirectParams.toString()}`;
+  const pageUrl = `${siteUrl}/?${redirectParams.toString()}`;
+
+  const escapedPageUrl = pageUrl.replace(/&/g, '&amp;');
+  const escapedImageUrl = imageUrl.replace(/&/g, '&amp;');
 
   const html = `<!DOCTYPE html>
 <html lang="ko">
@@ -67,12 +72,15 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
   <meta name="twitter:description" content="${description}" />
   <meta name="twitter:image" content="${imageUrl}" />
 
-  <!-- 사용자 브라우저는 실제 결과 페이지로 리다이렉트 -->
-  <meta http-equiv="refresh" content="0;url=${pageUrl}" />
+  <!-- 사용자 브라우저는 실제 결과 페이지로 리다이렉트 (HTML refresh) -->
+  <meta http-equiv="refresh" content="0;url=${escapedPageUrl}" />
 </head>
 <body>
-  <p>리다이렉트 중입니다... <a href="${pageUrl}">여기를 클릭하세요</a></p>
-  <script>window.location.replace("${pageUrl}");</script>
+  <p>리다이렉트 중입니다... <a href="${escapedPageUrl}">여기를 클릭하세요</a></p>
+  <script>
+    // JS redirect as fallback
+    window.location.replace(${JSON.stringify(pageUrl)});
+  </script>
 </body>
 </html>`;
 

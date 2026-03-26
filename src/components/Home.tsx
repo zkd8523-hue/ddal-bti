@@ -77,7 +77,7 @@ export default function Home({ onStart }: HomeProps) {
   useEffect(() => {
     const timer = setInterval(() => {
       setCardIndex((i) => (i + 1) % previewResults.length);
-    }, 3000);
+    }, 2000);
     return () => clearInterval(timer);
   }, [previewResults.length]);
 
