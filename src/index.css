@@ -37,7 +37,7 @@
 
 :root {
   background-color: #111827;
-  color-scheme: dark;
+  color-scheme: dark light;
 }
 
 /* 추천 상품 카드 shimmer 효과 */
@@ -72,7 +72,7 @@ body {
   background-color: #111827;
   color: #fff;
   margin: 0;
-  color-scheme: dark !important;
+  color-scheme: dark light !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -117,5 +117,17 @@ body {
     --grad-glow: linear-gradient(to top right in lch, lch(70% 81 330), lch(73% 66 350));
     --grad-divider: linear-gradient(to right, transparent, lch(70% 81 330 / 0.5), transparent);
     --grad-hover: linear-gradient(to right, lch(70% 81 330 / 0), lch(70% 81 330 / 0.05), lch(70% 81 330 / 0));
+  }
+}
+
+/* WebView 알고리즘적 다크닝 차단 신호 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark light;
+    background-color: #111827;
+  }
+  body {
+    background-color: #111827;
+    color: #fff;
   }
 }
