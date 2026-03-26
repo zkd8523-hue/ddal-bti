@@ -213,6 +213,7 @@ function App() {
               key={`question-${currentQuestion.id}`}
               question={currentQuestion}
               currentIndex={currentQuestionIndex}
+              previousIndex={currentQuestionIndex - 1}
               totalQuestions={questions.length}
               onAnswer={handleAnswer}
               onBack={handleBack}

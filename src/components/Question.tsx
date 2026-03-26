@@ -4,6 +4,7 @@ import type { Question as QuestionType } from '../types';
 interface QuestionProps {
   question: QuestionType;
   currentIndex: number;
+  previousIndex: number;
   totalQuestions: number;
   onAnswer: (point: string) => void;
   onBack: () => void;
@@ -12,11 +13,15 @@ interface QuestionProps {
 export default function Question({
   question,
   currentIndex,
+  previousIndex,
   totalQuestions,
   onAnswer,
   onBack,
 }: QuestionProps) {
   const progress = ((currentIndex + 1) / totalQuestions) * 100;
+  const previousProgress = previousIndex >= 0
+    ? ((previousIndex + 1) / totalQuestions) * 100
+    : 0;
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-6">
@@ -35,6 +40,7 @@ export default function Question({
           aria-label={`${totalQuestions}개 중 ${currentIndex + 1}번째 문제`}
         >
           <motion.div
+            initial={{ width: `${previousProgress}%` }}
             animate={{ width: `${progress}%` }}
             transition={{ duration: 0.5 }}
             className="h-full bg-gradient-to-r from-neon-purple to-neon-magenta"
