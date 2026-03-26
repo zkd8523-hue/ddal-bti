@@ -317,7 +317,7 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
           >
             <div
               className="absolute inset-0 rounded-3xl blur-xl opacity-30 scale-105"
-              style={{ background: 'linear-gradient(to top right, rgb(244, 114, 182), rgb(253, 164, 175))' }}
+              style={{ background: 'var(--grad-glow, linear-gradient(to top right, rgb(244, 114, 182), rgb(253, 164, 175)))' }}
             />
             <img
               src={`/images/shares/${result.type}.png`}
@@ -368,7 +368,7 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
         {/* 구분선 */}
         <div
           className="relative z-10 w-16 h-px mx-auto mb-6"
-          style={{ background: 'linear-gradient(to right, transparent, rgba(244, 114, 182, 0.5), transparent)' }}
+          style={{ background: 'var(--grad-divider, linear-gradient(to right, transparent, rgba(244, 114, 182, 0.5), transparent))' }}
         />
 
         {/* 특징 리스트 */}
@@ -507,7 +507,7 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
                 {/* 배경 광 효과 */}
                 <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"
-                  style={{ background: 'linear-gradient(to right, rgba(244, 114, 182, 0), rgba(244, 114, 182, 0.05), rgba(244, 114, 182, 0))' }}
+                  style={{ background: 'var(--grad-hover, linear-gradient(to right, rgba(244, 114, 182, 0), rgba(244, 114, 182, 0.05), rgba(244, 114, 182, 0)))' }}
                 />
                 
                 <div className="w-20 h-20 md:w-24 md:h-24 bg-gray-800/50 rounded-xl flex-shrink-0 flex items-center justify-center overflow-hidden border border-white/5 shadow-xl transition-transform duration-500 group-hover:scale-105">
@@ -678,7 +678,7 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
                                 <div>
                                   <span
                                     className="inline-block px-3 py-1 rounded-full text-sm font-bold mb-1"
-                                    style={{ background: 'linear-gradient(to right, rgb(244, 114, 182), rgb(253, 164, 175))' }}
+                                    style={{ background: 'var(--grad-btn, linear-gradient(to right, rgb(244, 114, 182), rgb(253, 164, 175)))' }}
                                   >
                                     {selectedExploreResult.type}
                                   </span>
@@ -741,7 +741,7 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
           onClick={onRestart}
           className="w-full px-8 py-4 text-lg font-bold rounded-full hover:shadow-2xl transition-all duration-300"
           style={{
-            background: 'linear-gradient(to right, rgb(244, 114, 182), rgb(253, 164, 175))'
+            background: 'var(--grad-btn, linear-gradient(to right, rgb(244, 114, 182), rgb(253, 164, 175)))'
           }}
         >
           {isShared ? '🔥 나도 테스트하기' : '🔄 다시 테스트하기'}
@@ -767,7 +767,7 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
               <span
                 className="text-[48px] font-extrabold tracking-tight neon-text"
                 style={{
-                  background: 'linear-gradient(to right, rgb(244, 114, 182), rgb(253, 164, 175), rgb(254, 205, 211))',
+                  background: 'var(--grad-text-r, linear-gradient(to right, rgb(244, 114, 182), rgb(253, 164, 175), rgb(254, 205, 211)))',
                   WebkitBackgroundClip: 'text',
                   backgroundClip: 'text',
                   color: 'transparent'
@@ -784,7 +784,7 @@ export default function Result({ result, isShared = false, onRestart }: ResultPr
             <div className="relative mb-10">
               <div
                 className="absolute inset-0 rounded-[40px] blur-3xl opacity-40 scale-110"
-                style={{ background: 'linear-gradient(to top right, rgb(244, 114, 182), rgb(253, 164, 175))' }}
+                style={{ background: 'var(--grad-glow, linear-gradient(to top right, rgb(244, 114, 182), rgb(253, 164, 175)))' }}
               />
               <div className="relative w-[620px] h-[620px] rounded-[40px] overflow-hidden border-[5px] border-white/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.7)]">
                 <img

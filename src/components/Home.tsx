@@ -112,7 +112,7 @@ export default function Home({ onStart }: HomeProps) {
           <span
             className="text-5xl md:text-7xl font-extrabold tracking-tight neon-text"
             style={{
-              background: 'linear-gradient(to bottom right, rgb(244, 114, 182), rgb(253, 164, 175), rgb(254, 205, 211))',
+              background: 'var(--grad-text-br, linear-gradient(to bottom right, rgb(244, 114, 182), rgb(253, 164, 175), rgb(254, 205, 211)))',
               WebkitBackgroundClip: 'text',
               backgroundClip: 'text',
               color: 'transparent'
@@ -176,7 +176,7 @@ export default function Home({ onStart }: HomeProps) {
         onClick={onStart}
         className="px-14 py-5 text-xl font-bold text-white rounded-full neon-border hover:shadow-2xl transition-all duration-300 animate-pulse-glow"
         style={{
-          background: 'linear-gradient(to right, rgb(244, 114, 182), rgb(253, 164, 175))',
+          background: 'var(--grad-btn, linear-gradient(to right, rgb(244, 114, 182), rgb(253, 164, 175)))',
           WebkitBackfaceVisibility: 'hidden',
           backfaceVisibility: 'hidden'
         }}

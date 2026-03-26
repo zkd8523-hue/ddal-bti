@@ -39,7 +39,7 @@ export default function AdBanner({ variant = 'result', resultType }: AdBannerPro
         {/* 배경 광 효과 */}
         <div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"
-          style={{ background: 'linear-gradient(to right, rgba(244, 114, 182, 0), rgba(244, 114, 182, 0.05), rgba(244, 114, 182, 0))' }}
+          style={{ background: 'var(--grad-hover, linear-gradient(to right, rgba(244, 114, 182, 0), rgba(244, 114, 182, 0.05), rgba(244, 114, 182, 0)))' }}
         />
 
         <div className="w-20 h-20 md:w-24 md:h-24 bg-gray-800/50 rounded-xl flex-shrink-0 flex items-center justify-center overflow-hidden border border-white/5 shadow-xl transition-transform duration-500 group-hover:scale-105">

@@ -107,3 +107,15 @@ body {
 .font-suit {
   font-family: 'Jua', -apple-system, BlinkMacSystemFont, system-ui, sans-serif !important;
 }
+
+/* X 브라우저 색상 보정 - LCH 그라데이션 변수 */
+@supports (color: lch(70% 81 330)) {
+  :root {
+    --grad-text-br: linear-gradient(to bottom right in lch, lch(70% 81 330), lch(73% 66 350), lch(86% 30 358));
+    --grad-text-r: linear-gradient(to right in lch, lch(70% 81 330), lch(73% 66 350), lch(86% 30 358));
+    --grad-btn: linear-gradient(to right in lch, lch(70% 81 330), lch(73% 66 350));
+    --grad-glow: linear-gradient(to top right in lch, lch(70% 81 330), lch(73% 66 350));
+    --grad-divider: linear-gradient(to right, transparent, lch(70% 81 330 / 0.5), transparent);
+    --grad-hover: linear-gradient(to right, lch(70% 81 330 / 0), lch(70% 81 330 / 0.05), lch(70% 81 330 / 0));
+  }
+}

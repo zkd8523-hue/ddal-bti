@@ -85,7 +85,7 @@ export default function Loading({ onComplete }: LoadingProps) {
         <div
           className="h-full transition-none"
           style={{
-            background: 'linear-gradient(to right, rgb(244, 114, 182), rgb(253, 164, 175))',
+            background: 'var(--grad-btn, linear-gradient(to right, rgb(244, 114, 182), rgb(253, 164, 175)))',
             width: `${progress}%`
           }}
         />
