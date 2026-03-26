@@ -84,8 +84,10 @@ export default function Loading({ onComplete }: LoadingProps) {
       <div className="w-full max-w-xs h-2 bg-gray-800 rounded-full overflow-hidden mb-8">
         <div
           className="h-full transition-none"
-          style={{ background: 'linear-gradient(to right, rgb(244, 114, 182), rgb(253, 164, 175))' }}
-          style={{ width: `${progress}%` }}
+          style={{
+            background: 'linear-gradient(to right, rgb(244, 114, 182), rgb(253, 164, 175))',
+            width: `${progress}%`
+          }}
         />
       </div>
 
