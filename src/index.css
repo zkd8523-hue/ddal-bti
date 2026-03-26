@@ -131,3 +131,13 @@ body {
     color: #fff;
   }
 }
+
+/* X in-app 브라우저 색상 보정 - 채도/밝기 저하 보상 */
+html.x-browser {
+  --grad-text-br: linear-gradient(to bottom right, rgb(255, 150, 215), rgb(255, 195, 210), rgb(255, 225, 235));
+  --grad-text-r: linear-gradient(to right, rgb(255, 150, 215), rgb(255, 195, 210), rgb(255, 225, 235));
+  --grad-btn: linear-gradient(to right, rgb(255, 150, 215), rgb(255, 195, 210));
+  --grad-glow: linear-gradient(to top right, rgb(255, 150, 215), rgb(255, 195, 210));
+  --grad-divider: linear-gradient(to right, transparent, rgba(255, 150, 215, 0.6), transparent);
+  --grad-hover: linear-gradient(to right, rgba(255, 150, 215, 0), rgba(255, 150, 215, 0.07), rgba(255, 150, 215, 0));
+}

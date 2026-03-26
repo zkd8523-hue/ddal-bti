@@ -44,6 +44,15 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // X(Twitter) in-app 브라우저 감지
+      (function(){
+        var ua = navigator.userAgent || '';
+        if (/Twitter/i.test(ua)) {
+          document.documentElement.classList.add('x-browser');
+        }
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
