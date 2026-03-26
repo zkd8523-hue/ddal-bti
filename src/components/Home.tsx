@@ -33,14 +33,6 @@ function FlipCounter({ value }: { value: number }) {
   );
 }
 
-/* 반응 말풍선 데이터 */
-const reactions = [
-  '아 이거 찐이다 ㅋㅋㅋ',
-  '왜 이렇게 정확해...',
-  '단톡방 터짐 ㅋㅋ',
-  '나 이거 3번 함...',
-];
-
 interface HomeProps {
   onStart: () => void;
 }
@@ -48,7 +40,6 @@ interface HomeProps {
 export default function Home({ onStart }: HomeProps) {
   const [count, setCount] = useState(2847);
   const [cardIndex, setCardIndex] = useState(0);
-  const [reactionIndex, setReactionIndex] = useState(0);
 
   // 미니 카드용 결과 4개 랜덤 선택 (마운트 시 1회)
   const previewResults = useMemo(() => {
@@ -81,14 +72,6 @@ export default function Home({ onStart }: HomeProps) {
     }, 3000);
     return () => clearInterval(timer);
   }, [previewResults.length]);
-
-  // 반응 말풍선 자동 전환
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setReactionIndex((i) => (i + 1) % reactions.length);
-    }, 2500);
-    return () => clearInterval(timer);
-  }, []);
 
   const currentCard = previewResults[cardIndex];
 
