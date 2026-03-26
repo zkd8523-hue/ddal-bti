@@ -112,9 +112,9 @@ export default function Home({ onStart }: HomeProps) {
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.1, duration: 0.3 }}
-        className="text-xl md:text-2xl text-gray-300 mb-3 text-center break-keep font-pretendard"
+        className="text-lg md:text-2xl text-gray-300 mb-3 text-center break-keep font-pretendard whitespace-nowrap"
       >
-        <span className="text-base md:text-xl opacity-70">'</span>16가지 밤 캐릭터중 난 어떤 유형일까?<span className="text-base md:text-xl opacity-70">'</span>
+        <span className="text-sm md:text-xl opacity-70">'</span>16가지 밤 캐릭터중 난 어떤 유형일까?<span className="text-sm md:text-xl opacity-70">'</span>
       </motion.p>
 
       {/* A-2: 미니 결과 카드 슬라이드 (share 이미지 활용) */}
